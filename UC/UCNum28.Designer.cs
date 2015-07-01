@@ -106,12 +106,15 @@
             // 
             // listRules
             // 
-            this.listRules.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listRules.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listRules.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listRules.FormattingEnabled = true;
-            this.listRules.ItemHeight = 16;
+            this.listRules.ItemHeight = 20;
             this.listRules.Location = new System.Drawing.Point(505, 99);
             this.listRules.Name = "listRules";
-            this.listRules.Size = new System.Drawing.Size(351, 356);
+            this.listRules.Size = new System.Drawing.Size(351, 344);
             this.listRules.TabIndex = 187;
             this.listRules.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listRules_MouseDoubleClick);
             // 
@@ -425,7 +428,7 @@
             // txt15
             // 
             this.txt15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txt15.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.txt15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.txt15.Location = new System.Drawing.Point(210, 288);
             this.txt15.Name = "txt15";
             this.txt15.Size = new System.Drawing.Size(100, 26);
@@ -447,7 +450,7 @@
             // txt14
             // 
             this.txt14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txt14.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.txt14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.txt14.Location = new System.Drawing.Point(210, 250);
             this.txt14.Name = "txt14";
             this.txt14.Size = new System.Drawing.Size(100, 26);
@@ -528,7 +531,7 @@
             // txt13
             // 
             this.txt13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txt13.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.txt13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.txt13.Location = new System.Drawing.Point(210, 212);
             this.txt13.Name = "txt13";
             this.txt13.Size = new System.Drawing.Size(100, 26);

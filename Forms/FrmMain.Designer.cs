@@ -70,7 +70,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(929, 627);
+            this.tabControl1.Size = new System.Drawing.Size(1164, 675);
             this.tabControl1.TabIndex = 0;
             // 
             // tabSetting
@@ -80,7 +80,7 @@
             this.tabSetting.Location = new System.Drawing.Point(4, 22);
             this.tabSetting.Name = "tabSetting";
             this.tabSetting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSetting.Size = new System.Drawing.Size(921, 601);
+            this.tabSetting.Size = new System.Drawing.Size(1156, 649);
             this.tabSetting.TabIndex = 0;
             this.tabSetting.Text = "参数配置";
             this.tabSetting.UseVisualStyleBackColor = true;
@@ -91,7 +91,7 @@
             this.panelParams.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelParams.Location = new System.Drawing.Point(3, 103);
             this.panelParams.Name = "panelParams";
-            this.panelParams.Size = new System.Drawing.Size(915, 495);
+            this.panelParams.Size = new System.Drawing.Size(1150, 543);
             this.panelParams.TabIndex = 1;
             // 
             // panelNavigate
@@ -114,7 +114,7 @@
             this.panelNavigate.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelNavigate.Location = new System.Drawing.Point(3, 3);
             this.panelNavigate.Name = "panelNavigate";
-            this.panelNavigate.Size = new System.Drawing.Size(915, 100);
+            this.panelNavigate.Size = new System.Drawing.Size(1150, 100);
             this.panelNavigate.TabIndex = 0;
             // 
             // lblState
@@ -270,7 +270,7 @@
             this.tabPreview.Location = new System.Drawing.Point(4, 22);
             this.tabPreview.Name = "tabPreview";
             this.tabPreview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPreview.Size = new System.Drawing.Size(921, 601);
+            this.tabPreview.Size = new System.Drawing.Size(1156, 649);
             this.tabPreview.TabIndex = 1;
             this.tabPreview.Text = "网页预览";
             this.tabPreview.UseVisualStyleBackColor = true;
@@ -290,7 +290,7 @@
             this.webView.Location = new System.Drawing.Point(3, 3);
             this.webView.MinimumSize = new System.Drawing.Size(20, 20);
             this.webView.Name = "webView";
-            this.webView.Size = new System.Drawing.Size(915, 595);
+            this.webView.Size = new System.Drawing.Size(1150, 643);
             this.webView.TabIndex = 0;
             this.webView.Url = new System.Uri("http://www.juxiangyou.com/", System.UriKind.Absolute);
             // 
@@ -300,7 +300,7 @@
             this.tabLog.Location = new System.Drawing.Point(4, 22);
             this.tabLog.Name = "tabLog";
             this.tabLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLog.Size = new System.Drawing.Size(921, 601);
+            this.tabLog.Size = new System.Drawing.Size(1156, 649);
             this.tabLog.TabIndex = 2;
             this.tabLog.Text = "日志";
             this.tabLog.UseVisualStyleBackColor = true;
@@ -311,7 +311,7 @@
             this.txtLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtLog.Location = new System.Drawing.Point(3, 3);
             this.txtLog.Name = "txtLog";
-            this.txtLog.Size = new System.Drawing.Size(915, 595);
+            this.txtLog.Size = new System.Drawing.Size(1150, 643);
             this.txtLog.TabIndex = 0;
             this.txtLog.Text = "";
             // 
@@ -319,14 +319,14 @@
             // 
             this.ucNum28.Location = new System.Drawing.Point(21, 6);
             this.ucNum28.Name = "ucNum28";
-            this.ucNum28.Size = new System.Drawing.Size(914, 484);
+            this.ucNum28.Size = new System.Drawing.Size(1101, 505);
             this.ucNum28.TabIndex = 0;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(929, 627);
+            this.ClientSize = new System.Drawing.Size(1164, 675);
             this.Controls.Add(this.tabControl1);
             this.Name = "FrmMain";
             this.Text = "Game28";
