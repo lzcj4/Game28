@@ -52,6 +52,7 @@
             this.webView = new System.Windows.Forms.WebBrowser();
             this.tabLog = new System.Windows.Forms.TabPage();
             this.txtLog = new System.Windows.Forms.RichTextBox();
+            this.chkOss = new System.Windows.Forms.CheckBox();
             this.ucNum28 = new Game28.UC.UCNum28();
             this.tabControl1.SuspendLayout();
             this.tabSetting.SuspendLayout();
@@ -96,6 +97,7 @@
             // 
             // panelNavigate
             // 
+            this.panelNavigate.Controls.Add(this.chkOss);
             this.panelNavigate.Controls.Add(this.lblState);
             this.panelNavigate.Controls.Add(this.btnOss);
             this.panelNavigate.Controls.Add(this.label34);
@@ -292,7 +294,7 @@
             this.webView.Name = "webView";
             this.webView.Size = new System.Drawing.Size(1150, 643);
             this.webView.TabIndex = 0;
-            this.webView.Url = new System.Uri("http://www.juxiangyou.com/", System.UriKind.Absolute);
+            this.webView.Url = new System.Uri("", System.UriKind.Relative);
             // 
             // tabLog
             // 
@@ -314,6 +316,16 @@
             this.txtLog.Size = new System.Drawing.Size(1150, 643);
             this.txtLog.TabIndex = 0;
             this.txtLog.Text = "";
+            // 
+            // chkOss
+            // 
+            this.chkOss.AutoSize = true;
+            this.chkOss.Location = new System.Drawing.Point(699, 52);
+            this.chkOss.Name = "chkOss";
+            this.chkOss.Size = new System.Drawing.Size(62, 17);
+            this.chkOss.TabIndex = 118;
+            this.chkOss.Text = "云规则";
+            this.chkOss.UseVisualStyleBackColor = true;
             // 
             // ucNum28
             // 
@@ -368,6 +380,7 @@
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Button btnOss;
         private UC.UCNum28 ucNum28;
+        private System.Windows.Forms.CheckBox chkOss;
 
 
     }

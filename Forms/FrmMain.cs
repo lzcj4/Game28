@@ -18,6 +18,7 @@ namespace Game28
             this.Load += (sender, e) =>
             {
                 LoadParams();
+                this.webView.Navigate("http://www.juxiangyou.com/");
             };
 
             this.FormClosing += (sender, e) =>
@@ -41,6 +42,12 @@ namespace Game28
 
         private void CheckLogin()
         {
+            if (this.webView.Document == null || this.webView.Document.Body == null ||
+                string.IsNullOrEmpty(this.webView.Document.Body.InnerText))
+            {
+                return;
+            }
+
             string htmlBody = this.webView.Document.Body.InnerText;
             if (!isLogined)
             {
@@ -54,10 +61,10 @@ namespace Game28
 
                 if (!isLogined &&
                     (htmlBody.Contains("ID:") || htmlBody.Contains("签到") || htmlBody.Contains("会员中心") ||
-                     htmlBody.Contains("当前U币") || htmlBody.Contains("提现")))
+                     htmlBody.Contains("当前U币")))
                 {
                     isLogined = true;
-                    webView.Url = new Uri(@"http://game.juxiangyou.com/speed28/index.php");
+                    NavigateToSpeed28();
                 }
             }
 
@@ -69,6 +76,11 @@ namespace Game28
                     txtRoundId.Text = id;
                 }
             }
+        }
+
+        private void NavigateToSpeed28()
+        {
+            this.webView.Navigate("http://game.juxiangyou.com/speed28/index.php");
         }
 
         private void LoadParams()
@@ -106,6 +118,7 @@ namespace Game28
             txtRoundId.Enabled = false;
             btnAuto.Enabled = false;
             btnManual.Enabled = false;
+            this.chkOss.Enabled = false;
 
             StartByClick();
         }
@@ -134,6 +147,7 @@ namespace Game28
             this.btnManual.Enabled = false;
             this.txtRoundId.Enabled = false;
             this.txtInterval.Enabled = false;
+            this.chkOss.Enabled = false;
             SaveParams();
             StartOssTimer();
         }
@@ -147,12 +161,14 @@ namespace Game28
             txtRoundId.Enabled = true;
             btnAuto.Enabled = true;
             this.btnManual.Enabled = true;
+            this.chkOss.Enabled = true;
             txtRoundId.ForeColor = Color.Black;
 
             StopTimer();
             StopOssTimer();
         }
 
+        private bool isSupportOssRule = false;
         private void StartByClick(bool isByOss = false)
         {
             if (string.IsNullOrEmpty(cookies))
@@ -164,7 +180,8 @@ namespace Game28
             }
 
             isStarted = true;
-            webView.Url = new Uri(@"http://game.juxiangyou.com/speed28/index.php");
+            NavigateToSpeed28();
+            this.isSupportOssRule = chkOss.Checked;
             StartRound(isByOss);
         }
 
@@ -177,17 +194,20 @@ namespace Game28
 
             int roundId = GetRoundId();
             int[] values = ucNum28.GetValues();
-            if (values==null)
+            if (roundId <= 0 || values == null)
             {
                 return;
             }
             lblState.Text = "开始下注";
             Action action = () =>
             {
-                RuleFileHelper.SaveSpeed28Rule(roundId, values);
-                ResultCode code = speed28.StartNewRound(roundId, values);
+                if (this.isSupportOssRule)
+                {
+                    RuleFileHelper.SaveSpeed28Rule(roundId, values);
+                }
 
-                if (!isByOss && code == ResultCode.Succeed)
+                ResultCode code = speed28.StartNewRound(roundId, values);
+                if (!isByOss && this.isSupportOssRule && code == ResultCode.Succeed)
                     OSSHelper.UploadRuleToOSS();
             };
             action.BeginInvoke((ar) => action.EndInvoke(ar), null);
@@ -224,7 +244,7 @@ namespace Game28
             };
             this.BeginInvoke(act);
         }
-        
+
         #endregion
 
         #region Timer
@@ -433,8 +453,6 @@ namespace Game28
 
         #endregion
 
-        bool isInvalidParam = false;
-
         private int GetRoundId()
         {
             int itemValue = 0;
@@ -442,7 +460,6 @@ namespace Game28
             if (itemValue <= 0)
             {
                 MessageBox.Show("开始期号必须为大于0的有效值");
-                isInvalidParam = true;
             }
             return itemValue;
         }

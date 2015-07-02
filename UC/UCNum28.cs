@@ -12,6 +12,7 @@ namespace Game28.UC
             this.Load += (sender, e) =>
             {
                 LoadAllTextBox();
+                LoadRules();
             };
         }
 
