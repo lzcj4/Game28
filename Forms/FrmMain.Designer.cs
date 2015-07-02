@@ -31,7 +31,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabSetting = new System.Windows.Forms.TabPage();
             this.panelParams = new System.Windows.Forms.Panel();
+            this.ucNum28 = new Game28.UC.UCNum28();
             this.panelNavigate = new System.Windows.Forms.Panel();
+            this.chkOss = new System.Windows.Forms.CheckBox();
             this.lblState = new System.Windows.Forms.Label();
             this.btnOss = new System.Windows.Forms.Button();
             this.label34 = new System.Windows.Forms.Label();
@@ -52,8 +54,6 @@
             this.webView = new System.Windows.Forms.WebBrowser();
             this.tabLog = new System.Windows.Forms.TabPage();
             this.txtLog = new System.Windows.Forms.RichTextBox();
-            this.chkOss = new System.Windows.Forms.CheckBox();
-            this.ucNum28 = new Game28.UC.UCNum28();
             this.tabControl1.SuspendLayout();
             this.tabSetting.SuspendLayout();
             this.panelParams.SuspendLayout();
@@ -95,6 +95,13 @@
             this.panelParams.Size = new System.Drawing.Size(1150, 543);
             this.panelParams.TabIndex = 1;
             // 
+            // ucNum28
+            // 
+            this.ucNum28.Location = new System.Drawing.Point(21, 6);
+            this.ucNum28.Name = "ucNum28";
+            this.ucNum28.Size = new System.Drawing.Size(1101, 505);
+            this.ucNum28.TabIndex = 0;
+            // 
             // panelNavigate
             // 
             this.panelNavigate.Controls.Add(this.chkOss);
@@ -118,6 +125,17 @@
             this.panelNavigate.Name = "panelNavigate";
             this.panelNavigate.Size = new System.Drawing.Size(1150, 100);
             this.panelNavigate.TabIndex = 0;
+            // 
+            // chkOss
+            // 
+            this.chkOss.AutoSize = true;
+            this.chkOss.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chkOss.Location = new System.Drawing.Point(699, 52);
+            this.chkOss.Name = "chkOss";
+            this.chkOss.Size = new System.Drawing.Size(79, 24);
+            this.chkOss.TabIndex = 118;
+            this.chkOss.Text = "云规则";
+            this.chkOss.UseVisualStyleBackColor = true;
             // 
             // lblState
             // 
@@ -316,23 +334,6 @@
             this.txtLog.Size = new System.Drawing.Size(1150, 643);
             this.txtLog.TabIndex = 0;
             this.txtLog.Text = "";
-            // 
-            // chkOss
-            // 
-            this.chkOss.AutoSize = true;
-            this.chkOss.Location = new System.Drawing.Point(699, 52);
-            this.chkOss.Name = "chkOss";
-            this.chkOss.Size = new System.Drawing.Size(62, 17);
-            this.chkOss.TabIndex = 118;
-            this.chkOss.Text = "云规则";
-            this.chkOss.UseVisualStyleBackColor = true;
-            // 
-            // ucNum28
-            // 
-            this.ucNum28.Location = new System.Drawing.Point(21, 6);
-            this.ucNum28.Name = "ucNum28";
-            this.ucNum28.Size = new System.Drawing.Size(1101, 505);
-            this.ucNum28.TabIndex = 0;
             // 
             // FrmMain
             // 

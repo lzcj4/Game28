@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Game28.UC
 {
@@ -11,53 +12,53 @@ namespace Game28.UC
             InitializeComponent();
             this.Load += (sender, e) =>
             {
-                LoadAllTextBox();
+                LoadAllUIMap();
                 LoadRules();
             };
         }
 
         const int rangeMin = 0, rangeMax = 27;
-        IDictionary<int, Tuple<TextBox, int>> allTextBoxs = new Dictionary<int, Tuple<TextBox, int>>();
+        IDictionary<int, Tuple<TextBox, int, CheckBox>> allNumCtlDic = new Dictionary<int, Tuple<TextBox, int, CheckBox>>();
 
-        private void LoadAllTextBox()
+        private void LoadAllUIMap()
         {
-            allTextBoxs[0] = new Tuple<TextBox, int>(txt0, 1);
-            allTextBoxs[1] = new Tuple<TextBox, int>(txt1, 3);
-            allTextBoxs[2] = new Tuple<TextBox, int>(txt2, 6);
-            allTextBoxs[3] = new Tuple<TextBox, int>(txt3, 10);
-            allTextBoxs[4] = new Tuple<TextBox, int>(txt4, 15);
-            allTextBoxs[5] = new Tuple<TextBox, int>(txt5, 21);
-            allTextBoxs[6] = new Tuple<TextBox, int>(txt6, 28);
-            allTextBoxs[7] = new Tuple<TextBox, int>(txt7, 36);
-            allTextBoxs[8] = new Tuple<TextBox, int>(txt8, 45);
-            allTextBoxs[9] = new Tuple<TextBox, int>(txt9, 55);
-            allTextBoxs[10] = new Tuple<TextBox, int>(txt10, 63);
-            allTextBoxs[11] = new Tuple<TextBox, int>(txt11, 69);
-            allTextBoxs[12] = new Tuple<TextBox, int>(txt12, 73);
-            allTextBoxs[13] = new Tuple<TextBox, int>(txt13, 75);
-            allTextBoxs[14] = new Tuple<TextBox, int>(txt14, 75);
-            allTextBoxs[15] = new Tuple<TextBox, int>(txt15, 73);
-            allTextBoxs[16] = new Tuple<TextBox, int>(txt16, 69);
-            allTextBoxs[17] = new Tuple<TextBox, int>(txt17, 63);
-            allTextBoxs[18] = new Tuple<TextBox, int>(txt18, 55);
-            allTextBoxs[19] = new Tuple<TextBox, int>(txt19, 45);
-            allTextBoxs[20] = new Tuple<TextBox, int>(txt20, 36);
-            allTextBoxs[21] = new Tuple<TextBox, int>(txt21, 28);
-            allTextBoxs[22] = new Tuple<TextBox, int>(txt22, 21);
-            allTextBoxs[23] = new Tuple<TextBox, int>(txt23, 15);
-            allTextBoxs[24] = new Tuple<TextBox, int>(txt24, 10);
-            allTextBoxs[25] = new Tuple<TextBox, int>(txt25, 6);
-            allTextBoxs[26] = new Tuple<TextBox, int>(txt26, 3);
-            allTextBoxs[27] = new Tuple<TextBox, int>(txt27, 1);
+            allNumCtlDic[0] = new Tuple<TextBox, int, CheckBox>(txt0, 1, chk0);
+            allNumCtlDic[1] = new Tuple<TextBox, int, CheckBox>(txt1, 3, chk1);
+            allNumCtlDic[2] = new Tuple<TextBox, int, CheckBox>(txt2, 6, chk2);
+            allNumCtlDic[3] = new Tuple<TextBox, int, CheckBox>(txt3, 10, chk3);
+            allNumCtlDic[4] = new Tuple<TextBox, int, CheckBox>(txt4, 15, chk4);
+            allNumCtlDic[5] = new Tuple<TextBox, int, CheckBox>(txt5, 21, chk5);
+            allNumCtlDic[6] = new Tuple<TextBox, int, CheckBox>(txt6, 28, chk6);
+            allNumCtlDic[7] = new Tuple<TextBox, int, CheckBox>(txt7, 36, chk7);
+            allNumCtlDic[8] = new Tuple<TextBox, int, CheckBox>(txt8, 45, chk8);
+            allNumCtlDic[9] = new Tuple<TextBox, int, CheckBox>(txt9, 55, chk9);
+            allNumCtlDic[10] = new Tuple<TextBox, int, CheckBox>(txt10, 63, chk10);
+            allNumCtlDic[11] = new Tuple<TextBox, int, CheckBox>(txt11, 69, chk11);
+            allNumCtlDic[12] = new Tuple<TextBox, int, CheckBox>(txt12, 73, chk12);
+            allNumCtlDic[13] = new Tuple<TextBox, int, CheckBox>(txt13, 75, chk13);
+            allNumCtlDic[14] = new Tuple<TextBox, int, CheckBox>(txt14, 75, chk14);
+            allNumCtlDic[15] = new Tuple<TextBox, int, CheckBox>(txt15, 73, chk15);
+            allNumCtlDic[16] = new Tuple<TextBox, int, CheckBox>(txt16, 69, chk16);
+            allNumCtlDic[17] = new Tuple<TextBox, int, CheckBox>(txt17, 63, chk17);
+            allNumCtlDic[18] = new Tuple<TextBox, int, CheckBox>(txt18, 55, chk18);
+            allNumCtlDic[19] = new Tuple<TextBox, int, CheckBox>(txt19, 45, chk19);
+            allNumCtlDic[20] = new Tuple<TextBox, int, CheckBox>(txt20, 36, chk20);
+            allNumCtlDic[21] = new Tuple<TextBox, int, CheckBox>(txt21, 28, chk21);
+            allNumCtlDic[22] = new Tuple<TextBox, int, CheckBox>(txt22, 21, chk22);
+            allNumCtlDic[23] = new Tuple<TextBox, int, CheckBox>(txt23, 15, chk23);
+            allNumCtlDic[24] = new Tuple<TextBox, int, CheckBox>(txt24, 10, chk24);
+            allNumCtlDic[25] = new Tuple<TextBox, int, CheckBox>(txt25, 6, chk25);
+            allNumCtlDic[26] = new Tuple<TextBox, int, CheckBox>(txt26, 3, chk26);
+            allNumCtlDic[27] = new Tuple<TextBox, int, CheckBox>(txt27, 1, chk27);
         }
 
         public int[] GetValues()
         {
-            int[] values = new int[allTextBoxs.Count];
+            int[] values = new int[allNumCtlDic.Count];
             bool isNewValue = false;
-            foreach (var key in allTextBoxs.Keys)
+            foreach (var key in allNumCtlDic.Keys)
             {
-                string num = allTextBoxs[key].Item1.Text;
+                string num = allNumCtlDic[key].Item1.Text;
                 if (!string.IsNullOrEmpty(num))
                 {
                     int itemValue = 0;
@@ -84,11 +85,19 @@ namespace Game28.UC
             }
 
             ClearAllTextBox();
+            int totalSum = 0;
             for (int i = 0; i < values.Length; i++)
             {
                 if (values[i] != 0)
-                    allTextBoxs[i].Item1.Text = values[i].ToString();
+                {
+                    totalSum += values[i];
+
+                    allNumCtlDic[i].Item1.Text = values[i].ToString();
+                    allNumCtlDic[i].Item3.Checked = true;
+                }
             }
+
+            lblTotal.Text = totalSum.ToString("N1");
         }
 
         #region Num event
@@ -105,9 +114,10 @@ namespace Game28.UC
 
         private void ClearAllTextBox()
         {
-            foreach (var item in allTextBoxs.Values)
+            foreach (var item in allNumCtlDic.Values)
             {
                 item.Item1.Text = "";
+                item.Item3.Checked = false;
             }
         }
 
@@ -126,6 +136,67 @@ namespace Game28.UC
             SetRange(10, 17);
         }
 
+        private void btnSmallEdge_Click(object sender, EventArgs e)
+        {
+            SetRange(0, 9);
+        }
+
+        private void btnLargeEdge_Click(object sender, EventArgs e)
+        {
+            SetRange(18);
+        }
+
+        private void btnOdd_Click(object sender, EventArgs e)
+        {
+            ClearAllTextBox();
+            int totalSum = 0;
+            foreach (var key in allNumCtlDic.Keys)
+            {
+                if (key % 2 == 1)
+                {
+                    var tuple = allNumCtlDic[key];
+                    totalSum += tuple.Item2;
+                    tuple.Item1.Text = tuple.Item2.ToString();
+                    tuple.Item3.Checked = true;
+                }
+            }
+            lblTotal.Text = totalSum.ToString("N1");
+        }
+
+        private void btnEven_Click(object sender, EventArgs e)
+        {
+            ClearAllTextBox();
+            int totalSum = 0;
+            foreach (var key in allNumCtlDic.Keys)
+            {
+                if (key % 2 == 0)
+                {
+                    var tuple = allNumCtlDic[key];
+                    totalSum += tuple.Item2;
+                    tuple.Item1.Text = tuple.Item2.ToString();
+                    tuple.Item3.Checked = true;
+                }
+            }
+            lblTotal.Text = totalSum.ToString("N1");
+        }
+
+        private void btnMei_Click(object sender, EventArgs e)
+        {
+            ClearAllTextBox();
+            int totalSum = 0;
+            foreach (var key in allNumCtlDic.Keys)
+            {
+                if (key != 13 && key != 14 && key != 15)
+                {
+                    var tuple = allNumCtlDic[key];
+                    totalSum += tuple.Item2;
+                    tuple.Item1.Text = tuple.Item2.ToString();
+                    tuple.Item3.Checked = true;
+                }
+            }
+            lblTotal.Text = totalSum.ToString("N1");
+        }
+
         /// <summary>
         /// Set textbox value by range, include the min and max value
         /// </summary>
@@ -135,13 +206,14 @@ namespace Game28.UC
         {
             ClearAllTextBox();
             int totalSum = 0;
-            foreach (var key in allTextBoxs.Keys)
+            foreach (var key in allNumCtlDic.Keys)
             {
                 if (key >= min && key <= max)
                 {
-                    var tuple = allTextBoxs[key];
+                    var tuple = allNumCtlDic[key];
                     totalSum += tuple.Item2;
                     tuple.Item1.Text = tuple.Item2.ToString();
+                    tuple.Item3.Checked = true;
                 }
             }
             lblTotal.Text = totalSum.ToString("N1");
@@ -157,7 +229,7 @@ namespace Game28.UC
             }
 
             int totalSum = 0;
-            foreach (var item in allTextBoxs.Values)
+            foreach (var item in allNumCtlDic.Values)
             {
                 string itemText = item.Item1.Text;
                 if (string.IsNullOrEmpty(itemText))
@@ -177,40 +249,54 @@ namespace Game28.UC
             lblTotal.Text = totalSum.ToString("N1");
         }
 
-        private void Texbox_TextChanged(object sender, EventArgs e)
+        private void Textbox_KeyUp(object sender, KeyEventArgs e)
         {
-            if (isTextboxClicked)
-            {
-                int totalSum = 0;
-                foreach (var item in allTextBoxs.Values)
-                {
-                    string itemText = item.Item1.Text;
-                    if (string.IsNullOrEmpty(itemText))
-                    {
-                        continue;
-                    }
+            SumTotal();
+        }
 
-                    int itemValue = 0;
-                    if (int.TryParse(itemText, out itemValue))
-                    {
-                        totalSum += itemValue;
-                    }
+        private void SumTotal()
+        {
+            int totalSum = 0;
+            foreach (var item in allNumCtlDic.Values)
+            {
+                string itemText = item.Item1.Text;
+                if (string.IsNullOrEmpty(itemText))
+                {
+                    item.Item3.Checked = false;
+                    continue;
                 }
 
-                lblTotal.Text = totalSum.ToString("N1");
+                item.Item3.Checked = true;
+                int itemValue = 0;
+                if (int.TryParse(itemText, out itemValue))
+                {
+                    totalSum += itemValue;
+                }
+            }
+
+            lblTotal.Text = totalSum.ToString("N1");
+        }
+
+        private void Checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chk = sender as CheckBox;
+            int index = int.Parse(chk.Name.Replace("chk", ""));
+            Tuple<TextBox, int, CheckBox> tuple = allNumCtlDic[index];
+            if (chk.Checked)
+            {
+                if (string.IsNullOrEmpty(tuple.Item1.Text))
+                {
+                    tuple.Item1.Text = tuple.Item2.ToString();
+                    SumTotal();
+                }
+            }
+            else
+            {
+                tuple.Item1.Text = "";
+                SumTotal();
             }
         }
 
-        bool isTextboxClicked = false;
-        private void Texbox_MouseClick(object sender, MouseEventArgs e)
-        {
-            isTextboxClicked = true;
-        }
-
-        private void Textbox_Leave(object sender, EventArgs e)
-        {
-            isTextboxClicked = false;
-        }
         #endregion
 
         #region  Rules events
@@ -220,6 +306,19 @@ namespace Game28.UC
             ClearAllTextBox();
             this.txtRule.Text = string.Empty;
             this.txtRule.Enabled = true;
+        }
+
+        private class UIRule
+        {
+            public Rule Rule { get; private set; }
+            public UIRule(Rule rule)
+            {
+                Rule = rule;
+            }
+            public override string ToString()
+            {
+                return Rule.Name;
+            }
         }
 
         private void btnRuleSave_Click(object sender, EventArgs e)
@@ -249,18 +348,18 @@ namespace Game28.UC
         {
             rules = AppSetting.GetRules();
             listRules.DataSource = null;
-            listRules.DataSource = rules;
+            listRules.DataSource = rules.Select(item => new UIRule(item)).ToList();
         }
 
         private void btnRuleDel_Click(object sender, EventArgs e)
         {
-            if (listRules.SelectedItem == null || !(listRules.SelectedItem is Rule))
+            if (listRules.SelectedItem == null || !(listRules.SelectedItem is UIRule))
             {
                 return;
             }
 
-            Rule rule = listRules.SelectedItem as Rule;
-            rules.Remove(rule);
+            UIRule rule = listRules.SelectedItem as UIRule;
+            rules.Remove(rule.Rule);
             AppSetting.SaveRules(rules);
             AppSetting.Save();
             LoadRules();
@@ -268,28 +367,17 @@ namespace Game28.UC
 
         private void listRules_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (listRules.SelectedItem == null || !(listRules.SelectedItem is Rule))
+            if (listRules.SelectedItem == null || !(listRules.SelectedItem is UIRule))
             {
                 return;
             }
 
             ClearAllTextBox();
-            Rule rule = listRules.SelectedItem as Rule;
-            int totalSum = 0;
-            for (int i = 0; i < rule.Values.Length; i++)
-            {
-                if (rule.Values[i] != 0)
-                {
-                    totalSum += rule.Values[i];
-                    allTextBoxs[i].Item1.Text = rule.Values[i].ToString();
-                }
-            }
-
-            lblTotal.Text = totalSum.ToString("N1");
+            Rule rule = (listRules.SelectedItem as UIRule).Rule;
+            SetValues(rule.Values);
         }
 
 
         #endregion
-
     }
 }

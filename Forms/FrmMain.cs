@@ -201,13 +201,14 @@ namespace Game28
             lblState.Text = "开始下注";
             Action action = () =>
             {
-                if (this.isSupportOssRule)
+                bool isUpload = !isByOss && this.isSupportOssRule;
+                if (isUpload)
                 {
                     RuleFileHelper.SaveSpeed28Rule(roundId, values);
                 }
 
                 ResultCode code = speed28.StartNewRound(roundId, values);
-                if (!isByOss && this.isSupportOssRule && code == ResultCode.Succeed)
+                if (isUpload && code == ResultCode.Succeed)
                     OSSHelper.UploadRuleToOSS();
             };
             action.BeginInvoke((ar) => action.EndInvoke(ar), null);
@@ -225,7 +226,7 @@ namespace Game28
             Action act = () =>
             {
                 logCount++;
-                webView.Refresh();
+                //webView.Refresh();
                 currentRoundid = e.RoundId;
                 StartTimer();
                 if (logCount % 10 == 0)
@@ -239,7 +240,7 @@ namespace Game28
                 }
                 else
                 {
-                    txtLog.Text = e.ToString() + "\r\n  " + txtLog.Text;
+                    txtLog.Text = "  " + e.ToString() + "\r\n" + txtLog.Text;
                 }
             };
             this.BeginInvoke(act);
@@ -438,7 +439,7 @@ namespace Game28
 
                 ucNum28.SetValues(rule.Values);
                 txtRoundId.Text = rule.Name;
-                Debug.WriteLine("/**** 云联动执行：{0}  ***/", rule.Name);
+                Debug.WriteLine(string.Format("/**** 云联动执行：{0}  ***/", rule.Name));
                 StartByClick(true);
             }
         }
