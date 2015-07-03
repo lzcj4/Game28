@@ -97,7 +97,7 @@ namespace Game28.UC
                 }
             }
 
-            lblTotal.Text = totalSum.ToString("N1");
+            lblTotal.Text = totalSum.ToString("N0");
         }
 
         #region Num event
@@ -160,7 +160,7 @@ namespace Game28.UC
                     tuple.Item3.Checked = true;
                 }
             }
-            lblTotal.Text = totalSum.ToString("N1");
+            lblTotal.Text = totalSum.ToString("N0");
         }
 
         private void btnEven_Click(object sender, EventArgs e)
@@ -177,7 +177,7 @@ namespace Game28.UC
                     tuple.Item3.Checked = true;
                 }
             }
-            lblTotal.Text = totalSum.ToString("N1");
+            lblTotal.Text = totalSum.ToString("N0");
         }
 
         private void btnMei_Click(object sender, EventArgs e)
@@ -194,7 +194,7 @@ namespace Game28.UC
                     tuple.Item3.Checked = true;
                 }
             }
-            lblTotal.Text = totalSum.ToString("N1");
+            lblTotal.Text = totalSum.ToString("N0");
         }
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace Game28.UC
                     tuple.Item3.Checked = true;
                 }
             }
-            lblTotal.Text = totalSum.ToString("N1");
+            lblTotal.Text = totalSum.ToString("N0");
         }
 
         private void btnRate_Click(object sender, EventArgs e)
@@ -246,7 +246,7 @@ namespace Game28.UC
                 }
             }
 
-            lblTotal.Text = totalSum.ToString("N1");
+            lblTotal.Text = totalSum.ToString("N0");
         }
 
         private void Textbox_KeyUp(object sender, KeyEventArgs e)
@@ -274,7 +274,7 @@ namespace Game28.UC
                 }
             }
 
-            lblTotal.Text = totalSum.ToString("N1");
+            lblTotal.Text = totalSum.ToString("N0");
         }
 
         private void Checkbox_CheckedChanged(object sender, EventArgs e)

@@ -573,11 +573,11 @@
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
-            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblTotal.ForeColor = System.Drawing.Color.Red;
             this.lblTotal.Location = new System.Drawing.Point(411, 132);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(17, 17);
+            this.lblTotal.Size = new System.Drawing.Size(16, 17);
             this.lblTotal.TabIndex = 193;
             this.lblTotal.Text = "0";
             // 

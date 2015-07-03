@@ -54,9 +54,9 @@
             this.webView = new System.Windows.Forms.WebBrowser();
             this.tabLog = new System.Windows.Forms.TabPage();
             this.txtLog = new System.Windows.Forms.RichTextBox();
-            this.ucNum28 = new Game28.UC.UCNum28();
             this.txtMaxLimit = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.ucNum28 = new Game28.UC.UCNum28();
             this.tabControl1.SuspendLayout();
             this.tabSetting.SuspendLayout();
             this.panelParams.SuspendLayout();
@@ -74,7 +74,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1164, 675);
+            this.tabControl1.Size = new System.Drawing.Size(1130, 692);
             this.tabControl1.TabIndex = 0;
             // 
             // tabSetting
@@ -84,7 +84,7 @@
             this.tabSetting.Location = new System.Drawing.Point(4, 22);
             this.tabSetting.Name = "tabSetting";
             this.tabSetting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSetting.Size = new System.Drawing.Size(1156, 649);
+            this.tabSetting.Size = new System.Drawing.Size(1122, 666);
             this.tabSetting.TabIndex = 0;
             this.tabSetting.Text = "参数配置";
             this.tabSetting.UseVisualStyleBackColor = true;
@@ -95,7 +95,7 @@
             this.panelParams.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelParams.Location = new System.Drawing.Point(3, 120);
             this.panelParams.Name = "panelParams";
-            this.panelParams.Size = new System.Drawing.Size(1150, 526);
+            this.panelParams.Size = new System.Drawing.Size(1116, 543);
             this.panelParams.TabIndex = 1;
             // 
             // panelNavigate
@@ -121,14 +121,14 @@
             this.panelNavigate.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelNavigate.Location = new System.Drawing.Point(3, 3);
             this.panelNavigate.Name = "panelNavigate";
-            this.panelNavigate.Size = new System.Drawing.Size(1150, 117);
+            this.panelNavigate.Size = new System.Drawing.Size(1116, 117);
             this.panelNavigate.TabIndex = 0;
             // 
             // chkOss
             // 
             this.chkOss.AutoSize = true;
             this.chkOss.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.chkOss.Location = new System.Drawing.Point(699, 52);
+            this.chkOss.Location = new System.Drawing.Point(434, 77);
             this.chkOss.Name = "chkOss";
             this.chkOss.Size = new System.Drawing.Size(79, 24);
             this.chkOss.TabIndex = 118;
@@ -345,17 +345,10 @@
             this.txtLog.TabIndex = 0;
             this.txtLog.Text = "";
             // 
-            // ucNum28
-            // 
-            this.ucNum28.Location = new System.Drawing.Point(21, 23);
-            this.ucNum28.Name = "ucNum28";
-            this.ucNum28.Size = new System.Drawing.Size(1101, 505);
-            this.ucNum28.TabIndex = 0;
-            // 
             // txtMaxLimit
             // 
             this.txtMaxLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtMaxLimit.Location = new System.Drawing.Point(504, 53);
+            this.txtMaxLimit.Location = new System.Drawing.Point(504, 44);
             this.txtMaxLimit.Name = "txtMaxLimit";
             this.txtMaxLimit.Size = new System.Drawing.Size(162, 23);
             this.txtMaxLimit.TabIndex = 120;
@@ -363,17 +356,25 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(431, 57);
+            this.label1.Location = new System.Drawing.Point(431, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 119;
             this.label1.Text = "最大限额：";
             // 
+            // ucNum28
+            // 
+            this.ucNum28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ucNum28.Location = new System.Drawing.Point(11, 3);
+            this.ucNum28.Name = "ucNum28";
+            this.ucNum28.Size = new System.Drawing.Size(1101, 546);
+            this.ucNum28.TabIndex = 0;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1164, 675);
+            this.ClientSize = new System.Drawing.Size(1130, 692);
             this.Controls.Add(this.tabControl1);
             this.Name = "FrmMain";
             this.Text = "Game28";

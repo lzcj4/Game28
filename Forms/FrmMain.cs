@@ -88,7 +88,7 @@ namespace Game28
             txtUser.Text = AppSetting.User;
             txtPwd.Text = AppSetting.Pwd;
             txtInterval.Text = AppSetting.Interval;
-            txtMaxLimit.Text = AppSetting.MaxLimit.ToString();
+            txtMaxLimit.Text = AppSetting.MaxLimit.ToString("N0");
         }
 
         private void SaveParams()
@@ -96,7 +96,7 @@ namespace Game28
             AppSetting.User = txtUser.Text;
             AppSetting.Pwd = txtPwd.Text;
             AppSetting.Interval = txtInterval.Text;
-            AppSetting.MaxLimit = int.Parse(txtMaxLimit.Text);
+            AppSetting.MaxLimit = int.Parse(txtMaxLimit.Text.Replace(",",""));
             AppSetting.Save();
         }
 
@@ -200,7 +200,7 @@ namespace Game28
             {
                 return;
             }
-            if (values.Sum() > AppSetting.MaxLimit)
+            if (values.Sum() >= AppSetting.MaxLimit)
             {
                 lblState.Text = "当前下注大于最大限止，本期下注被取消";
                 return;
