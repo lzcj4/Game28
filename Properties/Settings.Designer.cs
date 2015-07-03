@@ -70,5 +70,17 @@ namespace Game28.Properties {
                 this["interval"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000000")]
+        public int MaxLimit {
+            get {
+                return ((int)(this["MaxLimit"]));
+            }
+            set {
+                this["MaxLimit"] = value;
+            }
+        }
     }
 }

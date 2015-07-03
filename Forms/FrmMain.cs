@@ -88,6 +88,7 @@ namespace Game28
             txtUser.Text = AppSetting.User;
             txtPwd.Text = AppSetting.Pwd;
             txtInterval.Text = AppSetting.Interval;
+            txtMaxLimit.Text = AppSetting.MaxLimit.ToString();
         }
 
         private void SaveParams()
@@ -95,6 +96,7 @@ namespace Game28
             AppSetting.User = txtUser.Text;
             AppSetting.Pwd = txtPwd.Text;
             AppSetting.Interval = txtInterval.Text;
+            AppSetting.MaxLimit = int.Parse(txtMaxLimit.Text);
             AppSetting.Save();
         }
 
@@ -198,7 +200,14 @@ namespace Game28
             {
                 return;
             }
+            if (values.Sum() > AppSetting.MaxLimit)
+            {
+                lblState.Text = "当前下注大于最大限止，本期下注被取消";
+                return;
+            }
+
             lblState.Text = "开始下注";
+            txtRoundId.ForeColor = Color.Black;
             Action action = () =>
             {
                 bool isUpload = !isByOss && this.isSupportOssRule;
@@ -242,8 +251,26 @@ namespace Game28
                 {
                     txtLog.Text = "  " + e.ToString() + "\r\n" + txtLog.Text;
                 }
+
+                if (e.ResultCode != ResultCode.Succeed)
+                {
+
+                    lblState.Text = e.ResultDescription;
+                }
             };
             this.BeginInvoke(act);
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            if (this.webView.CanGoBack)
+                this.webView.GoBack();
+
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            this.webView.Refresh();
         }
 
         #endregion
@@ -295,43 +322,51 @@ namespace Game28
 
             #endregion
 
-            if (table != null)
+            if (table == null)
             {
-                Debug.WriteLine("/---- 开始当前期投注是否开奖结果解释  ---/");
-                HtmlElementCollection rows = table.GetElementsByTagName("tr");
-                if (rows.Count > 0)
-                {
-                    for (int i = 0; i < rows.Count; i++)
-                    {
-                        HtmlElement currentRow = rows[i];
-                        HtmlElementCollection cols = currentRow.GetElementsByTagName("td");
+                return;
+            }
 
-                        if (cols.Count == 7)
+            HtmlElementCollection rows = table.GetElementsByTagName("tr");
+            if (rows == null || rows.Count == 0)
+            {
+                return;
+            }
+
+            Debug.WriteLine("/---- 开始当前期投注是否开奖结果解释  ---/");
+            for (int i = 0; i < rows.Count; i++)
+            {
+                HtmlElement currentRow = rows[i];
+                HtmlElementCollection cols = currentRow.GetElementsByTagName("td");
+
+                if (cols == null || cols.Count != 7)
+                {
+                    continue;
+                }
+
+                if (cols[0].InnerText == currentRoundid.ToString() &&
+                    (cols[6].InnerText == "已开奖"))// || cols[6].InnerText == "发奖中"))
+                {
+                    currentRoundid++;
+                    txtRoundId.ForeColor = Color.Red;
+                    txtRoundId.Text = currentRoundid.ToString();
+                    lblState.Text = "自增为下一期号";
+
+                    if (isAuto)
+                    {
+                        lblState.Text = "开始自动投注下期";
+                        Action action = () =>
                         {
-                            if (cols[0].InnerText == currentRoundid.ToString() &&
-                                (cols[6].InnerText == "已开奖"))// || cols[6].InnerText == "发奖中"))
-                            {
-                                if (isAuto)
-                                {
-                                    lblState.Text = "自动下一期";
-                                    currentRoundid++;
-                                    Action action = () =>
-                                    {
-                                        txtRoundId.ForeColor = Color.Red;
-                                        txtRoundId.Text = currentRoundid.ToString();
-                                        StartRound();
-                                    };
-                                    this.BeginInvoke(action);
-                                }
-                                else
-                                {
-                                    StopTimer();
-                                    lblState.Text = "执行完毕";
-                                }
-                                return;
-                            }
-                        }
+                            StartRound();
+                        };
+                        this.BeginInvoke(action);
                     }
+                    else
+                    {
+                        StopTimer();
+                        lblState.Text = "投注成功";
+                    }
+                    return;
                 }
             }
         }

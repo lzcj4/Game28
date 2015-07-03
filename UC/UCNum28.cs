@@ -293,7 +293,7 @@ namespace Game28.UC
             else
             {
                 tuple.Item1.Text = "";
-                SumTotal();
+                   SumTotal();
             }
         }
 

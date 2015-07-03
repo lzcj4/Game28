@@ -14,5 +14,8 @@
     <Setting Name="interval" Type="System.String" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
+    <Setting Name="MaxLimit" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

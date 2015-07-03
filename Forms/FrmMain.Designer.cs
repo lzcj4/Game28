@@ -31,7 +31,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabSetting = new System.Windows.Forms.TabPage();
             this.panelParams = new System.Windows.Forms.Panel();
-            this.ucNum28 = new Game28.UC.UCNum28();
             this.panelNavigate = new System.Windows.Forms.Panel();
             this.chkOss = new System.Windows.Forms.CheckBox();
             this.lblState = new System.Windows.Forms.Label();
@@ -50,10 +49,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtPwd = new System.Windows.Forms.TextBox();
             this.tabPreview = new System.Windows.Forms.TabPage();
+            this.btnBack = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.webView = new System.Windows.Forms.WebBrowser();
             this.tabLog = new System.Windows.Forms.TabPage();
             this.txtLog = new System.Windows.Forms.RichTextBox();
+            this.ucNum28 = new Game28.UC.UCNum28();
+            this.txtMaxLimit = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabSetting.SuspendLayout();
             this.panelParams.SuspendLayout();
@@ -90,20 +93,15 @@
             // 
             this.panelParams.Controls.Add(this.ucNum28);
             this.panelParams.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelParams.Location = new System.Drawing.Point(3, 103);
+            this.panelParams.Location = new System.Drawing.Point(3, 120);
             this.panelParams.Name = "panelParams";
-            this.panelParams.Size = new System.Drawing.Size(1150, 543);
+            this.panelParams.Size = new System.Drawing.Size(1150, 526);
             this.panelParams.TabIndex = 1;
-            // 
-            // ucNum28
-            // 
-            this.ucNum28.Location = new System.Drawing.Point(21, 6);
-            this.ucNum28.Name = "ucNum28";
-            this.ucNum28.Size = new System.Drawing.Size(1101, 505);
-            this.ucNum28.TabIndex = 0;
             // 
             // panelNavigate
             // 
+            this.panelNavigate.Controls.Add(this.txtMaxLimit);
+            this.panelNavigate.Controls.Add(this.label1);
             this.panelNavigate.Controls.Add(this.chkOss);
             this.panelNavigate.Controls.Add(this.lblState);
             this.panelNavigate.Controls.Add(this.btnOss);
@@ -123,7 +121,7 @@
             this.panelNavigate.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelNavigate.Location = new System.Drawing.Point(3, 3);
             this.panelNavigate.Name = "panelNavigate";
-            this.panelNavigate.Size = new System.Drawing.Size(1150, 100);
+            this.panelNavigate.Size = new System.Drawing.Size(1150, 117);
             this.panelNavigate.TabIndex = 0;
             // 
             // chkOss
@@ -184,7 +182,7 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(657, 51);
+            this.label32.Location = new System.Drawing.Point(405, 82);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(19, 13);
             this.label32.TabIndex = 108;
@@ -205,9 +203,9 @@
             // txtInterval
             // 
             this.txtInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtInterval.Location = new System.Drawing.Point(506, 47);
+            this.txtInterval.Location = new System.Drawing.Point(287, 77);
             this.txtInterval.Name = "txtInterval";
-            this.txtInterval.Size = new System.Drawing.Size(148, 23);
+            this.txtInterval.Size = new System.Drawing.Size(112, 23);
             this.txtInterval.TabIndex = 107;
             this.txtInterval.Text = "10";
             // 
@@ -226,7 +224,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(431, 51);
+            this.label31.Location = new System.Drawing.Point(212, 81);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(67, 13);
             this.label31.TabIndex = 106;
@@ -285,6 +283,7 @@
             // 
             // tabPreview
             // 
+            this.tabPreview.Controls.Add(this.btnBack);
             this.tabPreview.Controls.Add(this.btnRefresh);
             this.tabPreview.Controls.Add(this.webView);
             this.tabPreview.Location = new System.Drawing.Point(4, 22);
@@ -295,6 +294,16 @@
             this.tabPreview.Text = "网页预览";
             this.tabPreview.UseVisualStyleBackColor = true;
             // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(105, 11);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.TabIndex = 2;
+            this.btnBack.Text = "后退";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // btnRefresh
             // 
             this.btnRefresh.Location = new System.Drawing.Point(11, 11);
@@ -303,6 +312,7 @@
             this.btnRefresh.TabIndex = 1;
             this.btnRefresh.Text = "刷新";
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // webView
             // 
@@ -334,6 +344,30 @@
             this.txtLog.Size = new System.Drawing.Size(1150, 643);
             this.txtLog.TabIndex = 0;
             this.txtLog.Text = "";
+            // 
+            // ucNum28
+            // 
+            this.ucNum28.Location = new System.Drawing.Point(21, 23);
+            this.ucNum28.Name = "ucNum28";
+            this.ucNum28.Size = new System.Drawing.Size(1101, 505);
+            this.ucNum28.TabIndex = 0;
+            // 
+            // txtMaxLimit
+            // 
+            this.txtMaxLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtMaxLimit.Location = new System.Drawing.Point(504, 53);
+            this.txtMaxLimit.Name = "txtMaxLimit";
+            this.txtMaxLimit.Size = new System.Drawing.Size(162, 23);
+            this.txtMaxLimit.TabIndex = 120;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(431, 57);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 119;
+            this.label1.Text = "最大限额：";
             // 
             // FrmMain
             // 
@@ -382,6 +416,9 @@
         private System.Windows.Forms.Button btnOss;
         private UC.UCNum28 ucNum28;
         private System.Windows.Forms.CheckBox chkOss;
+        private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.TextBox txtMaxLimit;
+        private System.Windows.Forms.Label label1;
 
 
     }

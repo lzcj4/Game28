@@ -36,6 +36,12 @@ namespace Game28
             set { appSetting.interval = value; }
         }
 
+        public static int MaxLimit
+        {
+            get { return appSetting.MaxLimit; }
+            set { appSetting.MaxLimit = value; }
+        }
+
         public static string Rules
         {
             get { return appSetting.rules; }
