@@ -130,9 +130,9 @@
             this.chkOss.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.chkOss.Location = new System.Drawing.Point(434, 77);
             this.chkOss.Name = "chkOss";
-            this.chkOss.Size = new System.Drawing.Size(79, 24);
+            this.chkOss.Size = new System.Drawing.Size(96, 24);
             this.chkOss.TabIndex = 118;
-            this.chkOss.Text = "云规则";
+            this.chkOss.Text = "上传规则";
             this.chkOss.UseVisualStyleBackColor = true;
             // 
             // lblState
@@ -289,7 +289,7 @@
             this.tabPreview.Location = new System.Drawing.Point(4, 22);
             this.tabPreview.Name = "tabPreview";
             this.tabPreview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPreview.Size = new System.Drawing.Size(1156, 649);
+            this.tabPreview.Size = new System.Drawing.Size(1122, 666);
             this.tabPreview.TabIndex = 1;
             this.tabPreview.Text = "网页预览";
             this.tabPreview.UseVisualStyleBackColor = true;
@@ -320,7 +320,7 @@
             this.webView.Location = new System.Drawing.Point(3, 3);
             this.webView.MinimumSize = new System.Drawing.Size(20, 20);
             this.webView.Name = "webView";
-            this.webView.Size = new System.Drawing.Size(1150, 643);
+            this.webView.Size = new System.Drawing.Size(1116, 660);
             this.webView.TabIndex = 0;
             this.webView.Url = new System.Uri("", System.UriKind.Relative);
             // 
@@ -330,7 +330,7 @@
             this.tabLog.Location = new System.Drawing.Point(4, 22);
             this.tabLog.Name = "tabLog";
             this.tabLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLog.Size = new System.Drawing.Size(1156, 649);
+            this.tabLog.Size = new System.Drawing.Size(1122, 666);
             this.tabLog.TabIndex = 2;
             this.tabLog.Text = "日志";
             this.tabLog.UseVisualStyleBackColor = true;
@@ -341,7 +341,7 @@
             this.txtLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtLog.Location = new System.Drawing.Point(3, 3);
             this.txtLog.Name = "txtLog";
-            this.txtLog.Size = new System.Drawing.Size(1150, 643);
+            this.txtLog.Size = new System.Drawing.Size(1116, 660);
             this.txtLog.TabIndex = 0;
             this.txtLog.Text = "";
             // 
