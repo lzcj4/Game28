@@ -367,9 +367,18 @@ namespace Game28
                 if (cols[0].InnerText == currentRoundid.ToString() &&
                     (cols[6].InnerText == "已开奖"))// || cols[6].InnerText == "发奖中"))
                 {
+                    string idStr = GetLatestRoundId();
+                    int id;
+                    int.TryParse(idStr, out id);
+
                     currentRoundid++;
-                    txtRoundId.ForeColor = Color.Red;
-                    txtRoundId.Text = currentRoundid.ToString();
+                    if (id >= currentRoundid)
+                    {
+                        txtRoundId.ForeColor = Color.Red;
+                        currentRoundid = id;
+                        txtRoundId.Text = currentRoundid.ToString();
+                    }
+
                     lblState.Text = "自增为下一期号";
                     GetCurrentBeans();
                     lblLastDeal.Text = string.Format("{0}: {1}", cols[0].InnerText, cols[5].InnerText.Replace("\r\n", "  "));
