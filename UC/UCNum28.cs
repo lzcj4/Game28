@@ -17,6 +17,7 @@ namespace Game28.UC
             };
         }
 
+        const string NumFormat = "N0";
         const int rangeMin = 0, rangeMax = 27;
         IDictionary<int, Tuple<TextBox, int, CheckBox>> allNumCtlDic = new Dictionary<int, Tuple<TextBox, int, CheckBox>>();
 
@@ -97,7 +98,7 @@ namespace Game28.UC
                 }
             }
 
-            lblTotal.Text = totalSum.ToString("N0");
+            lblTotal.Text = totalSum.ToString(NumFormat);
         }
 
         #region Num event
@@ -160,7 +161,7 @@ namespace Game28.UC
                     tuple.Item3.Checked = true;
                 }
             }
-            lblTotal.Text = totalSum.ToString("N0");
+            lblTotal.Text = totalSum.ToString(NumFormat);
         }
 
         private void btnEven_Click(object sender, EventArgs e)
@@ -177,7 +178,7 @@ namespace Game28.UC
                     tuple.Item3.Checked = true;
                 }
             }
-            lblTotal.Text = totalSum.ToString("N0");
+            lblTotal.Text = totalSum.ToString(NumFormat);
         }
 
         private void btnMei_Click(object sender, EventArgs e)
@@ -194,7 +195,7 @@ namespace Game28.UC
                     tuple.Item3.Checked = true;
                 }
             }
-            lblTotal.Text = totalSum.ToString("N0");
+            lblTotal.Text = totalSum.ToString(NumFormat);
         }
 
         /// <summary>
@@ -216,7 +217,7 @@ namespace Game28.UC
                     tuple.Item3.Checked = true;
                 }
             }
-            lblTotal.Text = totalSum.ToString("N0");
+            lblTotal.Text = totalSum.ToString(NumFormat);
         }
 
         private void btnRate_Click(object sender, EventArgs e)
@@ -246,7 +247,7 @@ namespace Game28.UC
                 }
             }
 
-            lblTotal.Text = totalSum.ToString("N0");
+            lblTotal.Text = totalSum.ToString(NumFormat);
         }
 
         private void Textbox_KeyUp(object sender, KeyEventArgs e)
@@ -274,7 +275,7 @@ namespace Game28.UC
                 }
             }
 
-            lblTotal.Text = totalSum.ToString("N0");
+            lblTotal.Text = totalSum.ToString(NumFormat);
         }
 
         private void Checkbox_CheckedChanged(object sender, EventArgs e)

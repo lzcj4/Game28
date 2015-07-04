@@ -14,7 +14,7 @@ namespace Game28
             if (startIndex > 0)
             {
                 startIndex += startPattern.Length;
-                int endIndex = line.IndexOf(endPattern);
+                int endIndex = line.IndexOf(endPattern,startIndex);
                 if (endIndex > 0 && endIndex > startIndex)
                 {
                     result = line.Substring(startIndex, endIndex - startIndex);

@@ -75,6 +75,7 @@ namespace Game28
                 {
                     txtRoundId.Text = id;
                 }
+                GetCurrentBeans();
             }
         }
 
@@ -96,7 +97,7 @@ namespace Game28
             AppSetting.User = txtUser.Text;
             AppSetting.Pwd = txtPwd.Text;
             AppSetting.Interval = txtInterval.Text;
-            AppSetting.MaxLimit = int.Parse(txtMaxLimit.Text.Replace(",",""));
+            AppSetting.MaxLimit = int.Parse(txtMaxLimit.Text.Replace(",", ""));
             AppSetting.Save();
         }
 
@@ -180,7 +181,6 @@ namespace Game28
                 speed28 = new Speed28(cookies);
                 speed28.StateChanged += speed28_StateChanged;
             }
-
             isStarted = true;
             NavigateToSpeed28();
             this.isSupportOssRule = chkOss.Checked;
@@ -195,6 +195,15 @@ namespace Game28
             }
 
             int roundId = GetRoundId();
+
+            string newRoundID = GetLatestRoundId();
+            if (!string.IsNullOrEmpty(newRoundID) && roundId < int.Parse(newRoundID))
+            {
+                lblState.Text = string.Format("当前:{0}已经过期，新一轮为:{1}", roundId, newRoundID);
+                txtRoundId.Text = newRoundID;
+                return;
+            }
+
             int[] values = ucNum28.GetValues();
             if (roundId <= 0 || values == null)
             {
@@ -351,6 +360,8 @@ namespace Game28
                     txtRoundId.ForeColor = Color.Red;
                     txtRoundId.Text = currentRoundid.ToString();
                     lblState.Text = "自增为下一期号";
+                    GetCurrentBeans();
+                    lblLastDeal.Text = string.Format("{0}: {1}", cols[0].InnerText, cols[5].InnerText.Replace("\r\n", "  "));
 
                     if (isAuto)
                     {
@@ -414,8 +425,10 @@ namespace Game28
                             {
                                 roundid = cols[0].InnerText;
                             }
-                            else if (cols[6].InnerText == "已开奖" || cols[6].InnerText == "发奖中")
+                            else if (cols[6].InnerText == "已开奖") //|| cols[6].InnerText == "发奖中")
                             {
+                                lblLastDeal.Text = string.Format("{0}: {1}", cols[0].InnerText, cols[5].InnerText.Replace("\r\n", "  "));
+                                GetCurrentBeans();
                                 return roundid;
                             }
                         }
@@ -423,7 +436,13 @@ namespace Game28
                 }
             }
             return string.Empty;
+        }
 
+        private void GetCurrentBeans()
+        {
+            string bodyHtml = this.webView.Document.Body.InnerHtml;
+            string beans = TextHelper.GetSubstring(bodyHtml, "<strong class=\"udou-color\">", "</strong>");
+            lblBeans.Text = beans;
         }
 
         /// <summary>
