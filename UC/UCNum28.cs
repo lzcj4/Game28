@@ -181,13 +181,13 @@ namespace Game28.UC
             lblTotal.Text = totalSum.ToString(NumFormat);
         }
 
-        private void btnMei_Click(object sender, EventArgs e)
+        private void btnEdge_Click(object sender, EventArgs e)
         {
             ClearAllTextBox();
             int totalSum = 0;
             foreach (var key in allNumCtlDic.Keys)
             {
-                if (key != 13 && key != 14 && key != 15)
+                if ((key >= 0 && key <= 9)|| key>=18)
                 {
                     var tuple = allNumCtlDic[key];
                     totalSum += tuple.Item2;
@@ -294,7 +294,7 @@ namespace Game28.UC
             else
             {
                 tuple.Item1.Text = "";
-                   SumTotal();
+                SumTotal();
             }
         }
 

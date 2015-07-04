@@ -109,7 +109,7 @@
             this.chk20 = new System.Windows.Forms.CheckBox();
             this.btnOdd = new System.Windows.Forms.Button();
             this.btnEven = new System.Windows.Forms.Button();
-            this.btnMei = new System.Windows.Forms.Button();
+            this.btnEdge = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
@@ -1026,17 +1026,17 @@
             this.btnEven.UseVisualStyleBackColor = true;
             this.btnEven.Click += new System.EventHandler(this.btnEven_Click);
             // 
-            // btnMei
+            // btnEdge
             // 
-            this.btnMei.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnMei.ForeColor = System.Drawing.Color.Blue;
-            this.btnMei.Location = new System.Drawing.Point(398, 25);
-            this.btnMei.Name = "btnMei";
-            this.btnMei.Size = new System.Drawing.Size(40, 26);
-            this.btnMei.TabIndex = 231;
-            this.btnMei.Text = "梅";
-            this.btnMei.UseVisualStyleBackColor = true;
-            this.btnMei.Click += new System.EventHandler(this.btnMei_Click);
+            this.btnEdge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnEdge.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnEdge.Location = new System.Drawing.Point(398, 25);
+            this.btnEdge.Name = "btnEdge";
+            this.btnEdge.Size = new System.Drawing.Size(40, 26);
+            this.btnEdge.TabIndex = 231;
+            this.btnEdge.Text = "边";
+            this.btnEdge.UseVisualStyleBackColor = true;
+            this.btnEdge.Click += new System.EventHandler(this.btnEdge_Click);
             // 
             // groupBox1
             // 
@@ -1060,7 +1060,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnMei);
+            this.Controls.Add(this.btnEdge);
             this.Controls.Add(this.btnOdd);
             this.Controls.Add(this.btnEven);
             this.Controls.Add(this.chk23);
@@ -1234,7 +1234,7 @@
         private System.Windows.Forms.CheckBox chk20;
         private System.Windows.Forms.Button btnOdd;
         private System.Windows.Forms.Button btnEven;
-        private System.Windows.Forms.Button btnMei;
+        private System.Windows.Forms.Button btnEdge;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
     }

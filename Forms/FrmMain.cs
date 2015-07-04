@@ -209,7 +209,18 @@ namespace Game28
             {
                 return;
             }
-            if (values.Sum() >= AppSetting.MaxLimit)
+
+            int currentToal = values.Sum();
+            GetCurrentBeans();
+            string total = lblBeans.Text.Replace(",", "");
+            int totalSum = 0;
+            int.TryParse(total, out totalSum);
+            if (!string.IsNullOrEmpty(total) && currentToal >= totalSum)
+            {
+                lblState.Text = "当前下注U豆大于所拥有U豆，本期下注被取消";
+                return;
+            }
+            if (currentToal >= AppSetting.MaxLimit)
             {
                 lblState.Text = "当前下注大于最大限止，本期下注被取消";
                 return;
