@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Linq;
 using System.IO;
 using System.Diagnostics;
+using Game28.Helper;
 
 namespace Game28
 {
@@ -427,6 +428,8 @@ namespace Game28
 
             #endregion
 
+            HistoryParser parser = new HistoryParser();
+            parser.GetHistory(table);
             if (table != null)
             {
                 HtmlElementCollection rows = table.GetElementsByTagName("tr");
