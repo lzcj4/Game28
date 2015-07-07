@@ -45,15 +45,39 @@ namespace Game28.DB
             }
         }
 
-        private static IList<string> sqlHistoryList = new List<string>();
+
+        public bool InsertHistory(IList<HistoryInfo> list)
+        {
+            if (list == null || list.Count == 0)
+            {
+                return false;
+            }
+
+            if (IsSqlConOpened)
+            {
+                IList<string> sqlList = new List<string>();
+                foreach (var item in list)
+                {
+                    string sql = string.Format(" insert into History (RoundId,Result,Stake,Amount,date,totalamount,winnernum)" +
+                                               " values (\'{0}\',{1},{2},{3},\'{4}\',{5},{6}) ",
+                                              item.RoundId, item.Result, item.Stake, item.Amount,
+                                              item.Date, item.TotalAmount, item.WinnerNum);
+                    sqlList.Add(sql);
+                }
+                RunSql(sqlList.ToArray());
+            }
+
+            return false;
+        }
 
         public bool InsertHistory(HistoryInfo item)
         {
             if (IsSqlConOpened)
             {
-                string sql = string.Format(" insert into History (RoundId,Result,Stake,Amount)" +
-                                           " values (\'{0}\',{1},{2},{3}) ",
-                                          item.RoundId, item.Result, item.Stake, item.Amount);
+                string sql = string.Format(" insert into History (RoundId,Result,Stake,Amount,date,totalamount,winnernum)" +
+                                           " values (\'{0}\',{1},{2},{3},\'{4}\',{5},{6}) ",
+                                          item.RoundId, item.Result, item.Stake, item.Amount,
+                                          item.Date, item.TotalAmount, item.WinnerNum);
 
                 if (!string.IsNullOrEmpty(sql))
                 {
@@ -63,7 +87,33 @@ namespace Game28.DB
 
             return false;
         }
-        
+
+        public IList<HistoryInfo> GetAll()
+        {
+            IList<HistoryInfo> result = new List<HistoryInfo>();
+
+            using (SQLiteCommand cmd = new SQLiteCommand("select * from history", sqlCon))
+            {
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        HistoryInfo item = new HistoryInfo();
+                        item.RoundId = reader["RoundId"].ToString();
+                        item.Result = int.Parse(reader["Result"].ToString());
+                        item.Stake = long.Parse(reader["Stake"].ToString());
+                        item.Amount = long.Parse(reader["Amount"].ToString());
+                        item.Date = reader["result"].ToString();
+                        item.TotalAmount = long.Parse(reader["totalamount"].ToString());
+                        item.WinnerNum = int.Parse(reader["winnernum"].ToString());
+                        result.Add(item);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         private bool RunSql(string sql)
         {
             if (!string.IsNullOrEmpty(sql))
@@ -85,7 +135,7 @@ namespace Game28.DB
             return false;
         }
 
-        private bool InsertData(params string[] sqls)
+        private bool RunSql(params string[] sqls)
         {
             if ((sqls == null) || (sqls.Length == 0))
             {

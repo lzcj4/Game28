@@ -8,6 +8,8 @@ using System.Linq;
 using System.IO;
 using System.Diagnostics;
 using Game28.Helper;
+using Game28.DB;
+using Game28.Model;
 
 namespace Game28
 {
@@ -429,7 +431,14 @@ namespace Game28
             #endregion
 
             HistoryParser parser = new HistoryParser();
-            parser.GetHistory(table);
+            DBHelper dbHelper = DBHelper.Instance;
+            var list = parser.GetHistory(table);
+            foreach ( HistoryInfo item in list  )
+            {
+                dbHelper.InsertHistory(item);
+            }
+            var all = dbHelper.GetAll();
+
             if (table != null)
             {
                 HtmlElementCollection rows = table.GetElementsByTagName("tr");
