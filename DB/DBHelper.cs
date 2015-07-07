@@ -14,6 +14,16 @@ namespace Game28.DB
     {
         const string DBName = @"DB\DB.db3";
         SQLiteConnection sqlCon = null;
+        string createTableSql = @"CREATE TABLE IF NOT EXISTS  HISTORY (id integer primary key AUTOINCREMENT,
+                                                        roundid varchar(20),
+                                                        result integer,
+                                                        stake long,
+                                                        amount long,
+                                                        date varchar(20),
+                                                        totalamount long,
+                                                        winnernum int
+                                                        );
+                                  CREATE UNIQUE INDEX IF NOT EXISTS idx_history on history(roundid );";
 
         private static DBHelper instance;
         public static DBHelper Instance
