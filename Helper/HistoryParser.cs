@@ -34,7 +34,7 @@ namespace Game28.Helper
                 }
 
                 string roundId = cols[0].InnerText;
-                string date = cols[1].InnerText.Replace("\r\n", " ");
+                string time = cols[1].InnerText.Replace("\r\n", " ");
 
                 HtmlElementCollection imgs = cols[2].GetElementsByTagName("img");
                 if (imgs == null || imgs.Count != 7)
@@ -111,7 +111,7 @@ namespace Game28.Helper
                 item.TotalAmount = totalAmount;
                 item.WinnerNum = winner;
                 item.Amount = amount;
-                item.Date = date;
+                item.Date = DateTime.Now.Date.ToString("yyyy-MM-dd") + " " + time;
                 result.Add(item);
             }
 

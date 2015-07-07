@@ -429,7 +429,6 @@ namespace Game28
 
 
             #endregion
-
             HistoryParser parser = new HistoryParser();
             DBHelper dbHelper = DBHelper.Instance;
             var list = parser.GetHistory(table);
