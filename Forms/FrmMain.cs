@@ -15,6 +15,13 @@ namespace Game28
 {
     public partial class FrmMain : Form
     {
+        bool isLogined = false;
+        string cookies = string.Empty;
+
+        bool isStarted = false;
+        HistoryParser parser = new HistoryParser();
+        DBHelper dbHelper = DBHelper.Instance;
+
         public FrmMain()
         {
             InitializeComponent();
@@ -31,16 +38,19 @@ namespace Game28
 
             this.webView.DocumentCompleted += webView_DocumentCompleted;
         }
-
-
-        bool isLogined = false;
-        string cookies = string.Empty;
-
-        bool isStarted = false;
-
         void webView_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             CheckLogin();
+            if (e.Url.OriginalString == speed28Url)
+            {
+                HtmlElementCollection tableCollection = this.webView.Document.GetElementsByTagName("table");
+
+                if (tableCollection != null && tableCollection.Count > 0)
+                {
+                    var rows = parser.GetHistory(tableCollection[0]);
+                    dbHelper.InsertHistory(rows);
+                }
+            }
         }
 
         private void CheckLogin()
@@ -82,9 +92,10 @@ namespace Game28
             }
         }
 
+        private string speed28Url = "http://game.juxiangyou.com/speed28/index.php";
         private void NavigateToSpeed28()
         {
-            this.webView.Navigate("http://game.juxiangyou.com/speed28/index.php");
+            this.webView.Navigate(speed28Url);
         }
 
         private void LoadParams()
@@ -429,14 +440,6 @@ namespace Game28
 
 
             #endregion
-            HistoryParser parser = new HistoryParser();
-            DBHelper dbHelper = DBHelper.Instance;
-            var list = parser.GetHistory(table);
-            foreach ( HistoryInfo item in list  )
-            {
-                dbHelper.InsertHistory(item);
-            }
-            var all = dbHelper.GetAll();
 
             if (table != null)
             {
@@ -458,6 +461,9 @@ namespace Game28
                             }
                             else if (cols[6].InnerText == "已开奖") //|| cols[6].InnerText == "发奖中")
                             {
+                                var item = parser.GetHistory(currentRow);
+                                if (item != null)
+                                    dbHelper.InsertHistory(item);
                                 lblLastDeal.Text = string.Format("{0}: {1}", cols[0].InnerText, cols[5].InnerText.Replace("\r\n", "  "));
                                 GetCurrentBeans();
                                 return roundid;

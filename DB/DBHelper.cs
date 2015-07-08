@@ -35,6 +35,8 @@ namespace Game28.DB
             }
         }
 
+
+        IList<string> allRoundIdList = new List<string>();
         private DBHelper()
         {
             string appPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -44,6 +46,10 @@ namespace Game28.DB
                 string connectionString = string.Format("data source={0}", dbPath);
                 sqlCon = new SQLiteConnection(connectionString);
                 sqlCon.Open();
+                if (IsSqlConOpened)
+                {
+                    allRoundIdList = GetAllRoundId();
+                }
             }
         }
 
@@ -68,6 +74,11 @@ namespace Game28.DB
                 IList<string> sqlList = new List<string>();
                 foreach (var item in list)
                 {
+                    if (allRoundIdList.Contains(item.RoundId))
+                    {
+                        continue;
+                    }
+                    AddRoundIdToCache(item.RoundId);
                     string sql = string.Format(" insert into History (RoundId,Result,Stake,Amount,date,totalamount,winnernum)" +
                                                " values (\'{0}\',{1},{2},{3},\'{4}\',{5},{6}) ",
                                               item.RoundId, item.Result, item.Stake, item.Amount,
@@ -75,27 +86,43 @@ namespace Game28.DB
                     sqlList.Add(sql);
                 }
                 RunSql(sqlList.ToArray());
-            }
 
+                Debug.WriteLine(string.Format("/--- All history num:{0}, actual insert num:{1} ---/", list.Count, sqlList.Count));
+            }
             return false;
         }
 
         public bool InsertHistory(HistoryInfo item)
         {
-            if (IsSqlConOpened)
+            int i = 0;
+            if (IsSqlConOpened && item != null && !allRoundIdList.Contains(item.RoundId))
             {
                 string sql = string.Format(" insert into History (RoundId,Result,Stake,Amount,date,totalamount,winnernum)" +
                                            " values (\'{0}\',{1},{2},{3},\'{4}\',{5},{6}) ",
                                           item.RoundId, item.Result, item.Stake, item.Amount,
                                           item.Date, item.TotalAmount, item.WinnerNum);
-
+                i++;
+                AddRoundIdToCache(item.RoundId);
                 if (!string.IsNullOrEmpty(sql))
                 {
                     return RunSql(sql);
                 }
             }
 
+            Debug.WriteLine(string.Format("/--- All history num:{0}, actual insert num:{1} ---/", 1, i));
             return false;
+        }
+
+        private void AddRoundIdToCache(string roundId)
+        {
+            if (!string.IsNullOrEmpty(roundId))
+            {
+                allRoundIdList.Add(roundId);
+                if (allRoundIdList.Count > 100)
+                {
+                    allRoundIdList.RemoveAt(0);
+                }
+            }
         }
 
         public IList<HistoryInfo> GetAll()
@@ -116,6 +143,25 @@ namespace Game28.DB
                         item.Date = reader["result"].ToString();
                         item.TotalAmount = long.Parse(reader["totalamount"].ToString());
                         item.WinnerNum = int.Parse(reader["winnernum"].ToString());
+                        result.Add(item);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public IList<string> GetAllRoundId()
+        {
+            IList<string> result = new List<string>();
+
+            using (SQLiteCommand cmd = new SQLiteCommand("select RoundId from history order by date desc limit 50", sqlCon))
+            {
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string item = reader["RoundId"].ToString();
                         result.Add(item);
                     }
                 }
