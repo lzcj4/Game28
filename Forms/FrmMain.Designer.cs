@@ -32,6 +32,10 @@
             this.tabSetting = new System.Windows.Forms.TabPage();
             this.panelParams = new System.Windows.Forms.Panel();
             this.panelNavigate = new System.Windows.Forms.Panel();
+            this.lblLastDeal = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblBeans = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.txtMaxLimit = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chkOss = new System.Windows.Forms.CheckBox();
@@ -56,17 +60,27 @@
             this.webView = new System.Windows.Forms.WebBrowser();
             this.tabLog = new System.Windows.Forms.TabPage();
             this.txtLog = new System.Windows.Forms.RichTextBox();
-            this.lblBeans = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblLastDeal = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.tabHistory = new System.Windows.Forms.TabPage();
+            this.btnGetHistory = new System.Windows.Forms.Button();
+            this.btnLoadHistory = new System.Windows.Forms.Button();
+            this.dataGridHistory = new System.Windows.Forms.DataGridView();
             this.ucNum28 = new Game28.UC.UCNum28();
+            this.colRoundId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colWinner = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStake = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colWinAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabSetting.SuspendLayout();
             this.panelParams.SuspendLayout();
             this.panelNavigate.SuspendLayout();
             this.tabPreview.SuspendLayout();
             this.tabLog.SuspendLayout();
+            this.tabHistory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridHistory)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -74,6 +88,7 @@
             this.tabControl1.Controls.Add(this.tabSetting);
             this.tabControl1.Controls.Add(this.tabPreview);
             this.tabControl1.Controls.Add(this.tabLog);
+            this.tabControl1.Controls.Add(this.tabHistory);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -131,6 +146,46 @@
             this.panelNavigate.Name = "panelNavigate";
             this.panelNavigate.Size = new System.Drawing.Size(1131, 108);
             this.panelNavigate.TabIndex = 0;
+            // 
+            // lblLastDeal
+            // 
+            this.lblLastDeal.AutoSize = true;
+            this.lblLastDeal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblLastDeal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.lblLastDeal.Location = new System.Drawing.Point(769, 74);
+            this.lblLastDeal.Name = "lblLastDeal";
+            this.lblLastDeal.Size = new System.Drawing.Size(38, 17);
+            this.lblLastDeal.TabIndex = 124;
+            this.lblLastDeal.Text = "空白";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(696, 78);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 12);
+            this.label5.TabIndex = 123;
+            this.label5.Text = "上期盈利：";
+            // 
+            // lblBeans
+            // 
+            this.lblBeans.AutoSize = true;
+            this.lblBeans.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblBeans.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.lblBeans.Location = new System.Drawing.Point(769, 43);
+            this.lblBeans.Name = "lblBeans";
+            this.lblBeans.Size = new System.Drawing.Size(38, 17);
+            this.lblBeans.TabIndex = 122;
+            this.lblBeans.Text = "空白";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(696, 47);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 12);
+            this.label4.TabIndex = 121;
+            this.label4.Text = "当前U豆：";
             // 
             // txtMaxLimit
             // 
@@ -370,45 +425,58 @@
             this.txtLog.TabIndex = 0;
             this.txtLog.Text = "";
             // 
-            // lblBeans
+            // tabHistory
             // 
-            this.lblBeans.AutoSize = true;
-            this.lblBeans.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblBeans.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.lblBeans.Location = new System.Drawing.Point(769, 43);
-            this.lblBeans.Name = "lblBeans";
-            this.lblBeans.Size = new System.Drawing.Size(38, 17);
-            this.lblBeans.TabIndex = 122;
-            this.lblBeans.Text = "空白";
+            this.tabHistory.Controls.Add(this.dataGridHistory);
+            this.tabHistory.Controls.Add(this.btnLoadHistory);
+            this.tabHistory.Controls.Add(this.btnGetHistory);
+            this.tabHistory.Location = new System.Drawing.Point(4, 22);
+            this.tabHistory.Name = "tabHistory";
+            this.tabHistory.Size = new System.Drawing.Size(1137, 640);
+            this.tabHistory.TabIndex = 3;
+            this.tabHistory.Text = "历史数据";
+            this.tabHistory.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // btnGetHistory
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(696, 47);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 12);
-            this.label4.TabIndex = 121;
-            this.label4.Text = "当前U豆：";
+            this.btnGetHistory.Location = new System.Drawing.Point(128, 27);
+            this.btnGetHistory.Name = "btnGetHistory";
+            this.btnGetHistory.Size = new System.Drawing.Size(75, 23);
+            this.btnGetHistory.TabIndex = 0;
+            this.btnGetHistory.Text = "提取50页";
+            this.btnGetHistory.UseVisualStyleBackColor = true;
+            this.btnGetHistory.Click += new System.EventHandler(this.btnGetHistory_Click);
             // 
-            // lblLastDeal
+            // btnLoadHistory
             // 
-            this.lblLastDeal.AutoSize = true;
-            this.lblLastDeal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblLastDeal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.lblLastDeal.Location = new System.Drawing.Point(769, 74);
-            this.lblLastDeal.Name = "lblLastDeal";
-            this.lblLastDeal.Size = new System.Drawing.Size(38, 17);
-            this.lblLastDeal.TabIndex = 124;
-            this.lblLastDeal.Text = "空白";
+            this.btnLoadHistory.Location = new System.Drawing.Point(31, 27);
+            this.btnLoadHistory.Name = "btnLoadHistory";
+            this.btnLoadHistory.Size = new System.Drawing.Size(75, 23);
+            this.btnLoadHistory.TabIndex = 2;
+            this.btnLoadHistory.Text = "加载";
+            this.btnLoadHistory.UseVisualStyleBackColor = true;
+            this.btnLoadHistory.Click += new System.EventHandler(this.btnLoadHistory_Click);
             // 
-            // label5
+            // dataGridHistory
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(696, 78);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 12);
-            this.label5.TabIndex = 123;
-            this.label5.Text = "上期盈利：";
+            this.dataGridHistory.AllowUserToAddRows = false;
+            this.dataGridHistory.AllowUserToDeleteRows = false;
+            this.dataGridHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colRoundId,
+            this.colTime,
+            this.colColumn,
+            this.colTotalAmount,
+            this.colWinner,
+            this.colStake,
+            this.colAmount,
+            this.colWinAmount});
+            this.dataGridHistory.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dataGridHistory.Location = new System.Drawing.Point(0, 119);
+            this.dataGridHistory.Name = "dataGridHistory";
+            this.dataGridHistory.RowTemplate.Height = 23;
+            this.dataGridHistory.Size = new System.Drawing.Size(1137, 521);
+            this.dataGridHistory.TabIndex = 3;
             // 
             // ucNum28
             // 
@@ -418,6 +486,54 @@
             this.ucNum28.Name = "ucNum28";
             this.ucNum28.Size = new System.Drawing.Size(1131, 526);
             this.ucNum28.TabIndex = 0;
+            // 
+            // colRoundId
+            // 
+            this.colRoundId.DataPropertyName = "RoundId";
+            this.colRoundId.HeaderText = "期号";
+            this.colRoundId.Name = "colRoundId";
+            // 
+            // colTime
+            // 
+            this.colTime.DataPropertyName = "Date";
+            this.colTime.HeaderText = "开奖时间";
+            this.colTime.Name = "colTime";
+            // 
+            // colColumn
+            // 
+            this.colColumn.DataPropertyName = "Result";
+            this.colColumn.HeaderText = "竞猜结果";
+            this.colColumn.Name = "colColumn";
+            // 
+            // colTotalAmount
+            // 
+            this.colTotalAmount.DataPropertyName = "TotalAmountStr";
+            this.colTotalAmount.HeaderText = "总投注U豆";
+            this.colTotalAmount.Name = "colTotalAmount";
+            // 
+            // colWinner
+            // 
+            this.colWinner.DataPropertyName = "WinnerNum";
+            this.colWinner.HeaderText = "中奖人数";
+            this.colWinner.Name = "colWinner";
+            // 
+            // colStake
+            // 
+            this.colStake.DataPropertyName = "Stake";
+            this.colStake.HeaderText = "投注U豆";
+            this.colStake.Name = "colStake";
+            // 
+            // colAmount
+            // 
+            this.colAmount.DataPropertyName = "Amount";
+            this.colAmount.HeaderText = "竞得U豆";
+            this.colAmount.Name = "colAmount";
+            // 
+            // colWinAmount
+            // 
+            this.colWinAmount.DataPropertyName = "WinAmountStr";
+            this.colWinAmount.HeaderText = "净赚U豆";
+            this.colWinAmount.Name = "colWinAmount";
             // 
             // FrmMain
             // 
@@ -434,6 +550,8 @@
             this.panelNavigate.PerformLayout();
             this.tabPreview.ResumeLayout(false);
             this.tabLog.ResumeLayout(false);
+            this.tabHistory.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridHistory)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -473,6 +591,18 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblLastDeal;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TabPage tabHistory;
+        private System.Windows.Forms.Button btnGetHistory;
+        private System.Windows.Forms.Button btnLoadHistory;
+        private System.Windows.Forms.DataGridView dataGridHistory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colRoundId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTotalAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colWinner;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStake;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colWinAmount;
 
 
     }

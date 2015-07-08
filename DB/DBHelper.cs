@@ -129,7 +129,7 @@ namespace Game28.DB
         {
             IList<HistoryInfo> result = new List<HistoryInfo>();
 
-            using (SQLiteCommand cmd = new SQLiteCommand("select * from history", sqlCon))
+            using (SQLiteCommand cmd = new SQLiteCommand("select * from history order by RoundId desc", sqlCon))
             {
                 using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
@@ -155,7 +155,7 @@ namespace Game28.DB
         {
             IList<string> result = new List<string>();
 
-            using (SQLiteCommand cmd = new SQLiteCommand("select RoundId from history order by date desc limit 50", sqlCon))
+            using (SQLiteCommand cmd = new SQLiteCommand("select RoundId from history order by RoundId desc limit 50", sqlCon))
             {
                 using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {

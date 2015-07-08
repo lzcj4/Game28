@@ -10,6 +10,7 @@ using System.Diagnostics;
 using Game28.Helper;
 using Game28.DB;
 using Game28.Model;
+using System.ComponentModel;
 
 namespace Game28
 {
@@ -41,7 +42,7 @@ namespace Game28
         void webView_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             CheckLogin();
-            if (e.Url.OriginalString == speed28Url)
+            if (e.Url.OriginalString.StartsWith(speed28Url))
             {
                 HtmlElementCollection tableCollection = this.webView.Document.GetElementsByTagName("table");
 
@@ -53,12 +54,33 @@ namespace Game28
             }
         }
 
+        private void LoadAllThousandHistory()
+        {
+            //http://game.juxiangyou.com/speed28/index.php?p=50
+            for (int i = 50; i >= 0; i++)
+            {
+                if (i != 0)
+                {
+                    this.webView.Navigate(string.Format("http://game.juxiangyou.com/speed28/index.php?p={0}", i));
+                }
+                else
+                {
+                    NavigateToSpeed28();
+                }
+            }
+        }
+
         private void CheckLogin()
         {
             if (this.webView.Document == null || this.webView.Document.Body == null ||
                 string.IsNullOrEmpty(this.webView.Document.Body.InnerText))
             {
                 return;
+            }
+            cookies = this.webView.Document.Cookie;
+            if (!string.IsNullOrEmpty(cookies))
+            {
+                speed28 = new Speed28(cookies);
             }
 
             string htmlBody = this.webView.Document.Body.InnerText;
@@ -566,6 +588,22 @@ namespace Game28
             }
             return (int)(interval * 1000);
         }
+
+
+        #region History
+
+        private void btnLoadHistory_Click(object sender, EventArgs e)
+        {
+            var list = dbHelper.GetAll();
+            dataGridHistory.DataSource = new BindingList<HistoryInfo>(list);
+        }
+
+        private void btnGetHistory_Click(object sender, EventArgs e)
+        {
+            speed28.GetHistoryByPage(2);
+        }
+
+        #endregion
 
     }
 }

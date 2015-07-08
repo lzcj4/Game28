@@ -99,6 +99,24 @@ namespace Game28
 
         #endregion
 
+        private void SetHttpHeader(HttpWebRequest request)
+        {
+            if (request == null)
+            {
+                return;
+            }
+
+            request.KeepAlive = true;
+            request.Host = "game.juxiangyou.com";
+            request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.124 Safari/537.36";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.Headers.Add("Accept-Language", "zh-CN,zh;q=0.8,en;q=0.6");
+            request.Headers.Add("Accept-Encoding", "gzip, deflate");
+            if (!string.IsNullOrEmpty(Cookies))
+                request.Headers.Add("Cookie", Cookies);
+        }
+
         public ResultCode StartNewRound(int roundId, int[] values)
         {
             if (roundId <= 0 || values.Length != Speed28.MaxLen)
@@ -110,16 +128,8 @@ namespace Game28
             HttpWebRequest request = WebRequest.Create(string.Format(urlFormat, roundId)) as HttpWebRequest;
 
             request.Method = "Post";
-            request.KeepAlive = true;
-            request.Host = "game.juxiangyou.com";
-            request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
-            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.124 Safari/537.36";
-            request.ContentType = "application/x-www-form-urlencoded";
             request.Referer = url;
-            request.Headers.Add("Accept-Language", "zh-CN,zh;q=0.8,en;q=0.6");
-            request.Headers.Add("Accept-Encoding", "gzip, deflate");
-            if (!string.IsNullOrEmpty(Cookies))
-                request.Headers.Add("Cookie", Cookies);
+            SetHttpHeader(request);
 
             string repContent = "geetest_challenge=&geetest_validate=&geetest_seccode=";
             string flagFormat = "&tbSpeed28Chk%5B{0}%5D=on";
@@ -166,6 +176,31 @@ namespace Game28
             if (StateChanged != null)
             {
                 StateChanged(this, new Speed28ResultEventArgs(result, desc, roundId, values));
+            }
+            return result;
+        }
+
+        public string GetHistoryByPage(int page)
+        {
+            string result = string.Empty;
+            string url = page == 0 ? "http://game.juxiangyou.com/speed28/index.php" :
+                               string.Format("http://game.juxiangyou.com/speed28/index.php?p={0}", page);
+
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+
+            request.Method = "Get";
+            SetHttpHeader(request);
+            using (WebResponse response = request.GetResponse())
+            {
+                using (GZipStream gs = new GZipStream(response.GetResponseStream(), CompressionMode.Decompress))
+                {
+                    Encoding gb2312Encoding = Encoding.GetEncoding("gb2312");
+                    using (StreamReader sr = new StreamReader(gs,gb2312Encoding))
+                    {
+                        string line = sr.ReadToEnd();
+                        result = TextHelper.GetSubstring(line, "<table>", "</table>");
+                    }
+                }
             }
             return result;
         }

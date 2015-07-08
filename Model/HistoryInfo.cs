@@ -35,12 +35,14 @@ namespace Game28.Model
         /// 总下注U豆
         /// </summary>
         public long TotalAmount { get; set; }
-
+        public string TotalAmountStr { get { return this.TotalAmount.ToString("N0"); } }
 
         /// <summary>
         /// 赢的人数
         /// </summary>
         public int WinnerNum { get; set; }
+
+        public string WinAmountStr { get { return (this.Amount - this.Stake).ToString("N0"); } }
 
         public override string ToString()
         {

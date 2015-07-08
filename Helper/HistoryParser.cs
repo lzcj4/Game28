@@ -122,8 +122,10 @@ namespace Game28.Helper
             result.TotalAmount = totalAmount;
             result.WinnerNum = winner;
             result.Amount = amount;
-            result.Date = DateTime.Now.Date.ToString("yyyy-MM-dd") + " " + time;
+            result.Date = string.Format("{0}-{1}", DateTime.Now.Date.Year, time);
             return result;
         }
+
+
     }
 }
