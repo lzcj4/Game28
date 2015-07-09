@@ -3,6 +3,10 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Text;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace Game28
 {
@@ -195,14 +199,33 @@ namespace Game28
                 using (GZipStream gs = new GZipStream(response.GetResponseStream(), CompressionMode.Decompress))
                 {
                     Encoding gb2312Encoding = Encoding.GetEncoding("gb2312");
-                    using (StreamReader sr = new StreamReader(gs,gb2312Encoding))
+
+                    using (StreamReader sr = new StreamReader(gs, gb2312Encoding))
                     {
-                        string line = sr.ReadToEnd();
-                        result = TextHelper.GetSubstring(line, "<table>", "</table>");
+                        StringBuilder sb = new StringBuilder();
+                        char[] buffers = new char[1];
+                        int len = 0;
+                        while ((len = sr.Read(buffers, 0, 1)) > 0)
+                        {
+                            ///String will end by 0x00
+                            if (buffers[0] != 0x00)
+                            {
+                                sb.Append(buffers);
+                            }
+                            else
+                            {
+                                sb.Clear();
+                            }
+                            Array.Clear(buffers, 0, 1);
+                        }
+
+                        string line = sb.ToString();
+                        result = TextHelper.GetSubstring(line, "<table", "</table>");
                     }
                 }
             }
             return result;
         }
+
     }
 }
