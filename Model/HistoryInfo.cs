@@ -30,6 +30,7 @@ namespace Game28.Model
         /// 日期
         /// </summary>
         public string Date { get; set; }
+        public string Time { get { return Date.Replace(DateTime.Now.Year.ToString() + "-", ""); } }
 
         /// <summary>
         /// 总下注U豆

@@ -28,6 +28,7 @@ namespace Game28
             InitializeComponent();
             this.Load += (sender, e) =>
             {
+                dataGridHistory.AutoGenerateColumns = false;
                 LoadParams();
                 this.webView.Navigate("http://www.juxiangyou.com/");
             };
@@ -585,6 +586,22 @@ namespace Game28
         {
             var list = dbHelper.GetAll();
             dataGridHistory.DataSource = new BindingList<HistoryInfo>(list);
+            for (int i = 0; i < list.Count; i++)
+            {
+                int num = list[i].Result;
+                if (num <= 9)
+                {
+                    dataGridHistory.Rows[i].Cells[8].Style.BackColor = Color.Blue;
+                }
+                else if (num >= 18)
+                {
+                    dataGridHistory.Rows[i].Cells[10].Style.BackColor = Color.Blue;
+                }
+                else
+                {
+                    dataGridHistory.Rows[i].Cells[9].Style.BackColor = Color.Red;
+                }
+            }
         }
 
         private void btnGetHistory_Click(object sender, EventArgs e)
