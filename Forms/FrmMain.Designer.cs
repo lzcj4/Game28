@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabSetting = new System.Windows.Forms.TabPage();
             this.panelParams = new System.Windows.Forms.Panel();
+            this.ucNum28 = new Game28.UC.UCNum28();
             this.panelNavigate = new System.Windows.Forms.Panel();
             this.lblLastDeal = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -64,7 +67,6 @@
             this.dataGridHistory = new System.Windows.Forms.DataGridView();
             this.btnLoadHistory = new System.Windows.Forms.Button();
             this.btnGetHistory = new System.Windows.Forms.Button();
-            this.ucNum28 = new Game28.UC.UCNum28();
             this.colRoundId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStake = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,9 +75,12 @@
             this.colTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colWinner = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSmall = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOdd = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colEven = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colMiddle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colEdge = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colBig = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSmall = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabSetting.SuspendLayout();
             this.panelParams.SuspendLayout();
@@ -119,6 +124,15 @@
             this.panelParams.Name = "panelParams";
             this.panelParams.Size = new System.Drawing.Size(1131, 573);
             this.panelParams.TabIndex = 1;
+            // 
+            // ucNum28
+            // 
+            this.ucNum28.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucNum28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ucNum28.Location = new System.Drawing.Point(0, 0);
+            this.ucNum28.Name = "ucNum28";
+            this.ucNum28.Size = new System.Drawing.Size(1131, 573);
+            this.ucNum28.TabIndex = 0;
             // 
             // panelNavigate
             // 
@@ -455,9 +469,12 @@
             this.colTime,
             this.colTotalAmount,
             this.colWinner,
-            this.colSmall,
+            this.colOdd,
+            this.colEven,
             this.colMiddle,
-            this.colBig});
+            this.colEdge,
+            this.colBig,
+            this.colSmall});
             this.dataGridHistory.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dataGridHistory.Location = new System.Drawing.Point(0, 132);
             this.dataGridHistory.Name = "dataGridHistory";
@@ -485,18 +502,11 @@
             this.btnGetHistory.UseVisualStyleBackColor = true;
             this.btnGetHistory.Click += new System.EventHandler(this.btnGetHistory_Click);
             // 
-            // ucNum28
-            // 
-            this.ucNum28.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucNum28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ucNum28.Location = new System.Drawing.Point(0, 0);
-            this.ucNum28.Name = "ucNum28";
-            this.ucNum28.Size = new System.Drawing.Size(1131, 573);
-            this.ucNum28.TabIndex = 0;
-            // 
             // colRoundId
             // 
             this.colRoundId.DataPropertyName = "RoundId";
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colRoundId.DefaultCellStyle = dataGridViewCellStyle1;
             this.colRoundId.HeaderText = "期号";
             this.colRoundId.Name = "colRoundId";
             this.colRoundId.Width = 56;
@@ -504,6 +514,8 @@
             // colColumn
             // 
             this.colColumn.DataPropertyName = "Result";
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.colColumn.HeaderText = "竞猜结果";
             this.colColumn.Name = "colColumn";
             this.colColumn.Width = 80;
@@ -550,11 +562,17 @@
             this.colWinner.Name = "colWinner";
             this.colWinner.Width = 80;
             // 
-            // colSmall
+            // colOdd
             // 
-            this.colSmall.HeaderText = "小";
-            this.colSmall.Name = "colSmall";
-            this.colSmall.Width = 44;
+            this.colOdd.HeaderText = "单";
+            this.colOdd.Name = "colOdd";
+            this.colOdd.Width = 44;
+            // 
+            // colEven
+            // 
+            this.colEven.HeaderText = "双";
+            this.colEven.Name = "colEven";
+            this.colEven.Width = 44;
             // 
             // colMiddle
             // 
@@ -562,11 +580,23 @@
             this.colMiddle.Name = "colMiddle";
             this.colMiddle.Width = 44;
             // 
+            // colEdge
+            // 
+            this.colEdge.HeaderText = "边";
+            this.colEdge.Name = "colEdge";
+            this.colEdge.Width = 44;
+            // 
             // colBig
             // 
             this.colBig.HeaderText = "大";
             this.colBig.Name = "colBig";
             this.colBig.Width = 44;
+            // 
+            // colSmall
+            // 
+            this.colSmall.HeaderText = "小";
+            this.colSmall.Name = "colSmall";
+            this.colSmall.Width = 44;
             // 
             // FrmMain
             // 
@@ -636,9 +666,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTotalAmount;
         private System.Windows.Forms.DataGridViewTextBoxColumn colWinner;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colSmall;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colOdd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colEven;
         private System.Windows.Forms.DataGridViewTextBoxColumn colMiddle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colEdge;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBig;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colSmall;
 
 
     }

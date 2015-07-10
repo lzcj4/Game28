@@ -586,22 +586,58 @@ namespace Game28
         {
             var list = dbHelper.GetAll();
             dataGridHistory.DataSource = new BindingList<HistoryInfo>(list);
+
             for (int i = 0; i < list.Count; i++)
             {
-                int num = list[i].Result;
-                if (num <= 9)
-                {
-                    dataGridHistory.Rows[i].Cells[8].Style.BackColor = Color.Blue;
-                }
-                else if (num >= 18)
-                {
-                    dataGridHistory.Rows[i].Cells[10].Style.BackColor = Color.Blue;
-                }
-                else
-                {
-                    dataGridHistory.Rows[i].Cells[9].Style.BackColor = Color.Red;
-                }
-            }
+                int result = list[i].Result;
+                Action<int, int> action = (num, index) =>
+                 {
+                     if (num % 2 == 1)
+                     {   //单
+                         DataGridViewCell cell = dataGridHistory.Rows[index].Cells[8];
+                         cell.Value = "单";
+                         cell.Style.BackColor = Color.LightGoldenrodYellow;
+                     }
+                     else
+                     {
+                         //双
+                         DataGridViewCell cell = dataGridHistory.Rows[index].Cells[9];
+                         cell.Value = "双";
+                         cell.Style.BackColor = Color.LightSlateGray;
+                     }
+
+                     if (num >= 10 && num <= 17)
+                     {
+                         //中
+                         DataGridViewCell cell = dataGridHistory.Rows[index].Cells[10];
+                         cell.Value = "中";
+                         cell.Style.BackColor = Color.Red;
+                     }
+                     else
+                     {
+                         //边
+                         DataGridViewCell cell = dataGridHistory.Rows[index].Cells[11];
+                         cell.Value = "边";
+                         cell.Style.BackColor = Color.LightSkyBlue;
+                     }
+
+                     if (num <= 13)
+                     {
+                         //大
+                         DataGridViewCell cell = dataGridHistory.Rows[index].Cells[12];
+                         cell.Value = "大";
+                         cell.Style.BackColor = Color.LightPink;
+                     }
+                     else
+                     {
+                         //小
+                         DataGridViewCell cell = dataGridHistory.Rows[index].Cells[13];
+                         cell.Value = "小";
+                         cell.Style.BackColor = Color.LightGreen;
+                     }
+                 };
+                this.BeginInvoke(action, result, i);
+            };
         }
 
         private void btnGetHistory_Click(object sender, EventArgs e)
