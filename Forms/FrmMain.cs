@@ -48,24 +48,13 @@ namespace Game28
 
                 if (tableCollection != null && tableCollection.Count > 0)
                 {
-                    var rows = parser.GetHistory(tableCollection[0]);
-                    dbHelper.InsertHistory(rows);
-                }
-            }
-        }
-
-        private void LoadAllThousandHistory()
-        {
-            //http://game.juxiangyou.com/speed28/index.php?p=50
-            for (int i = 50; i >= 0; i++)
-            {
-                if (i != 0)
-                {
-                    this.webView.Navigate(string.Format("http://game.juxiangyou.com/speed28/index.php?p={0}", i));
-                }
-                else
-                {
-                    NavigateToSpeed28();
+                    string table = tableCollection[0].InnerHtml;
+                    Action action = () =>
+                    {
+                        var rows = parser.GetRowsFromHtml(table);
+                        dbHelper.InsertHistory(rows);
+                    };
+                    action.BeginInvoke((ar) => action.EndInvoke(ar), null);
                 }
             }
         }
@@ -483,7 +472,7 @@ namespace Game28
                             }
                             else if (cols[6].InnerText == "已开奖") //|| cols[6].InnerText == "发奖中")
                             {
-                                var item = parser.GetHistory(currentRow);
+                                var item = parser.GetItemFromRow(currentRow);
                                 if (item != null)
                                     dbHelper.InsertHistory(item);
                                 lblLastDeal.Text = string.Format("{0}: {1}", cols[0].InnerText, cols[5].InnerText.Replace("\r\n", "  "));
@@ -600,7 +589,22 @@ namespace Game28
 
         private void btnGetHistory_Click(object sender, EventArgs e)
         {
-            speed28.GetHistoryByPage(2);
+            Action action = new Action(() =>
+            {
+                //http://game.juxiangyou.com/speed28/index.php?p=50
+                for (int i = 50; i >= 0; i--)
+                {
+                    Debug.WriteLine(string.Format("/--- current history page:{0} querying ---/", i));
+                    string table = speed28.GetHistoryByPage(i);
+                    if (!string.IsNullOrEmpty(table))
+                    {
+                        IList<HistoryInfo> list = parser.GetRowsFromHtml(table);
+                        list = list.OrderByDescending(item => item.RoundId).ToList();
+                        dbHelper.InsertHistory(list);
+                    }
+                }
+            });
+            action.BeginInvoke((ar) => action.EndInvoke(ar), action);
         }
 
         #endregion

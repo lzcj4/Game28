@@ -214,9 +214,9 @@ namespace Game28
                             }
                             else
                             {
-                                sb.Clear();
+                                //sb.Clear();
                             }
-                            Array.Clear(buffers, 0, 1);
+                            //Array.Clear(buffers, 0, 1);
                         }
 
                         string line = sb.ToString();

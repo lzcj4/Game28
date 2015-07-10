@@ -37,6 +37,8 @@ namespace Game28.DB
 
 
         IList<string> allRoundIdList = new List<string>();
+        const int CacheCapacity = 1000;
+
         private DBHelper()
         {
             string appPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -71,7 +73,8 @@ namespace Game28.DB
 
             if (IsSqlConOpened)
             {
-                IList<string> sqlList = new List<string>();
+                StringBuilder sb = new StringBuilder();
+                int count = 0;
                 foreach (var item in list)
                 {
                     if (allRoundIdList.Contains(item.RoundId))
@@ -80,14 +83,15 @@ namespace Game28.DB
                     }
                     AddRoundIdToCache(item.RoundId);
                     string sql = string.Format(" insert into History (RoundId,Result,Stake,Amount,date,totalamount,winnernum)" +
-                                               " values (\'{0}\',{1},{2},{3},\'{4}\',{5},{6}) ",
+                                               " values (\'{0}\',{1},{2},{3},\'{4}\',{5},{6}); ",
                                               item.RoundId, item.Result, item.Stake, item.Amount,
                                               item.Date, item.TotalAmount, item.WinnerNum);
-                    sqlList.Add(sql);
+                    sb.AppendLine(sql);
+                    count++;
                 }
-                RunSql(sqlList.ToArray());
+                RunSql(sb.ToString());
 
-                Debug.WriteLine(string.Format("/--- All history num:{0}, actual insert num:{1} ---/", list.Count, sqlList.Count));
+                Debug.WriteLine(string.Format("/--- All history num:{0}, actual insert num:{1} ---/", list.Count, count));
             }
             return false;
         }
@@ -140,7 +144,7 @@ namespace Game28.DB
                         item.Result = int.Parse(reader["Result"].ToString());
                         item.Stake = long.Parse(reader["Stake"].ToString());
                         item.Amount = long.Parse(reader["Amount"].ToString());
-                        item.Date = reader["result"].ToString();
+                        item.Date = reader["Date"].ToString();
                         item.TotalAmount = long.Parse(reader["totalamount"].ToString());
                         item.WinnerNum = int.Parse(reader["winnernum"].ToString());
                         result.Add(item);
@@ -151,11 +155,21 @@ namespace Game28.DB
             return result;
         }
 
+        public bool IsContainRoundId(string roundId)
+        {
+            bool result = false;
+            if (!string.IsNullOrEmpty(roundId))
+            {
+                result = allRoundIdList.Contains(roundId);
+            }
+
+            return result;
+        }
         public IList<string> GetAllRoundId()
         {
             IList<string> result = new List<string>();
 
-            using (SQLiteCommand cmd = new SQLiteCommand("select RoundId from history order by RoundId desc limit 50", sqlCon))
+            using (SQLiteCommand cmd = new SQLiteCommand(string.Format("select RoundId from history order by RoundId desc limit {0}", CacheCapacity), sqlCon))
             {
                 using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {

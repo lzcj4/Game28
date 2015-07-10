@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using Game28.Model;
 using System.Windows.Forms;
+using Game28.DB;
 
 namespace Game28.Helper
 {
     class HistoryParser
     {
-        public IList<HistoryInfo> GetHistory(HtmlElement table)
+        public IList<HistoryInfo> GetHistoryFromTable(HtmlElement table)
         {
             IList<HistoryInfo> result = new List<HistoryInfo>();
             if (table == null)
@@ -126,6 +127,107 @@ namespace Game28.Helper
             return result;
         }
 
+
+        public IList<HistoryInfo> GetRowsFromHtml(string htmlTable)
+        {
+            IList<HistoryInfo> result = new List<HistoryInfo>();
+            string table = htmlTable;
+            #region sample
+
+            //<tr>
+            //   <td class="a1" bgcolor="#ffffff">55830</td>
+            //   <td class="a2" bgcolor="#ffffff">07-10<br>08:27</td>
+            //   <td class="a3" bgcolor="#ffffff">
+            //           <img src="http://image.juxiangyou.com/speed28/num2.gif">
+            //           <img src="http://image.juxiangyou.com/speed28/numj.gif">
+            //           <img src="http://image.juxiangyou.com/speed28/num6.gif">
+            //           <img src="http://image.juxiangyou.com/speed28/numj.gif">
+            //           <img src="http://image.juxiangyou.com/speed28/num9.gif">
+            //           <img src="http://image.juxiangyou.com/speed28/numd.gif">
+            //           <img src="http://image.juxiangyou.com/speed28/num17o.gif">
+            //   </td>
+            //   <td class="a4" bgcolor="#ffffff"><span class="udcl">23,344,882</span><img src="http://image.juxiangyou.com/images/xzgame/ud.gif"></td>
+            //   <td class="a5" bgcolor="#ffffff"><a href="/speed28/list.php?a=55830">25</a></td>
+            //   <td class="a6" bgcolor="#ffffff"><span class="udcl">收:0</span><br><span class="da3">竞:0</span></td>
+            //   <td class="a7" bgcolor="#ffffff"><span class="da3">已开奖</span></td>
+            //<td class="a7" bgcolor="#ffffff"><a class="jcbtn" href="/speed28/betting.php?a=55925">竞猜</a></td>
+            // </tr>
+
+            //<td bgcolor="#FFFFFF" class="a1">54971</td>
+            //        <td bgcolor="#FFFFFF" class="a2">07-09<br />10:59</td>
+            //        <td bgcolor="#FFFFFF" class="a3"><img src="http://image.juxiangyou.com/speed28/num2.gif" /><img src="http://image.juxiangyou.com/speed28/numj.gif" /><img src="http://image.juxiangyou.com/speed28/num9.gif" /><img src="http://image.juxiangyou.com/speed28/numj.gif" /><img src="http://image.juxiangyou.com/speed28/num4.gif" /><img src="http://image.juxiangyou.com/speed28/numd.gif" /><img src="http://image.juxiangyou.com/speed28/num15o.gif" /></td>
+            //        <td bgcolor="#FFFFFF" class="a4"><span class="udcl">2,942,455,775</span><img src="http://image.juxiangyou.com/images/xzgame/ud.gif" /></td>
+            //        <td bgcolor="#FFFFFF" class="a5"><a href="/speed28/list.php?a=54971">369</a></td>
+            //        <td bgcolor="#FFFFFF" class="a6"><span class="udcl">收:0</span><br /><span class="da3">竞:0</span></td>
+            //        <td bgcolor="#FFFFFF" class="a7"><span class="da3">已开奖</span></td>
+
+            #endregion
+
+            string rowStart = "<tr>", rowEnd = "</tr>";
+
+            while (true)
+            {
+                string row = TextHelper.GetSubstring(table, rowStart, rowEnd);
+                if (string.IsNullOrEmpty(row))
+                {
+                    break;
+                }
+                table = table.Replace(string.Format("{0}{1}{2}", rowStart, row, rowEnd), "");
+                string state = TextHelper.GetSubstring(row, "a7", "/td>");
+                if (!state.Contains("已开奖"))
+                {
+                    continue;
+                }
+
+                string colEnd = "/td>", valueStart = ">", valueEnd = "<";
+                string roundId = TextHelper.GetSubstring(row, "a1", colEnd);
+                roundId = TextHelper.GetSubstring(roundId, valueStart, valueEnd);
+                if (DBHelper.Instance.IsContainRoundId(roundId))
+                {
+                    return result;
+                }
+                string date = TextHelper.GetSubstring(row, "a2", colEnd).Replace("<br />", "  ").Replace("<br>", "  "); ;
+                date = TextHelper.GetSubstring(date, valueStart, valueEnd);
+
+                string num = TextHelper.GetSubstringByEnd(row, "<img src=\"http://image.juxiangyou.com/speed28/num", "o.gif");
+
+                string totalAmount = TextHelper.GetSubstring(row, "a4", colEnd);
+                totalAmount = TextHelper.GetSubstring(totalAmount, "<span", "/span>");
+                totalAmount = TextHelper.GetSubstring(totalAmount, valueStart, valueEnd);
+
+                string winner = TextHelper.GetSubstring(row, "a5", colEnd);
+                winner = TextHelper.GetSubstring(winner, "<a", "/a>");
+                winner = TextHelper.GetSubstring(winner, valueStart, valueEnd);
+
+                string stakeAndWin = TextHelper.GetSubstring(row, "a6", "</td>");
+                // <span class="udcl">收:0</span><br /><span class="da3">竞:0</span></td>
+                string shou = TextHelper.GetSubstring(stakeAndWin, "<span", "/span>");
+                stakeAndWin = stakeAndWin.Replace(string.Format("{0}{1}{2}", "<span", shou, "/span>"), "");
+                shou = TextHelper.GetSubstring(shou, valueStart, valueEnd).Replace("收:", "");
+
+                string jin = TextHelper.GetSubstring(stakeAndWin, "<span", "/span>");
+                jin = TextHelper.GetSubstring(jin, valueStart, valueEnd).Replace("竞:", ""); ;
+
+                long amount = long.Parse(shou);
+                long stake = long.Parse(jin);
+
+                state = TextHelper.GetSubstring(row, "a7", "/td>");
+                state = TextHelper.GetSubstring(state, "<span", "/span>");
+                state = TextHelper.GetSubstring(state, valueStart, valueEnd);
+
+                HistoryInfo item = new HistoryInfo();
+                item.RoundId = roundId;
+                item.Result = int.Parse(num);
+                item.Amount = amount;
+                item.Date = DateTime.Now.Year.ToString() + "-" + date;
+                item.Stake = stake;
+                item.WinnerNum = int.Parse(winner);
+                item.TotalAmount = long.Parse(totalAmount.Replace(",", ""));
+
+                result.Add(item);
+            }
+            return result;
+        }
 
     }
 }
