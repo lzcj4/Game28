@@ -649,7 +649,7 @@ namespace Game28
         {
             int index = e.RowIndex;
             int num = (dataGridHistory.Rows[index].DataBoundItem as HistoryInfo).Result;
-            SetRowColor(index, num);
+            SetRowColor(num, index);
         }
 
         private void btnGetHistory_Click(object sender, EventArgs e)
