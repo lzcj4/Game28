@@ -45,6 +45,51 @@ namespace Game28.Model
 
         public string WinAmountStr { get { return (this.Amount - this.Stake).ToString("N0"); } }
 
+        public string OddStr
+        {
+            get
+            {
+                return (Result % 2 == 1) ? "单" : string.Empty;
+            }
+        }
+        public string EvenStr
+        {
+            get
+            {
+                return (Result % 2 == 0) ? "双" : string.Empty;
+            }
+        }
+        public string MiddleStr
+        {
+            get
+            {
+                return (Result >= 10 && Result <= 17) ? "中" : string.Empty;
+            }
+        }
+        public string EdgeStr
+        {
+            get
+            {
+                return !(Result >= 10 && Result <= 17) ? "边" : string.Empty;
+            }
+        }
+        public string BigStr
+        {
+            get
+            {
+                return (Result >= 14) ? "大" : string.Empty;
+            }
+        }
+
+        public string SmallStr
+        {
+            get
+            {
+                return (Result < 14) ? "小" : string.Empty;
+            }
+        }
+
+
         public override string ToString()
         {
             string result = string.Format("期号:{0},开奖时间:{1},竞猜结果:{2},U豆总数:{3},中奖人数:{4},收入:{5},投入:{6},净赚:{7}",

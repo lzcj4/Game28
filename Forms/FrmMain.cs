@@ -1,16 +1,13 @@
-﻿using Aliyun.OpenServices.OpenStorageService;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Linq;
-using System.IO;
-using System.Diagnostics;
-using Game28.Helper;
-using Game28.DB;
-using Game28.Model;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using Game28.DB;
+using Game28.Helper;
+using Game28.Model;
 
 namespace Game28
 {
@@ -29,7 +26,7 @@ namespace Game28
             this.Load += (sender, e) =>
             {
                 dataGridHistory.AutoGenerateColumns = false;
-                dataGridHistory.RowPrePaint += dataGridHistory_RowPrePaint;
+                // dataGridHistory.RowPrePaint += dataGridHistory_RowPrePaint;
                 LoadParams();
                 this.webView.Navigate("http://www.juxiangyou.com/");
             };
@@ -72,6 +69,7 @@ namespace Game28
             if (!string.IsNullOrEmpty(cookies))
             {
                 speed28 = new Speed28(cookies);
+                speed28.StateChanged += speed28_StateChanged;
             }
 
             string htmlBody = this.webView.Document.Body.InnerText;
@@ -281,6 +279,8 @@ namespace Game28
 
             Action act = () =>
             {
+                if (e.ResultCode == ResultCode.Succeed)
+                    lblState.Text = string.Format("当前期:{0} 投注成功", e.RoundId);
                 logCount++;
                 //webView.Refresh();
                 currentRoundid = e.RoundId;
@@ -422,7 +422,7 @@ namespace Game28
                     else
                     {
                         StopTimer();
-                        lblState.Text = "投注成功";
+                        //lblState.Text = "准备下期投注";
                     }
                     return;
                 }
@@ -580,12 +580,15 @@ namespace Game28
             return (int)(interval * 1000);
         }
 
-
         #region History
 
         private void btnLoadHistory_Click(object sender, EventArgs e)
         {
-            var list = dbHelper.GetAll();
+            int rows = 0;
+            int.TryParse(txtRows.Text, out  rows);
+
+            var list = dbHelper.GetByRows(rows);
+            lblRows.Text = string.Format("共:{0} 条记录", list.Count);
             dataGridHistory.DataSource = new BindingList<HistoryInfo>(list);
             //for (int i = 0; i < list.Count; i++)
             //{
@@ -604,7 +607,7 @@ namespace Game28
             {   //单
                 DataGridViewCell cell = dataGridHistory.Rows[index].Cells[8];
                 cell.Value = "单";
-                cell.Style.BackColor = Color.LightGoldenrodYellow;
+                cell.Style.BackColor = Color.Yellow;
             }
             else
             {
@@ -648,8 +651,16 @@ namespace Game28
         void dataGridHistory_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
             int index = e.RowIndex;
-            int num = (dataGridHistory.Rows[index].DataBoundItem as HistoryInfo).Result;
+            DataGridViewRow row = dataGridHistory.Rows[index];
+            if (row == null || row.Tag != null)
+            {
+                return;
+            }
+            //row.HeaderCell.Value = (index + 1).ToString();
+            int num = (row.DataBoundItem as HistoryInfo).Result;
+            row.Tag = num;
             SetRowColor(num, index);
+            e.Handled = true;
         }
 
         private void btnGetHistory_Click(object sender, EventArgs e)
@@ -657,17 +668,37 @@ namespace Game28
             Action action = new Action(() =>
             {
                 //http://game.juxiangyou.com/speed28/index.php?p=50
-                for (int i = 50; i >= 0; i--)
+                int pages = 0;
+                if (!int.TryParse(txtPages.Text, out pages))
                 {
-                    Debug.WriteLine(string.Format("/--- current history page:{0} querying ---/", i));
+                    return;
+                }
+                if (pages > 50)
+                {
+                    pages = 50;
+                }
+
+                for (int i = 0; i <= pages; i++)
+                {
                     string table = speed28.GetHistoryByPage(i);
                     if (!string.IsNullOrEmpty(table))
                     {
                         IList<HistoryInfo> list = parser.GetRowsFromHtml(table);
                         list = list.OrderByDescending(item => item.RoundId).ToList();
                         dbHelper.InsertHistory(list);
+
+                        this.BeginInvoke(new Action(() =>
+                        {
+                            Debug.WriteLine(string.Format("/--- current history page:{0} queryed ---/", i));
+                            lblHistoryLog.Text = string.Format("当前加载完:{0}页,共:{1}条记录", i, list.Count);
+                        }));
                     }
                 }
+
+                this.BeginInvoke(new Action(() =>
+                {
+                    lblHistoryLog.Text = string.Format("完成");
+                }));
             });
             action.BeginInvoke((ar) => action.EndInvoke(ar), action);
         }

@@ -30,6 +30,12 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabSetting = new System.Windows.Forms.TabPage();
             this.panelParams = new System.Windows.Forms.Panel();
@@ -64,6 +70,12 @@
             this.tabLog = new System.Windows.Forms.TabPage();
             this.txtLog = new System.Windows.Forms.RichTextBox();
             this.tabHistory = new System.Windows.Forms.TabPage();
+            this.lblRows = new System.Windows.Forms.Label();
+            this.txtRows = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblHistoryLog = new System.Windows.Forms.Label();
+            this.txtPages = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.dataGridHistory = new System.Windows.Forms.DataGridView();
             this.btnLoadHistory = new System.Windows.Forms.Button();
             this.btnGetHistory = new System.Windows.Forms.Button();
@@ -101,7 +113,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1145, 722);
+            this.tabControl1.Size = new System.Drawing.Size(1145, 666);
             this.tabControl1.TabIndex = 0;
             // 
             // tabSetting
@@ -111,7 +123,7 @@
             this.tabSetting.Location = new System.Drawing.Point(4, 22);
             this.tabSetting.Name = "tabSetting";
             this.tabSetting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSetting.Size = new System.Drawing.Size(1137, 696);
+            this.tabSetting.Size = new System.Drawing.Size(1137, 640);
             this.tabSetting.TabIndex = 0;
             this.tabSetting.Text = "参数配置";
             this.tabSetting.UseVisualStyleBackColor = true;
@@ -120,18 +132,17 @@
             // 
             this.panelParams.Controls.Add(this.ucNum28);
             this.panelParams.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelParams.Location = new System.Drawing.Point(3, 120);
+            this.panelParams.Location = new System.Drawing.Point(3, 111);
             this.panelParams.Name = "panelParams";
-            this.panelParams.Size = new System.Drawing.Size(1131, 573);
+            this.panelParams.Size = new System.Drawing.Size(1131, 526);
             this.panelParams.TabIndex = 1;
             // 
             // ucNum28
             // 
             this.ucNum28.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucNum28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ucNum28.Location = new System.Drawing.Point(0, 0);
             this.ucNum28.Name = "ucNum28";
-            this.ucNum28.Size = new System.Drawing.Size(1131, 573);
+            this.ucNum28.Size = new System.Drawing.Size(1131, 526);
             this.ucNum28.TabIndex = 0;
             // 
             // panelNavigate
@@ -161,7 +172,7 @@
             this.panelNavigate.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelNavigate.Location = new System.Drawing.Point(3, 3);
             this.panelNavigate.Name = "panelNavigate";
-            this.panelNavigate.Size = new System.Drawing.Size(1131, 117);
+            this.panelNavigate.Size = new System.Drawing.Size(1131, 108);
             this.panelNavigate.TabIndex = 0;
             // 
             // lblLastDeal
@@ -169,7 +180,7 @@
             this.lblLastDeal.AutoSize = true;
             this.lblLastDeal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblLastDeal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.lblLastDeal.Location = new System.Drawing.Point(769, 80);
+            this.lblLastDeal.Location = new System.Drawing.Point(769, 74);
             this.lblLastDeal.Name = "lblLastDeal";
             this.lblLastDeal.Size = new System.Drawing.Size(38, 17);
             this.lblLastDeal.TabIndex = 124;
@@ -178,9 +189,9 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(696, 85);
+            this.label5.Location = new System.Drawing.Point(696, 78);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(67, 13);
+            this.label5.Size = new System.Drawing.Size(65, 12);
             this.label5.TabIndex = 123;
             this.label5.Text = "上期盈利：";
             // 
@@ -189,7 +200,7 @@
             this.lblBeans.AutoSize = true;
             this.lblBeans.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblBeans.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.lblBeans.Location = new System.Drawing.Point(769, 47);
+            this.lblBeans.Location = new System.Drawing.Point(769, 43);
             this.lblBeans.Name = "lblBeans";
             this.lblBeans.Size = new System.Drawing.Size(38, 17);
             this.lblBeans.TabIndex = 122;
@@ -198,16 +209,16 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(696, 51);
+            this.label4.Location = new System.Drawing.Point(696, 47);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 13);
+            this.label4.Size = new System.Drawing.Size(59, 12);
             this.label4.TabIndex = 121;
             this.label4.Text = "当前U豆：";
             // 
             // txtMaxLimit
             // 
             this.txtMaxLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtMaxLimit.Location = new System.Drawing.Point(504, 44);
+            this.txtMaxLimit.Location = new System.Drawing.Point(504, 41);
             this.txtMaxLimit.Name = "txtMaxLimit";
             this.txtMaxLimit.Size = new System.Drawing.Size(162, 23);
             this.txtMaxLimit.TabIndex = 120;
@@ -215,9 +226,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(431, 48);
+            this.label1.Location = new System.Drawing.Point(431, 44);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.Size = new System.Drawing.Size(65, 12);
             this.label1.TabIndex = 119;
             this.label1.Text = "最大限额：";
             // 
@@ -225,7 +236,7 @@
             // 
             this.chkOss.AutoSize = true;
             this.chkOss.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.chkOss.Location = new System.Drawing.Point(434, 77);
+            this.chkOss.Location = new System.Drawing.Point(434, 71);
             this.chkOss.Name = "chkOss";
             this.chkOss.Size = new System.Drawing.Size(96, 24);
             this.chkOss.TabIndex = 118;
@@ -237,7 +248,7 @@
             this.lblState.AutoSize = true;
             this.lblState.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblState.ForeColor = System.Drawing.Color.Red;
-            this.lblState.Location = new System.Drawing.Point(769, 12);
+            this.lblState.Location = new System.Drawing.Point(769, 11);
             this.lblState.Name = "lblState";
             this.lblState.Size = new System.Drawing.Size(38, 17);
             this.lblState.TabIndex = 117;
@@ -247,9 +258,9 @@
             // 
             this.btnOss.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnOss.ForeColor = System.Drawing.Color.SteelBlue;
-            this.btnOss.Location = new System.Drawing.Point(116, 18);
+            this.btnOss.Location = new System.Drawing.Point(116, 17);
             this.btnOss.Name = "btnOss";
-            this.btnOss.Size = new System.Drawing.Size(75, 30);
+            this.btnOss.Size = new System.Drawing.Size(75, 28);
             this.btnOss.TabIndex = 7;
             this.btnOss.Text = "  云联动";
             this.btnOss.UseVisualStyleBackColor = true;
@@ -258,9 +269,9 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(696, 16);
+            this.label34.Location = new System.Drawing.Point(696, 15);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(67, 13);
+            this.label34.Size = new System.Drawing.Size(65, 12);
             this.label34.TabIndex = 116;
             this.label34.Text = "当前状态：";
             // 
@@ -268,9 +279,9 @@
             // 
             this.btnManual.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnManual.ForeColor = System.Drawing.Color.DarkGreen;
-            this.btnManual.Location = new System.Drawing.Point(21, 18);
+            this.btnManual.Location = new System.Drawing.Point(21, 17);
             this.btnManual.Name = "btnManual";
-            this.btnManual.Size = new System.Drawing.Size(75, 30);
+            this.btnManual.Size = new System.Drawing.Size(75, 28);
             this.btnManual.TabIndex = 6;
             this.btnManual.Text = "手动";
             this.btnManual.UseVisualStyleBackColor = true;
@@ -279,9 +290,9 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(405, 82);
+            this.label32.Location = new System.Drawing.Point(405, 76);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(19, 13);
+            this.label32.Size = new System.Drawing.Size(17, 12);
             this.label32.TabIndex = 108;
             this.label32.Text = "秒";
             // 
@@ -289,9 +300,9 @@
             // 
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnStop.ForeColor = System.Drawing.Color.Red;
-            this.btnStop.Location = new System.Drawing.Point(116, 64);
+            this.btnStop.Location = new System.Drawing.Point(116, 59);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(75, 30);
+            this.btnStop.Size = new System.Drawing.Size(75, 28);
             this.btnStop.TabIndex = 1;
             this.btnStop.Text = "停止";
             this.btnStop.UseVisualStyleBackColor = true;
@@ -300,7 +311,7 @@
             // txtInterval
             // 
             this.txtInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtInterval.Location = new System.Drawing.Point(287, 77);
+            this.txtInterval.Location = new System.Drawing.Point(287, 71);
             this.txtInterval.Name = "txtInterval";
             this.txtInterval.Size = new System.Drawing.Size(112, 23);
             this.txtInterval.TabIndex = 107;
@@ -310,9 +321,9 @@
             // 
             this.btnAuto.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnAuto.ForeColor = System.Drawing.Color.YellowGreen;
-            this.btnAuto.Location = new System.Drawing.Point(22, 62);
+            this.btnAuto.Location = new System.Drawing.Point(22, 57);
             this.btnAuto.Name = "btnAuto";
-            this.btnAuto.Size = new System.Drawing.Size(75, 30);
+            this.btnAuto.Size = new System.Drawing.Size(75, 28);
             this.btnAuto.TabIndex = 0;
             this.btnAuto.Text = "自动";
             this.btnAuto.UseVisualStyleBackColor = true;
@@ -321,16 +332,16 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(212, 81);
+            this.label31.Location = new System.Drawing.Point(212, 75);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(67, 13);
+            this.label31.Size = new System.Drawing.Size(65, 12);
             this.label31.TabIndex = 106;
             this.label31.Text = "刷新间隔：";
             // 
             // txtUser
             // 
             this.txtUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtUser.Location = new System.Drawing.Point(257, 16);
+            this.txtUser.Location = new System.Drawing.Point(257, 15);
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(162, 23);
             this.txtUser.TabIndex = 60;
@@ -338,7 +349,7 @@
             // txtRoundId
             // 
             this.txtRoundId.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtRoundId.Location = new System.Drawing.Point(504, 14);
+            this.txtRoundId.Location = new System.Drawing.Point(504, 13);
             this.txtRoundId.Name = "txtRoundId";
             this.txtRoundId.Size = new System.Drawing.Size(162, 23);
             this.txtRoundId.TabIndex = 63;
@@ -346,34 +357,34 @@
             // lable1
             // 
             this.lable1.AutoSize = true;
-            this.lable1.Location = new System.Drawing.Point(212, 20);
+            this.lable1.Location = new System.Drawing.Point(212, 18);
             this.lable1.Name = "lable1";
-            this.lable1.Size = new System.Drawing.Size(43, 13);
+            this.lable1.Size = new System.Drawing.Size(41, 12);
             this.lable1.TabIndex = 0;
             this.lable1.Text = "帐号：";
             // 
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(431, 18);
+            this.label30.Location = new System.Drawing.Point(431, 17);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(67, 13);
+            this.label30.Size = new System.Drawing.Size(65, 12);
             this.label30.TabIndex = 62;
             this.label30.Text = "当前期号：";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(212, 49);
+            this.label2.Location = new System.Drawing.Point(212, 45);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 1;
             this.label2.Text = "密码：";
             // 
             // txtPwd
             // 
             this.txtPwd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtPwd.Location = new System.Drawing.Point(257, 46);
+            this.txtPwd.Location = new System.Drawing.Point(257, 42);
             this.txtPwd.Name = "txtPwd";
             this.txtPwd.Size = new System.Drawing.Size(162, 23);
             this.txtPwd.TabIndex = 61;
@@ -386,16 +397,16 @@
             this.tabPreview.Location = new System.Drawing.Point(4, 22);
             this.tabPreview.Name = "tabPreview";
             this.tabPreview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPreview.Size = new System.Drawing.Size(1137, 696);
+            this.tabPreview.Size = new System.Drawing.Size(1137, 640);
             this.tabPreview.TabIndex = 1;
             this.tabPreview.Text = "网页预览";
             this.tabPreview.UseVisualStyleBackColor = true;
             // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(105, 11);
+            this.btnBack.Location = new System.Drawing.Point(105, 10);
             this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.Size = new System.Drawing.Size(75, 21);
             this.btnBack.TabIndex = 2;
             this.btnBack.Text = "后退";
             this.btnBack.UseVisualStyleBackColor = true;
@@ -403,9 +414,9 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(11, 11);
+            this.btnRefresh.Location = new System.Drawing.Point(11, 10);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.Size = new System.Drawing.Size(75, 21);
             this.btnRefresh.TabIndex = 1;
             this.btnRefresh.Text = "刷新";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -415,9 +426,9 @@
             // 
             this.webView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView.Location = new System.Drawing.Point(3, 3);
-            this.webView.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webView.MinimumSize = new System.Drawing.Size(20, 18);
             this.webView.Name = "webView";
-            this.webView.Size = new System.Drawing.Size(1131, 690);
+            this.webView.Size = new System.Drawing.Size(1131, 634);
             this.webView.TabIndex = 0;
             this.webView.Url = new System.Uri("", System.UriKind.Relative);
             // 
@@ -427,7 +438,7 @@
             this.tabLog.Location = new System.Drawing.Point(4, 22);
             this.tabLog.Name = "tabLog";
             this.tabLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLog.Size = new System.Drawing.Size(1137, 696);
+            this.tabLog.Size = new System.Drawing.Size(1137, 640);
             this.tabLog.TabIndex = 2;
             this.tabLog.Text = "日志";
             this.tabLog.UseVisualStyleBackColor = true;
@@ -438,21 +449,81 @@
             this.txtLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtLog.Location = new System.Drawing.Point(3, 3);
             this.txtLog.Name = "txtLog";
-            this.txtLog.Size = new System.Drawing.Size(1131, 690);
+            this.txtLog.Size = new System.Drawing.Size(1131, 634);
             this.txtLog.TabIndex = 0;
             this.txtLog.Text = "";
             // 
             // tabHistory
             // 
+            this.tabHistory.Controls.Add(this.lblRows);
+            this.tabHistory.Controls.Add(this.txtRows);
+            this.tabHistory.Controls.Add(this.label6);
+            this.tabHistory.Controls.Add(this.lblHistoryLog);
+            this.tabHistory.Controls.Add(this.txtPages);
+            this.tabHistory.Controls.Add(this.label3);
             this.tabHistory.Controls.Add(this.dataGridHistory);
             this.tabHistory.Controls.Add(this.btnLoadHistory);
             this.tabHistory.Controls.Add(this.btnGetHistory);
             this.tabHistory.Location = new System.Drawing.Point(4, 22);
             this.tabHistory.Name = "tabHistory";
-            this.tabHistory.Size = new System.Drawing.Size(1137, 696);
+            this.tabHistory.Size = new System.Drawing.Size(1137, 640);
             this.tabHistory.TabIndex = 3;
             this.tabHistory.Text = "历史数据";
             this.tabHistory.UseVisualStyleBackColor = true;
+            // 
+            // lblRows
+            // 
+            this.lblRows.AutoSize = true;
+            this.lblRows.Location = new System.Drawing.Point(247, 33);
+            this.lblRows.Name = "lblRows";
+            this.lblRows.Size = new System.Drawing.Size(29, 12);
+            this.lblRows.TabIndex = 126;
+            this.lblRows.Text = "空白";
+            // 
+            // txtRows
+            // 
+            this.txtRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtRows.Location = new System.Drawing.Point(127, 27);
+            this.txtRows.Name = "txtRows";
+            this.txtRows.Size = new System.Drawing.Size(57, 23);
+            this.txtRows.TabIndex = 125;
+            this.txtRows.Text = "200";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(195, 32);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(17, 12);
+            this.label6.TabIndex = 124;
+            this.label6.Text = "条";
+            // 
+            // lblHistoryLog
+            // 
+            this.lblHistoryLog.AutoSize = true;
+            this.lblHistoryLog.Location = new System.Drawing.Point(247, 81);
+            this.lblHistoryLog.Name = "lblHistoryLog";
+            this.lblHistoryLog.Size = new System.Drawing.Size(29, 12);
+            this.lblHistoryLog.TabIndex = 123;
+            this.lblHistoryLog.Text = "空白";
+            // 
+            // txtPages
+            // 
+            this.txtPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtPages.Location = new System.Drawing.Point(127, 75);
+            this.txtPages.Name = "txtPages";
+            this.txtPages.Size = new System.Drawing.Size(57, 23);
+            this.txtPages.TabIndex = 122;
+            this.txtPages.Text = "50";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(195, 80);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(17, 12);
+            this.label3.TabIndex = 121;
+            this.label3.Text = "页";
             // 
             // dataGridHistory
             // 
@@ -476,29 +547,29 @@
             this.colBig,
             this.colSmall});
             this.dataGridHistory.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dataGridHistory.Location = new System.Drawing.Point(0, 132);
+            this.dataGridHistory.Location = new System.Drawing.Point(0, 119);
             this.dataGridHistory.Name = "dataGridHistory";
             this.dataGridHistory.RowTemplate.Height = 23;
-            this.dataGridHistory.Size = new System.Drawing.Size(1137, 564);
+            this.dataGridHistory.Size = new System.Drawing.Size(1137, 521);
             this.dataGridHistory.TabIndex = 3;
             // 
             // btnLoadHistory
             // 
-            this.btnLoadHistory.Location = new System.Drawing.Point(31, 29);
+            this.btnLoadHistory.Location = new System.Drawing.Point(31, 27);
             this.btnLoadHistory.Name = "btnLoadHistory";
-            this.btnLoadHistory.Size = new System.Drawing.Size(75, 25);
+            this.btnLoadHistory.Size = new System.Drawing.Size(75, 23);
             this.btnLoadHistory.TabIndex = 2;
-            this.btnLoadHistory.Text = "加载";
+            this.btnLoadHistory.Text = "显示";
             this.btnLoadHistory.UseVisualStyleBackColor = true;
             this.btnLoadHistory.Click += new System.EventHandler(this.btnLoadHistory_Click);
             // 
             // btnGetHistory
             // 
-            this.btnGetHistory.Location = new System.Drawing.Point(128, 29);
+            this.btnGetHistory.Location = new System.Drawing.Point(31, 75);
             this.btnGetHistory.Name = "btnGetHistory";
-            this.btnGetHistory.Size = new System.Drawing.Size(75, 25);
+            this.btnGetHistory.Size = new System.Drawing.Size(75, 23);
             this.btnGetHistory.TabIndex = 0;
-            this.btnGetHistory.Text = "提取50页";
+            this.btnGetHistory.Text = "提取";
             this.btnGetHistory.UseVisualStyleBackColor = true;
             this.btnGetHistory.Click += new System.EventHandler(this.btnGetHistory_Click);
             // 
@@ -509,7 +580,7 @@
             this.colRoundId.DefaultCellStyle = dataGridViewCellStyle1;
             this.colRoundId.HeaderText = "期号";
             this.colRoundId.Name = "colRoundId";
-            this.colRoundId.Width = 56;
+            this.colRoundId.Width = 54;
             // 
             // colColumn
             // 
@@ -518,91 +589,115 @@
             this.colColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.colColumn.HeaderText = "竞猜结果";
             this.colColumn.Name = "colColumn";
-            this.colColumn.Width = 80;
+            this.colColumn.Width = 78;
             // 
             // colStake
             // 
             this.colStake.DataPropertyName = "Stake";
             this.colStake.HeaderText = "投注U豆";
             this.colStake.Name = "colStake";
-            this.colStake.Width = 76;
+            this.colStake.Width = 72;
             // 
             // colAmount
             // 
             this.colAmount.DataPropertyName = "Amount";
             this.colAmount.HeaderText = "竞得U豆";
             this.colAmount.Name = "colAmount";
-            this.colAmount.Width = 76;
+            this.colAmount.Width = 72;
             // 
             // colWinAmount
             // 
             this.colWinAmount.DataPropertyName = "WinAmountStr";
             this.colWinAmount.HeaderText = "净赚U豆";
             this.colWinAmount.Name = "colWinAmount";
-            this.colWinAmount.Width = 76;
+            this.colWinAmount.Width = 72;
             // 
             // colTime
             // 
             this.colTime.DataPropertyName = "Time";
             this.colTime.HeaderText = "开奖时间";
             this.colTime.Name = "colTime";
-            this.colTime.Width = 80;
+            this.colTime.Width = 78;
             // 
             // colTotalAmount
             // 
             this.colTotalAmount.DataPropertyName = "TotalAmountStr";
             this.colTotalAmount.HeaderText = "总投注U豆";
             this.colTotalAmount.Name = "colTotalAmount";
-            this.colTotalAmount.Width = 88;
+            this.colTotalAmount.Width = 84;
             // 
             // colWinner
             // 
             this.colWinner.DataPropertyName = "WinnerNum";
             this.colWinner.HeaderText = "中奖人数";
             this.colWinner.Name = "colWinner";
-            this.colWinner.Width = 80;
+            this.colWinner.Width = 78;
             // 
             // colOdd
             // 
+            this.colOdd.DataPropertyName = "OddStr";
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.colOdd.DefaultCellStyle = dataGridViewCellStyle3;
             this.colOdd.HeaderText = "单";
             this.colOdd.Name = "colOdd";
-            this.colOdd.Width = 44;
+            this.colOdd.Width = 42;
             // 
             // colEven
             // 
+            this.colEven.DataPropertyName = "EvenStr";
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Navy;
+            this.colEven.DefaultCellStyle = dataGridViewCellStyle4;
             this.colEven.HeaderText = "双";
             this.colEven.Name = "colEven";
-            this.colEven.Width = 44;
+            this.colEven.Width = 42;
             // 
             // colMiddle
             // 
+            this.colMiddle.DataPropertyName = "MiddleStr";
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Red;
+            this.colMiddle.DefaultCellStyle = dataGridViewCellStyle5;
             this.colMiddle.HeaderText = "中";
             this.colMiddle.Name = "colMiddle";
-            this.colMiddle.Width = 44;
+            this.colMiddle.Width = 42;
             // 
             // colEdge
             // 
+            this.colEdge.DataPropertyName = "EdgeStr";
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Blue;
+            this.colEdge.DefaultCellStyle = dataGridViewCellStyle6;
             this.colEdge.HeaderText = "边";
             this.colEdge.Name = "colEdge";
-            this.colEdge.Width = 44;
+            this.colEdge.Width = 42;
             // 
             // colBig
             // 
+            this.colBig.DataPropertyName = "BigStr";
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.colBig.DefaultCellStyle = dataGridViewCellStyle7;
             this.colBig.HeaderText = "大";
             this.colBig.Name = "colBig";
-            this.colBig.Width = 44;
+            this.colBig.Width = 42;
             // 
             // colSmall
             // 
+            this.colSmall.DataPropertyName = "SmallStr";
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Green;
+            this.colSmall.DefaultCellStyle = dataGridViewCellStyle8;
             this.colSmall.HeaderText = "小";
             this.colSmall.Name = "colSmall";
-            this.colSmall.Width = 44;
+            this.colSmall.Width = 42;
             // 
             // FrmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1145, 722);
+            this.ClientSize = new System.Drawing.Size(1145, 666);
             this.Controls.Add(this.tabControl1);
             this.Name = "FrmMain";
             this.Text = "Game28";
@@ -614,6 +709,7 @@
             this.tabPreview.ResumeLayout(false);
             this.tabLog.ResumeLayout(false);
             this.tabHistory.ResumeLayout(false);
+            this.tabHistory.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridHistory)).EndInit();
             this.ResumeLayout(false);
 
@@ -645,7 +741,6 @@
         private System.Windows.Forms.Label lblState;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Button btnOss;
-        private UC.UCNum28 ucNum28;
         private System.Windows.Forms.CheckBox chkOss;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.TextBox txtMaxLimit;
@@ -658,6 +753,13 @@
         private System.Windows.Forms.Button btnGetHistory;
         private System.Windows.Forms.Button btnLoadHistory;
         private System.Windows.Forms.DataGridView dataGridHistory;
+        private System.Windows.Forms.TextBox txtPages;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblHistoryLog;
+        private System.Windows.Forms.TextBox txtRows;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblRows;
+        private UC.UCNum28 ucNum28;
         private System.Windows.Forms.DataGridViewTextBoxColumn colRoundId;
         private System.Windows.Forms.DataGridViewTextBoxColumn colColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStake;

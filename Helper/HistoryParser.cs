@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Game28.Model;
 using System.Windows.Forms;
 using Game28.DB;
+using Game28.Model;
 
 namespace Game28.Helper
 {
@@ -184,7 +182,7 @@ namespace Game28.Helper
                 roundId = TextHelper.GetSubstring(roundId, valueStart, valueEnd);
                 if (DBHelper.Instance.IsContainRoundId(roundId))
                 {
-                    return result;
+                    continue;
                 }
                 string date = TextHelper.GetSubstring(row, "a2", colEnd).Replace("<br />", "  ").Replace("<br>", "  "); ;
                 date = TextHelper.GetSubstring(date, valueStart, valueEnd);
@@ -203,10 +201,10 @@ namespace Game28.Helper
                 // <span class="udcl">收:0</span><br /><span class="da3">竞:0</span></td>
                 string shou = TextHelper.GetSubstring(stakeAndWin, "<span", "/span>");
                 stakeAndWin = stakeAndWin.Replace(string.Format("{0}{1}{2}", "<span", shou, "/span>"), "");
-                shou = TextHelper.GetSubstring(shou, valueStart, valueEnd).Replace("收:", "");
+                shou = TextHelper.GetSubstring(shou, valueStart, valueEnd).Replace("收:", "").Replace(",", "");
 
                 string jin = TextHelper.GetSubstring(stakeAndWin, "<span", "/span>");
-                jin = TextHelper.GetSubstring(jin, valueStart, valueEnd).Replace("竞:", ""); ;
+                jin = TextHelper.GetSubstring(jin, valueStart, valueEnd).Replace("竞:", "").Replace(",", "");
 
                 long amount = long.Parse(shou);
                 long stake = long.Parse(jin);

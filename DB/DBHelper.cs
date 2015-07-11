@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data.SQLite;
-using System.IO;
 using System.Data;
-using Game28.Model;
+using System.Data.SQLite;
 using System.Diagnostics;
+using System.IO;
+using System.Text;
+using Game28.Model;
+using System.Linq;
 
 namespace Game28.DB
 {
@@ -77,7 +77,7 @@ namespace Game28.DB
                 int count = 0;
                 foreach (var item in list)
                 {
-                    if (allRoundIdList.Contains(item.RoundId))
+                    if (IsContainRoundId(item.RoundId))
                     {
                         continue;
                     }
@@ -99,7 +99,7 @@ namespace Game28.DB
         public bool InsertHistory(HistoryInfo item)
         {
             int i = 0;
-            if (IsSqlConOpened && item != null && !allRoundIdList.Contains(item.RoundId))
+            if (IsSqlConOpened && item != null && !IsContainRoundId(item.RoundId))
             {
                 string sql = string.Format(" insert into History (RoundId,Result,Stake,Amount,date,totalamount,winnernum)" +
                                            " values (\'{0}\',{1},{2},{3},\'{4}\',{5},{6}) ",
@@ -122,18 +122,25 @@ namespace Game28.DB
             if (!string.IsNullOrEmpty(roundId))
             {
                 allRoundIdList.Add(roundId);
-                if (allRoundIdList.Count > 100)
+                if (allRoundIdList.Count > CacheCapacity)
                 {
-                    allRoundIdList.RemoveAt(0);
+                    string min=allRoundIdList.Min(item => item);
+                    allRoundIdList.Remove(min);
                 }
             }
         }
 
-        public IList<HistoryInfo> GetAll()
+        public IList<HistoryInfo> GetByRows(int rows=0)
         {
             IList<HistoryInfo> result = new List<HistoryInfo>();
 
-            using (SQLiteCommand cmd = new SQLiteCommand("select * from history order by RoundId desc", sqlCon))
+            string sql = "select * from history order by RoundId desc";
+            if (rows > 0)
+            {
+                sql = string.Format("{0} limit {1}", sql, rows);
+            }
+
+            using (SQLiteCommand cmd = new SQLiteCommand(sql, sqlCon))
             {
                 using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
