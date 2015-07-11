@@ -124,13 +124,13 @@ namespace Game28.DB
                 allRoundIdList.Add(roundId);
                 if (allRoundIdList.Count > CacheCapacity)
                 {
-                    string min=allRoundIdList.Min(item => item);
+                    string min = allRoundIdList.Min(item => item);
                     allRoundIdList.Remove(min);
                 }
             }
         }
 
-        public IList<HistoryInfo> GetByRows(int rows=0)
+        public IList<HistoryInfo> GetByRows(int rows = 0)
         {
             IList<HistoryInfo> result = new List<HistoryInfo>();
 
@@ -172,6 +172,23 @@ namespace Game28.DB
 
             return result;
         }
+
+        public string GetMaxRoundId()
+        {
+            string result = string.Empty;
+            using (SQLiteCommand cmd = new SQLiteCommand("select max(roundid)as maxId from history", sqlCon))
+            {
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        result = reader[0].ToString();
+                    }
+                }
+            }
+            return result;
+        }
+
         public IList<string> GetAllRoundId()
         {
             IList<string> result = new List<string>();

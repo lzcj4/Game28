@@ -28,14 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabSetting = new System.Windows.Forms.TabPage();
             this.panelParams = new System.Windows.Forms.Panel();
@@ -76,9 +78,12 @@
             this.lblHistoryLog = new System.Windows.Forms.Label();
             this.txtPages = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.dataGridHistory = new System.Windows.Forms.DataGridView();
             this.btnLoadHistory = new System.Windows.Forms.Button();
             this.btnGetHistory = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.dataGridStatistic = new System.Windows.Forms.DataGridView();
+            this.btnStatistic = new System.Windows.Forms.Button();
+            this.dataGridHistory = new System.Windows.Forms.DataGridView();
             this.colRoundId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStake = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,6 +98,9 @@
             this.colEdge = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colBig = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSmall = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panelHistory = new System.Windows.Forms.Panel();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabSetting.SuspendLayout();
             this.panelParams.SuspendLayout();
@@ -100,6 +108,8 @@
             this.tabPreview.SuspendLayout();
             this.tabLog.SuspendLayout();
             this.tabHistory.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridStatistic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridHistory)).BeginInit();
             this.SuspendLayout();
             // 
@@ -461,9 +471,11 @@
             this.tabHistory.Controls.Add(this.lblHistoryLog);
             this.tabHistory.Controls.Add(this.txtPages);
             this.tabHistory.Controls.Add(this.label3);
-            this.tabHistory.Controls.Add(this.dataGridHistory);
             this.tabHistory.Controls.Add(this.btnLoadHistory);
             this.tabHistory.Controls.Add(this.btnGetHistory);
+            this.tabHistory.Controls.Add(this.panel1);
+            this.tabHistory.Controls.Add(this.dataGridHistory);
+            this.tabHistory.Controls.Add(this.panelHistory);
             this.tabHistory.Location = new System.Drawing.Point(4, 22);
             this.tabHistory.Name = "tabHistory";
             this.tabHistory.Size = new System.Drawing.Size(1137, 640);
@@ -474,56 +486,119 @@
             // lblRows
             // 
             this.lblRows.AutoSize = true;
-            this.lblRows.Location = new System.Drawing.Point(247, 33);
+            this.lblRows.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblRows.Location = new System.Drawing.Point(247, 22);
             this.lblRows.Name = "lblRows";
-            this.lblRows.Size = new System.Drawing.Size(29, 12);
+            this.lblRows.Size = new System.Drawing.Size(40, 16);
             this.lblRows.TabIndex = 126;
             this.lblRows.Text = "空白";
             // 
             // txtRows
             // 
-            this.txtRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtRows.Location = new System.Drawing.Point(127, 27);
+            this.txtRows.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtRows.Location = new System.Drawing.Point(127, 18);
             this.txtRows.Name = "txtRows";
-            this.txtRows.Size = new System.Drawing.Size(57, 23);
+            this.txtRows.Size = new System.Drawing.Size(57, 26);
             this.txtRows.TabIndex = 125;
             this.txtRows.Text = "200";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(195, 32);
+            this.label6.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Location = new System.Drawing.Point(195, 23);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(17, 12);
+            this.label6.Size = new System.Drawing.Size(24, 16);
             this.label6.TabIndex = 124;
             this.label6.Text = "条";
             // 
             // lblHistoryLog
             // 
             this.lblHistoryLog.AutoSize = true;
-            this.lblHistoryLog.Location = new System.Drawing.Point(247, 81);
+            this.lblHistoryLog.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblHistoryLog.Location = new System.Drawing.Point(247, 64);
             this.lblHistoryLog.Name = "lblHistoryLog";
-            this.lblHistoryLog.Size = new System.Drawing.Size(29, 12);
+            this.lblHistoryLog.Size = new System.Drawing.Size(40, 16);
             this.lblHistoryLog.TabIndex = 123;
             this.lblHistoryLog.Text = "空白";
             // 
             // txtPages
             // 
-            this.txtPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtPages.Location = new System.Drawing.Point(127, 75);
+            this.txtPages.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtPages.Location = new System.Drawing.Point(127, 59);
             this.txtPages.Name = "txtPages";
-            this.txtPages.Size = new System.Drawing.Size(57, 23);
+            this.txtPages.Size = new System.Drawing.Size(57, 26);
             this.txtPages.TabIndex = 122;
             this.txtPages.Text = "50";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(195, 80);
+            this.label3.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(195, 64);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(17, 12);
+            this.label3.Size = new System.Drawing.Size(24, 16);
             this.label3.TabIndex = 121;
             this.label3.Text = "页";
+            // 
+            // btnLoadHistory
+            // 
+            this.btnLoadHistory.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnLoadHistory.Location = new System.Drawing.Point(31, 18);
+            this.btnLoadHistory.Name = "btnLoadHistory";
+            this.btnLoadHistory.Size = new System.Drawing.Size(75, 26);
+            this.btnLoadHistory.TabIndex = 2;
+            this.btnLoadHistory.Text = "显示";
+            this.btnLoadHistory.UseVisualStyleBackColor = true;
+            this.btnLoadHistory.Click += new System.EventHandler(this.btnLoadHistory_Click);
+            // 
+            // btnGetHistory
+            // 
+            this.btnGetHistory.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnGetHistory.Location = new System.Drawing.Point(31, 59);
+            this.btnGetHistory.Name = "btnGetHistory";
+            this.btnGetHistory.Size = new System.Drawing.Size(75, 26);
+            this.btnGetHistory.TabIndex = 0;
+            this.btnGetHistory.Text = "提取";
+            this.btnGetHistory.UseVisualStyleBackColor = true;
+            this.btnGetHistory.Click += new System.EventHandler(this.btnGetHistory_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.dataGridStatistic);
+            this.panel1.Controls.Add(this.btnStatistic);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1137, 113);
+            this.panel1.TabIndex = 128;
+            // 
+            // dataGridStatistic
+            // 
+            this.dataGridStatistic.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridStatistic.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridStatistic.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colName,
+            this.colPercent});
+            this.dataGridStatistic.Location = new System.Drawing.Point(693, 59);
+            this.dataGridStatistic.Name = "dataGridStatistic";
+            this.dataGridStatistic.RowTemplate.Height = 23;
+            this.dataGridStatistic.Size = new System.Drawing.Size(240, 150);
+            this.dataGridStatistic.TabIndex = 128;
+            this.dataGridStatistic.Visible = false;
+            // 
+            // btnStatistic
+            // 
+            this.btnStatistic.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnStatistic.Location = new System.Drawing.Point(513, 23);
+            this.btnStatistic.Name = "btnStatistic";
+            this.btnStatistic.Size = new System.Drawing.Size(75, 23);
+            this.btnStatistic.TabIndex = 127;
+            this.btnStatistic.Text = "统计";
+            this.btnStatistic.UseVisualStyleBackColor = true;
+            this.btnStatistic.Click += new System.EventHandler(this.btnStatistic_Click);
             // 
             // dataGridHistory
             // 
@@ -553,31 +628,11 @@
             this.dataGridHistory.Size = new System.Drawing.Size(1137, 521);
             this.dataGridHistory.TabIndex = 3;
             // 
-            // btnLoadHistory
-            // 
-            this.btnLoadHistory.Location = new System.Drawing.Point(31, 27);
-            this.btnLoadHistory.Name = "btnLoadHistory";
-            this.btnLoadHistory.Size = new System.Drawing.Size(75, 23);
-            this.btnLoadHistory.TabIndex = 2;
-            this.btnLoadHistory.Text = "显示";
-            this.btnLoadHistory.UseVisualStyleBackColor = true;
-            this.btnLoadHistory.Click += new System.EventHandler(this.btnLoadHistory_Click);
-            // 
-            // btnGetHistory
-            // 
-            this.btnGetHistory.Location = new System.Drawing.Point(31, 75);
-            this.btnGetHistory.Name = "btnGetHistory";
-            this.btnGetHistory.Size = new System.Drawing.Size(75, 23);
-            this.btnGetHistory.TabIndex = 0;
-            this.btnGetHistory.Text = "提取";
-            this.btnGetHistory.UseVisualStyleBackColor = true;
-            this.btnGetHistory.Click += new System.EventHandler(this.btnGetHistory_Click);
-            // 
             // colRoundId
             // 
             this.colRoundId.DataPropertyName = "RoundId";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colRoundId.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colRoundId.DefaultCellStyle = dataGridViewCellStyle3;
             this.colRoundId.HeaderText = "期号";
             this.colRoundId.Name = "colRoundId";
             this.colRoundId.Width = 54;
@@ -585,8 +640,8 @@
             // colColumn
             // 
             this.colColumn.DataPropertyName = "Result";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.colColumn.HeaderText = "竞猜结果";
             this.colColumn.Name = "colColumn";
             this.colColumn.Width = 78;
@@ -636,9 +691,9 @@
             // colOdd
             // 
             this.colOdd.DataPropertyName = "OddStr";
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.colOdd.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.colOdd.DefaultCellStyle = dataGridViewCellStyle5;
             this.colOdd.HeaderText = "单";
             this.colOdd.Name = "colOdd";
             this.colOdd.Width = 42;
@@ -646,9 +701,9 @@
             // colEven
             // 
             this.colEven.DataPropertyName = "EvenStr";
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Navy;
-            this.colEven.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Navy;
+            this.colEven.DefaultCellStyle = dataGridViewCellStyle6;
             this.colEven.HeaderText = "双";
             this.colEven.Name = "colEven";
             this.colEven.Width = 42;
@@ -656,9 +711,9 @@
             // colMiddle
             // 
             this.colMiddle.DataPropertyName = "MiddleStr";
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Red;
-            this.colMiddle.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Red;
+            this.colMiddle.DefaultCellStyle = dataGridViewCellStyle7;
             this.colMiddle.HeaderText = "中";
             this.colMiddle.Name = "colMiddle";
             this.colMiddle.Width = 42;
@@ -666,9 +721,9 @@
             // colEdge
             // 
             this.colEdge.DataPropertyName = "EdgeStr";
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Blue;
-            this.colEdge.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Blue;
+            this.colEdge.DefaultCellStyle = dataGridViewCellStyle8;
             this.colEdge.HeaderText = "边";
             this.colEdge.Name = "colEdge";
             this.colEdge.Width = 42;
@@ -676,9 +731,9 @@
             // colBig
             // 
             this.colBig.DataPropertyName = "BigStr";
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.colBig.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.colBig.DefaultCellStyle = dataGridViewCellStyle9;
             this.colBig.HeaderText = "大";
             this.colBig.Name = "colBig";
             this.colBig.Width = 42;
@@ -686,12 +741,38 @@
             // colSmall
             // 
             this.colSmall.DataPropertyName = "SmallStr";
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Green;
-            this.colSmall.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Green;
+            this.colSmall.DefaultCellStyle = dataGridViewCellStyle10;
             this.colSmall.HeaderText = "小";
             this.colSmall.Name = "colSmall";
             this.colSmall.Width = 42;
+            // 
+            // panelHistory
+            // 
+            this.panelHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelHistory.Location = new System.Drawing.Point(0, 119);
+            this.panelHistory.Name = "panelHistory";
+            this.panelHistory.Size = new System.Drawing.Size(1137, 521);
+            this.panelHistory.TabIndex = 129;
+            // 
+            // colName
+            // 
+            this.colName.DataPropertyName = "Name";
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.colName.DefaultCellStyle = dataGridViewCellStyle1;
+            this.colName.HeaderText = "分组名";
+            this.colName.Name = "colName";
+            // 
+            // colPercent
+            // 
+            this.colPercent.DataPropertyName = "PercentStr";
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.colPercent.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colPercent.HeaderText = "百分比";
+            this.colPercent.Name = "colPercent";
             // 
             // FrmMain
             // 
@@ -710,6 +791,8 @@
             this.tabLog.ResumeLayout(false);
             this.tabHistory.ResumeLayout(false);
             this.tabHistory.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridStatistic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridHistory)).EndInit();
             this.ResumeLayout(false);
 
@@ -774,6 +857,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colEdge;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBig;
         private System.Windows.Forms.DataGridViewTextBoxColumn colSmall;
+        private System.Windows.Forms.Button btnStatistic;
+        private System.Windows.Forms.Panel panelHistory;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridView dataGridStatistic;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colPercent;
 
 
     }
