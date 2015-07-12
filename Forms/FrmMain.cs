@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Game28.DB;
 using Game28.Helper;
 using Game28.Model;
+using Game28.UC;
 
 namespace Game28
 {
@@ -253,19 +254,15 @@ namespace Game28
             }
 
             lblState.Text = "开始下注";
-            Action action = () =>
+            bool isUpload = !isByOss && this.isSupportOssRule;
+            if (isUpload)
             {
-                bool isUpload = !isByOss && this.isSupportOssRule;
-                if (isUpload)
-                {
-                    RuleFileHelper.SaveSpeed28Rule(roundId, values);
-                }
+                RuleFileHelper.SaveSpeed28Rule(roundId, values);
+            }
 
-                ResultCode code = speed28.StartNewRound(roundId, values);
-                if (isUpload && code == ResultCode.Succeed)
-                    OSSHelper.UploadRuleToOSS();
-            };
-            action.BeginInvoke((ar) => action.EndInvoke(ar), null);
+            ResultCode code = speed28.StartNewRound(roundId, values);
+            if (isUpload && code == ResultCode.Succeed)
+                OSSHelper.UploadRuleToOSS();
         }
 
         private int currentRoundid = 0;
@@ -418,11 +415,7 @@ namespace Game28
                     if (isAuto)
                     {
                         lblState.Text = "开始自动投注下期";
-                        Action action = () =>
-                        {
-                            StartRound();
-                        };
-                        this.BeginInvoke(action);
+                        StartRound();
                     }
                     else
                     {
@@ -487,7 +480,7 @@ namespace Game28
                                 }
 
                                 string num = TextHelper.GetSubstringByEnd(cols[2].InnerHtml, "<img src=\"http://image.juxiangyou.com/speed28/num", "o.gif");
-                                lblLastDeal.Text = string.Format("期号:{0} ; 结果:{1} \r\n{2}", cols[0].InnerText,num, cols[5].InnerText.Replace("\r\n", "  "));
+                                lblLastDeal.Text = string.Format("期号:{0} ; 结果:{1} \r\n{2}", cols[0].InnerText, num, cols[5].InnerText.Replace("\r\n", "  "));
                                 GetCurrentBeans();
                                 return roundid;
                             }
@@ -619,6 +612,11 @@ namespace Game28
             lblRows.Text = string.Format("共:{0} 条记录", list.Count);
             dataGridHistory.DataSource = new BindingList<HistoryInfo>(list);
 
+            long sumAmount = list.Sum(item => item.Amount);
+            long sumStake = list.Sum(item => item.Stake);
+            lblSummary.Text = string.Format("总投入:{0},总竞得:{1},总利润:{2}"
+                , sumStake.ToString(UCNum28.NumFormat), sumAmount.ToString(UCNum28.NumFormat)
+                , (sumAmount - sumStake).ToString(UCNum28.NumFormat));
             dataGridHistory.Visible = true;
             dataGridStatistic.Visible = false;
             panelHistory.Controls.Remove(dataGridStatistic);
@@ -760,21 +758,18 @@ namespace Game28
 
             IDictionary<string, StatisticItem> dic = new Dictionary<string, StatisticItem>()
             { 
-                { "单", new StatisticItem("单") } ,{ "单最长连", new StatisticItem("单最长连") } ,
-                { "双", new StatisticItem("双") },{ "双最长连", new StatisticItem("双最长连") } ,
+                { "单", new StatisticItem("单") } ,
+                { "双", new StatisticItem("双") },
                 { "分隔线1", new StatisticItem(string.Empty) },
 
-                { "中", new StatisticItem("中") }, { "中最长连", new StatisticItem("中最长连") },
-                { "边", new StatisticItem("边") }, { "边最长连", new StatisticItem("边最长连") },
+                { "中", new StatisticItem("中") }, 
+                { "边", new StatisticItem("边") }, 
                 { "分隔线2", new StatisticItem(string.Empty) },
 
-                { "大", new StatisticItem("大")}, { "大最长连", new StatisticItem("大最长连") },
-                { "小", new StatisticItem("小")}, { "小最长连", new StatisticItem("小最长连") },
+                { "大", new StatisticItem("大")}, 
+                { "小", new StatisticItem("小")}, 
                 { "分隔线3", new StatisticItem(string.Empty) }, 
             };
-
-            string lastMax = string.Empty;
-            int oddMax = 0, evenMax = 0, midMax = 0, edgeMax = 0, bigMax = 0, smallMax = 0;
 
             for (int i = 0; i < count; i++)
             {
@@ -782,41 +777,110 @@ namespace Game28
                 if (item.Result % 2 == 1)
                 {
                     dic["单"].Count++;
-                    oddMax++;
                 }
                 else
                 {
                     dic["双"].Count++;
-                    evenMax++;
                 }
 
                 if (item.Result >= 10 && item.Result <= 17)
                 {
                     dic["中"].Count++;
-                    midMax++;
                 }
                 else
                 {
                     dic["边"].Count++;
-                    edgeMax++;
                 }
 
                 if (item.Result >= 14)
                 {
                     dic["大"].Count++;
-                    bigMax++;
                 }
                 else
                 {
                     dic["小"].Count++;
-                    smallMax++;
                 }
             }
-
             foreach (var item in dic.Values)
             {
                 item.Percent = Math.Round(item.Count * 1.0 / count, 2);
             }
+
+            int maxOdd = 0, maxEven = 0, maxMid = 0, maxEdge = 0, maxBig = 0, maxSmall = 0;
+            int countOdd = 0, countEven = 0, countMid = 0, countEdge = 0, countBig = 0, countSmall = 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                int num = list[i].Result;
+                if (num % 2 == 1)
+                {
+                    if (countEven > maxEven)
+                    {
+                        maxEven = countEven;
+                    }
+                    countEven = 0;
+                    countOdd++;
+                }
+                else
+                {
+                    if (countOdd > maxOdd)
+                    {
+                        maxOdd = countOdd;
+                    }
+
+                    countOdd = 0;
+                    countEven++;
+                }
+
+                if (num >= 10 && num <= 17)
+                {
+                    if (countEdge > maxEdge)
+                    {
+                        maxEdge = countEdge;
+                        countEdge = 0;
+                    }
+                    countMid++;
+                }
+                else
+                {
+                    if (countMid > maxMid)
+                    {
+                        maxMid = countMid;
+                    }
+
+                    countMid = 0;
+                    countEdge++;
+                }
+
+                if (num >= 14)
+                {
+                    if (countSmall > maxSmall)
+                    {
+                        maxSmall = countSmall;
+                    }
+
+                    countSmall = 0;
+                    countBig++;
+                }
+                else
+                {
+                    if (countBig > maxBig)
+                    {
+                        maxBig = countBig;
+                    }
+
+                    countBig = 0;
+                    countSmall++;
+                }
+            }
+
+            dic["最长连单"] = new StatisticItem("最长连 单",false) { Count = maxOdd };
+            dic["最长连双"] = new StatisticItem("最长连 双", false) { Count = maxEven };
+            dic["最长连中"] = new StatisticItem("最长连 中", false) { Count = maxMid };
+            dic["最长连边"] = new StatisticItem("最长连 边", false) { Count = maxEdge };
+            dic["最长连大"] = new StatisticItem("最长连 大", false) { Count = maxBig };
+            dic["最长连小"] = new StatisticItem("最长连 小", false) { Count = maxSmall };
+
 
             IList<StatisticItem> result = dic.Values.ToList();
             dataGridStatistic.DataSource = new BindingList<StatisticItem>(result);

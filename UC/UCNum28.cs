@@ -17,7 +17,7 @@ namespace Game28.UC
             };
         }
 
-        const string NumFormat = "N0";
+        public const string NumFormat = "N0";
         const int rangeMin = 0, rangeMax = 27;
         IDictionary<int, Tuple<TextBox, int, CheckBox>> allNumCtlDic = new Dictionary<int, Tuple<TextBox, int, CheckBox>>();
 
@@ -187,7 +187,7 @@ namespace Game28.UC
             int totalSum = 0;
             foreach (var key in allNumCtlDic.Keys)
             {
-                if ((key >= 0 && key <= 9)|| key>=18)
+                if ((key >= 0 && key <= 9) || key >= 18)
                 {
                     var tuple = allNumCtlDic[key];
                     totalSum += tuple.Item2;

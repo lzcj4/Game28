@@ -28,16 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabSetting = new System.Windows.Forms.TabPage();
             this.panelParams = new System.Windows.Forms.Panel();
@@ -82,6 +84,9 @@
             this.btnGetHistory = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridStatistic = new System.Windows.Forms.DataGridView();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnStatistic = new System.Windows.Forms.Button();
             this.dataGridHistory = new System.Windows.Forms.DataGridView();
             this.colRoundId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -99,8 +104,7 @@
             this.colBig = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSmall = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelHistory = new System.Windows.Forms.Panel();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblSummary = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabSetting.SuspendLayout();
             this.panelParams.SuspendLayout();
@@ -565,6 +569,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblSummary);
             this.panel1.Controls.Add(this.dataGridStatistic);
             this.panel1.Controls.Add(this.btnStatistic);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -581,6 +586,7 @@
             this.dataGridStatistic.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridStatistic.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colName,
+            this.colCount,
             this.colPercent});
             this.dataGridStatistic.Location = new System.Drawing.Point(693, 59);
             this.dataGridStatistic.Name = "dataGridStatistic";
@@ -588,6 +594,30 @@
             this.dataGridStatistic.Size = new System.Drawing.Size(240, 150);
             this.dataGridStatistic.TabIndex = 128;
             this.dataGridStatistic.Visible = false;
+            // 
+            // colName
+            // 
+            this.colName.DataPropertyName = "Name";
+            dataGridViewCellStyle37.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.colName.DefaultCellStyle = dataGridViewCellStyle37;
+            this.colName.HeaderText = "分组名";
+            this.colName.Name = "colName";
+            // 
+            // colCount
+            // 
+            this.colCount.DataPropertyName = "Count";
+            dataGridViewCellStyle38.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.colCount.DefaultCellStyle = dataGridViewCellStyle38;
+            this.colCount.HeaderText = "数量";
+            this.colCount.Name = "colCount";
+            // 
+            // colPercent
+            // 
+            this.colPercent.DataPropertyName = "PercentStr";
+            dataGridViewCellStyle39.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.colPercent.DefaultCellStyle = dataGridViewCellStyle39;
+            this.colPercent.HeaderText = "百分比";
+            this.colPercent.Name = "colPercent";
             // 
             // btnStatistic
             // 
@@ -631,8 +661,8 @@
             // colRoundId
             // 
             this.colRoundId.DataPropertyName = "RoundId";
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colRoundId.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle40.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colRoundId.DefaultCellStyle = dataGridViewCellStyle40;
             this.colRoundId.HeaderText = "期号";
             this.colRoundId.Name = "colRoundId";
             this.colRoundId.Width = 54;
@@ -640,8 +670,8 @@
             // colColumn
             // 
             this.colColumn.DataPropertyName = "Result";
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle41.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colColumn.DefaultCellStyle = dataGridViewCellStyle41;
             this.colColumn.HeaderText = "竞猜结果";
             this.colColumn.Name = "colColumn";
             this.colColumn.Width = 78;
@@ -663,6 +693,9 @@
             // colWinAmount
             // 
             this.colWinAmount.DataPropertyName = "WinAmountStr";
+            dataGridViewCellStyle42.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle42.ForeColor = System.Drawing.Color.Red;
+            this.colWinAmount.DefaultCellStyle = dataGridViewCellStyle42;
             this.colWinAmount.HeaderText = "净赚U豆";
             this.colWinAmount.Name = "colWinAmount";
             this.colWinAmount.Width = 72;
@@ -691,9 +724,9 @@
             // colOdd
             // 
             this.colOdd.DataPropertyName = "OddStr";
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.colOdd.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle43.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.colOdd.DefaultCellStyle = dataGridViewCellStyle43;
             this.colOdd.HeaderText = "单";
             this.colOdd.Name = "colOdd";
             this.colOdd.Width = 42;
@@ -701,9 +734,9 @@
             // colEven
             // 
             this.colEven.DataPropertyName = "EvenStr";
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Navy;
-            this.colEven.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle44.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle44.ForeColor = System.Drawing.Color.Navy;
+            this.colEven.DefaultCellStyle = dataGridViewCellStyle44;
             this.colEven.HeaderText = "双";
             this.colEven.Name = "colEven";
             this.colEven.Width = 42;
@@ -711,9 +744,9 @@
             // colMiddle
             // 
             this.colMiddle.DataPropertyName = "MiddleStr";
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Red;
-            this.colMiddle.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle45.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle45.ForeColor = System.Drawing.Color.Red;
+            this.colMiddle.DefaultCellStyle = dataGridViewCellStyle45;
             this.colMiddle.HeaderText = "中";
             this.colMiddle.Name = "colMiddle";
             this.colMiddle.Width = 42;
@@ -721,9 +754,9 @@
             // colEdge
             // 
             this.colEdge.DataPropertyName = "EdgeStr";
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Blue;
-            this.colEdge.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle46.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle46.ForeColor = System.Drawing.Color.Blue;
+            this.colEdge.DefaultCellStyle = dataGridViewCellStyle46;
             this.colEdge.HeaderText = "边";
             this.colEdge.Name = "colEdge";
             this.colEdge.Width = 42;
@@ -731,9 +764,9 @@
             // colBig
             // 
             this.colBig.DataPropertyName = "BigStr";
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.colBig.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle47.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle47.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.colBig.DefaultCellStyle = dataGridViewCellStyle47;
             this.colBig.HeaderText = "大";
             this.colBig.Name = "colBig";
             this.colBig.Width = 42;
@@ -741,9 +774,9 @@
             // colSmall
             // 
             this.colSmall.DataPropertyName = "SmallStr";
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Green;
-            this.colSmall.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle48.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle48.ForeColor = System.Drawing.Color.Green;
+            this.colSmall.DefaultCellStyle = dataGridViewCellStyle48;
             this.colSmall.HeaderText = "小";
             this.colSmall.Name = "colSmall";
             this.colSmall.Width = 42;
@@ -758,21 +791,16 @@
             this.panelHistory.Size = new System.Drawing.Size(1137, 521);
             this.panelHistory.TabIndex = 129;
             // 
-            // colName
+            // lblSummary
             // 
-            this.colName.DataPropertyName = "Name";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.colName.DefaultCellStyle = dataGridViewCellStyle1;
-            this.colName.HeaderText = "分组名";
-            this.colName.Name = "colName";
-            // 
-            // colPercent
-            // 
-            this.colPercent.DataPropertyName = "PercentStr";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.colPercent.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colPercent.HeaderText = "百分比";
-            this.colPercent.Name = "colPercent";
+            this.lblSummary.AutoSize = true;
+            this.lblSummary.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblSummary.ForeColor = System.Drawing.Color.Red;
+            this.lblSummary.Location = new System.Drawing.Point(37, 88);
+            this.lblSummary.Name = "lblSummary";
+            this.lblSummary.Size = new System.Drawing.Size(40, 16);
+            this.lblSummary.TabIndex = 129;
+            this.lblSummary.Text = "空白";
             // 
             // FrmMain
             // 
@@ -792,6 +820,7 @@
             this.tabHistory.ResumeLayout(false);
             this.tabHistory.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStatistic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridHistory)).EndInit();
             this.ResumeLayout(false);
@@ -843,6 +872,13 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblRows;
         private UC.UCNum28 ucNum28;
+        private System.Windows.Forms.Button btnStatistic;
+        private System.Windows.Forms.Panel panelHistory;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridView dataGridStatistic;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colPercent;
         private System.Windows.Forms.DataGridViewTextBoxColumn colRoundId;
         private System.Windows.Forms.DataGridViewTextBoxColumn colColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStake;
@@ -857,12 +893,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colEdge;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBig;
         private System.Windows.Forms.DataGridViewTextBoxColumn colSmall;
-        private System.Windows.Forms.Button btnStatistic;
-        private System.Windows.Forms.Panel panelHistory;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridView dataGridStatistic;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colPercent;
+        private System.Windows.Forms.Label lblSummary;
 
 
     }
