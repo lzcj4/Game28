@@ -228,6 +228,7 @@ namespace Game28
             {
                 lblState.Text = string.Format("当前:{0}已经过期，新一轮为:{1}", roundId, newRoundID);
                 txtRoundId.Text = newRoundID;
+                txtRoundId.ForeColor = Color.Red;
                 return;
             }
 
@@ -747,14 +748,14 @@ namespace Game28
 
         private void btnStatistic_Click(object sender, EventArgs e)
         {
-            var list = GetRows();
+            IList<HistoryInfo> list = GetRows();
             if (list == null || list.Count == 0)
             {
                 return;
             }
 
-            int count = list.Count;
-            lblRows.Text = string.Format("共:{0} 条记录", count);
+            int listCount = list.Count;
+            lblRows.Text = string.Format("共:{0} 条记录", listCount);
 
             IDictionary<string, StatisticItem> dic = new Dictionary<string, StatisticItem>()
             { 
@@ -771,7 +772,7 @@ namespace Game28
                 { "分隔线3", new StatisticItem(string.Empty) }, 
             };
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < listCount; i++)
             {
                 HistoryInfo item = list[i];
                 if (item.Result % 2 == 1)
@@ -803,81 +804,23 @@ namespace Game28
             }
             foreach (var item in dic.Values)
             {
-                item.Percent = Math.Round(item.Count * 1.0 / count, 2);
+                item.Percent = Math.Round(item.Count * 1.0 / listCount, 2);
             }
 
-            int maxOdd = 0, maxEven = 0, maxMid = 0, maxEdge = 0, maxBig = 0, maxSmall = 0;
-            int countOdd = 0, countEven = 0, countMid = 0, countEdge = 0, countBig = 0, countSmall = 0;
+            int mostOdd = this.AddStatistic(list, dic, (num) => { return num % 2 == 1; }, "最长连 单");
+            int mostEven = this.AddStatistic(list, dic, (num) => { return num % 2 == 0; }, "最长连 双");
+            int mostMid = this.AddStatistic(list, dic, (num) => { return num >= 10 && num <= 17; }, "最长连 中");
+            int mostEdeg = this.AddStatistic(list, dic, (num) => { return num < 10 || num > 17; }, "最长连 边");
+            int mostBig = this.AddStatistic(list, dic, (num) => { return num >= 14; }, "最长连 大");
+            int mostSmal = this.AddStatistic(list, dic, (num) => { return num < 14; }, "最长连 小");
 
-            for (int i = 0; i < count; i++)
-            {
-                int num = list[i].Result;
-                if (num % 2 == 1)
-                {
-                    if (countEven > maxEven)
-                    {
-                        maxEven = countEven;
-                    }
-                    countEven = 0;
-                    countOdd++;
-                }
-                else
-                {
-                    if (countOdd > maxOdd)
-                    {
-                        maxOdd = countOdd;
-                    }
-
-                    countOdd = 0;
-                    countEven++;
-                }
-
-                if (num >= 10 && num <= 17)
-                {
-                    if (countEdge > maxEdge)
-                    {
-                        maxEdge = countEdge;
-                    }
-                    countEdge = 0;
-                    countMid++;
-                }
-                else
-                {
-                    if (countMid > maxMid)
-                    {
-                        maxMid = countMid;
-                    }
-                    countMid = 0;
-                    countEdge++;
-                }
-
-                if (num >= 14)
-                {
-                    if (countSmall > maxSmall)
-                    {
-                        maxSmall = countSmall;
-                    }
-                    countSmall = 0;
-                    countBig++;
-                }
-                else
-                {
-                    if (countBig > maxBig)
-                    {
-                        maxBig = countBig;
-                    }
-                    countBig = 0;
-                    countSmall++;
-                }
-            }
-
-            dic["最长连单"] = new StatisticItem("最长连 单",false) { Count = maxOdd };
-            dic["最长连双"] = new StatisticItem("最长连 双", false) { Count = maxEven };
-            dic["最长连中"] = new StatisticItem("最长连 中", false) { Count = maxMid };
-            dic["最长连边"] = new StatisticItem("最长连 边", false) { Count = maxEdge };
-            dic["最长连大"] = new StatisticItem("最长连 大", false) { Count = maxBig };
-            dic["最长连小"] = new StatisticItem("最长连 小", false) { Count = maxSmall };
-
+            dic["长_多分隔"] = new StatisticItem(string.Empty, false);
+            dic["连的总次数 单"] = new StatisticItem("连的总次数 单", false) { Count = mostOdd };
+            dic["连的总次数 双"] = new StatisticItem("连的总次数 双", false) { Count = mostEven };
+            dic["连的总次数 中"] = new StatisticItem("连的总次数 中", false) { Count = mostMid };
+            dic["连的总次数 边"] = new StatisticItem("连的总次数 边", false) { Count = mostEdeg };
+            dic["连的总次数 大"] = new StatisticItem("连的总次数 大", false) { Count = mostBig };
+            dic["连的总次数 小"] = new StatisticItem("连的总次数 小", false) { Count = mostSmal };
 
             IList<StatisticItem> result = dic.Values.ToList();
             dataGridStatistic.DataSource = new BindingList<StatisticItem>(result);
@@ -887,6 +830,44 @@ namespace Game28
             dataGridStatistic.Dock = DockStyle.Fill;
             panelHistory.Controls.Remove(dataGridHistory);
             panelHistory.Controls.Add(dataGridStatistic);
+        }
+
+        private int AddStatistic(IList<HistoryInfo> list, IDictionary<string, StatisticItem> dic,
+                                  Func<int, bool> func, string maxTypeName)
+        {
+            if (list == null || dic == null || func == null || string.IsNullOrEmpty(maxTypeName))
+            {
+                return 0;
+            }
+
+            int count = 0, maxCount = 0, mostCount = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (func(list[i].Result))
+                {
+                    count++;
+                    if (count > 1)
+                    {
+                        if (i == list.Count - 1)
+                        {
+                            mostCount++;
+                        }
+                        if (count > maxCount)
+                            maxCount = count;
+                    }
+                }
+                else
+                {
+                    if (count > 1)
+                    {
+                        mostCount++;
+                    }
+                    count = 0;
+                }
+            }
+
+            dic[maxTypeName] = new StatisticItem(maxTypeName, false) { Count = maxCount };
+            return mostCount;
         }
 
         #endregion
