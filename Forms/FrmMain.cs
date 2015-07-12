@@ -837,8 +837,8 @@ namespace Game28
                     if (countEdge > maxEdge)
                     {
                         maxEdge = countEdge;
-                        countEdge = 0;
                     }
+                    countEdge = 0;
                     countMid++;
                 }
                 else
@@ -847,7 +847,6 @@ namespace Game28
                     {
                         maxMid = countMid;
                     }
-
                     countMid = 0;
                     countEdge++;
                 }
@@ -858,7 +857,6 @@ namespace Game28
                     {
                         maxSmall = countSmall;
                     }
-
                     countSmall = 0;
                     countBig++;
                 }
@@ -868,7 +866,6 @@ namespace Game28
                     {
                         maxBig = countBig;
                     }
-
                     countBig = 0;
                     countSmall++;
                 }
