@@ -770,6 +770,9 @@ namespace Game28
                 { "大", new StatisticItem("大")}, 
                 { "小", new StatisticItem("小")}, 
                 { "分隔线3", new StatisticItem(string.Empty) }, 
+
+                { "梅", new StatisticItem("梅")}, 
+                { "分隔线4", new StatisticItem(string.Empty) }, 
             };
 
             for (int i = 0; i < listCount; i++)
@@ -801,7 +804,12 @@ namespace Game28
                 {
                     dic["小"].Count++;
                 }
+                if (item.Result >= 13 && item.Result <= 15)
+                {
+                    dic["梅"].Count++;
+                }
             }
+
             foreach (var item in dic.Values)
             {
                 item.Percent = Math.Round(item.Count * 1.0 / listCount, 2);

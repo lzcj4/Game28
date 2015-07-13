@@ -89,6 +89,13 @@ namespace Game28.Model
             }
         }
 
+        public string MeiStr
+        {
+            get
+            {
+                return (Result >=13 &&Result<=15) ? "梅" : string.Empty;
+            }
+        }
 
         public override string ToString()
         {
