@@ -255,15 +255,19 @@ namespace Game28
             }
 
             lblState.Text = "开始下注";
-            bool isUpload = !isByOss && this.isSupportOssRule;
-            if (isUpload)
+            Action action = new Action(() =>
             {
-                RuleFileHelper.SaveSpeed28Rule(roundId, values);
-            }
+                bool isUpload = !isByOss && this.isSupportOssRule;
+                if (isUpload)
+                {
+                    RuleFileHelper.SaveSpeed28Rule(roundId, values);
+                }
 
-            ResultCode code = speed28.StartNewRound(roundId, values);
-            if (isUpload && code == ResultCode.Succeed)
-                OSSHelper.UploadRuleToOSS();
+                ResultCode code = speed28.StartNewRound(roundId, values);
+                if (isUpload && code == ResultCode.Succeed)
+                    OSSHelper.UploadRuleToOSS();
+            });
+            action.BeginInvoke((ar) => { action.EndInvoke(ar); }, action);
         }
 
         private int currentRoundid = 0;
