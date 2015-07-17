@@ -59,6 +59,7 @@
     <Compile Include="Forms\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\CloudDBTool.cs" />
     <Compile Include="Helper\HistoryParser.cs" />
     <Compile Include="Helper\OSSHelper.cs" />
     <Compile Include="Model\HistoryInfo.cs" />

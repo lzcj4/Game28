@@ -30,20 +30,54 @@ namespace Game28
         public static void UploadRuleToOSS()
         {
             Stream fs = RuleFileHelper.GetSpeed28RuleFileStream();
+            Upload(fs, "speed28rule");
+        }
+
+        public static bool Upload(Stream stream, string name)
+        {
             var metadata = new ObjectMetadata();
-            metadata.UserMetadata.Add("speed28rule", "test");
+            metadata.UserMetadata.Add("name", name);
             metadata.CacheControl = "No-Cache";
-            metadata.ContentLength = fs.Length;
+            metadata.ContentLength = stream.Length;
+            bool result = false;
             try
             {
-                using (fs)
+                using (stream)
                 {
-                    var result = ossClient.PutObject(bucket, RuleFileHelper.Speed28RuleFile, fs, metadata);
+                    var obj = ossClient.PutObject(bucket, name, stream, metadata);
+                    result = obj != null;
                 }
             }
             catch (Exception)
             {
             }
+            return result;
+        }
+
+        public static Stream Download(string cloudName)
+        {
+            GetObjectRequest req = new GetObjectRequest(bucket, cloudName);
+            OssObject obj = ossClient.GetObject(req);
+
+            Stream result = null;
+            if (obj != null)
+            {
+                result = obj.Content;
+            }
+            return result;
+        }
+
+
+        public static void UploadFile(string path, string newName)
+        {
+            if (string.IsNullOrEmpty(path) || !File.Exists(path) || string.IsNullOrEmpty(newName))
+            {
+                throw new ArgumentNullException();
+            }
+
+            FileStream stream = new FileStream(path, FileMode.Open);
+            Upload(stream, newName);
+
         }
 
         public static Rule GetRuleFromOss()

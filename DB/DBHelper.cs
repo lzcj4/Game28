@@ -12,7 +12,7 @@ namespace Game28.DB
 {
     public class DBHelper : IDisposable
     {
-        const string DBName = @"DB\DB.db3";
+        public const string DBName = @"DB\DB.db3";
         SQLiteConnection sqlCon = null;
         string createTableSql = @"CREATE TABLE IF NOT EXISTS  HISTORY (id integer primary key AUTOINCREMENT,
                                                         roundid varchar(20),
@@ -41,8 +41,17 @@ namespace Game28.DB
 
         private DBHelper()
         {
-            string appPath = AppDomain.CurrentDomain.BaseDirectory;
-            string dbPath = Path.Combine(appPath, DBName);
+            string dbPath = GetDBPath(DBName);
+            LoadDB(dbPath);
+        }
+
+        public DBHelper(string dbPath)
+        {
+            LoadDB(dbPath);
+        }
+
+        private void LoadDB(string dbPath)
+        {
             if (File.Exists(dbPath))
             {
                 string connectionString = string.Format("data source={0}", dbPath);
@@ -50,9 +59,16 @@ namespace Game28.DB
                 sqlCon.Open();
                 if (IsSqlConOpened)
                 {
-                    allRoundIdList = GetAllRoundId();
+                    allRoundIdList = GetAllRoundId(CacheCapacity);
                 }
             }
+        }
+
+        public static string GetDBPath(string dbName)
+        {
+            string appPath = AppDomain.CurrentDomain.BaseDirectory;
+            string dbPath = Path.Combine(appPath, dbName);
+            return dbPath;
         }
 
         private bool IsSqlConOpened
@@ -162,6 +178,34 @@ namespace Game28.DB
             return result;
         }
 
+        public IList<HistoryInfo> GetByRows(string where)
+        {
+            IList<HistoryInfo> result = new List<HistoryInfo>();
+
+            string sql = string.Format("select * from history {0} order by RoundId desc", where);
+
+            using (SQLiteCommand cmd = new SQLiteCommand(sql, sqlCon))
+            {
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        HistoryInfo item = new HistoryInfo();
+                        item.RoundId = reader["RoundId"].ToString();
+                        item.Result = int.Parse(reader["Result"].ToString());
+                        item.Stake = long.Parse(reader["Stake"].ToString());
+                        item.Amount = long.Parse(reader["Amount"].ToString());
+                        item.Date = reader["Date"].ToString();
+                        item.TotalAmount = long.Parse(reader["totalamount"].ToString());
+                        item.WinnerNum = int.Parse(reader["winnernum"].ToString());
+                        result.Add(item);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         public bool IsContainRoundId(string roundId)
         {
             bool result = false;
@@ -189,11 +233,18 @@ namespace Game28.DB
             return result;
         }
 
-        public IList<string> GetAllRoundId()
+        public IList<string> GetAllRoundId(int count = 0)
         {
             IList<string> result = new List<string>();
 
-            using (SQLiteCommand cmd = new SQLiteCommand(string.Format("select RoundId from history order by RoundId desc limit {0}", CacheCapacity), sqlCon))
+            string sql = "select RoundId from history order by RoundId desc";
+            if (count > 0)
+            {
+                sql = string.Format("{0} limit {1}", sql, count);
+            }
+
+
+            using (SQLiteCommand cmd = new SQLiteCommand(sql, sqlCon))
             {
                 using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {

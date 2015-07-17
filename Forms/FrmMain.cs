@@ -882,6 +882,34 @@ namespace Game28
             return mostCount;
         }
 
+        CloudDBTool cloudTool = new CloudDBTool();
+        private void btnBackup_Click(object sender, EventArgs e)
+        {
+            string name = GetCloudDBName();
+            if (!string.IsNullOrEmpty(name))
+                cloudTool.Bakcup(name);
+        }
+
+        private string GetCloudDBName()
+        {
+            string result = string.Empty;
+            string user = txtUser.Text;
+            if (string.IsNullOrEmpty(user))
+            {
+                MessageBox.Show("当前用户名不能为空");
+                return result;
+            }
+            result = user.Split('@')[0] + ".db";
+            return result;
+        }
+
+        private void btnRestore_Click(object sender, EventArgs e)
+        {
+            string name = GetCloudDBName();
+            if (!string.IsNullOrEmpty(name))
+                cloudTool.Restore(name);
+        }
+
         #endregion
 
 
