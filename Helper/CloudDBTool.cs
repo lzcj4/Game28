@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Game28.DB;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Game28.Helper
 {
@@ -17,13 +18,23 @@ namespace Game28.Helper
         {
             string dbPath = DBHelper.GetDBPath(DBHelper.DBName);
 
-            Action action = new Action(() => { OSSHelper.UploadFile(dbPath, cloudName); });
+            Action action = new Action(() =>
+            {
+                OSSHelper.UploadFile(dbPath, cloudName);
+                MessageBox.Show("云备份成功");
+            });
             action.BeginInvoke((ar) => action.EndInvoke(ar), action);
         }
 
         public void Restore(string cloudName)
         {
-
+            Action action = new Action(() =>
+            {
+                DownloadFromCloud(cloudName);
+                MergeDB(cloudName);
+                MessageBox.Show("云还原成功");
+            });
+            action.BeginInvoke((ar) => action.EndInvoke(ar), action);
         }
 
         private void DownloadFromCloud(string cloudName)
@@ -55,12 +66,16 @@ namespace Game28.Helper
             string localPath = DBHelper.GetDBPath(cloudName);
             DBHelper cloudDB = new DBHelper(cloudName);
             DBHelper localDb = DBHelper.Instance;
-            string maxId = localDb.GetMaxRoundId();
-            var result = cloudDB.GetByRows(string.Format(" where roundid>'{0}'", maxId));
-            if (result.Count > 0)
+            var result = cloudDB.GetByRows();
+            using (cloudDB)
             {
-                localDb.InsertHistory(result);
+                if (result.Count > 0)
+                {
+                    localDb.Replace(result);
+                }
             }
+
+            File.Delete(localPath);
         }
     }
 }

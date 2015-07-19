@@ -103,15 +103,83 @@ namespace Game28.DB
                                               item.RoundId, item.Result, item.Stake, item.Amount,
                                               item.Date, item.TotalAmount, item.WinnerNum);
                     sb.AppendLine(sql);
-                    count++;
+                    if (count++ % chunk == 0)
+                    {
+                        RunSql(sb.ToString());
+                        sb.Clear();
+                        Debug.WriteLine(string.Format("/--- Current insert num:{0} ---/", count));
+                    }
                 }
-                RunSql(sb.ToString());
+
+                if (sb.Length > 0)
+                    RunSql(sb.ToString());
 
                 Debug.WriteLine(string.Format("/--- All history num:{0}, actual insert num:{1} ---/", list.Count, count));
             }
             return false;
         }
 
+
+        private const int chunk = 50;
+        public bool Replace(IList<HistoryInfo> list)
+        {
+            if (list == null || list.Count == 0)
+            {
+                return false;
+            }
+
+            if (IsSqlConOpened)
+            {
+                StringBuilder sb = new StringBuilder();
+                int count = 0;
+                foreach (var item in list)
+                {
+                    if (IsContainRoundId(item.RoundId))
+                    {
+                        continue;
+                    }
+                    AddRoundIdToCache(item.RoundId);
+                    string sql = string.Format(" replace into History (RoundId,Result,Stake,Amount,date,totalamount,winnernum)" +
+                                               " values (\'{0}\',{1},{2},{3},\'{4}\',{5},{6}); ",
+                                              item.RoundId, item.Result, item.Stake, item.Amount,
+                                              item.Date, item.TotalAmount, item.WinnerNum);
+                    sb.AppendLine(sql);
+                    if (count++ % chunk == 0)
+                    {
+                        RunSql(sb.ToString());
+                        sb.Clear();
+                        Debug.WriteLine(string.Format("/--- Current replace num:{0} ---/",count));
+                    }
+                }
+
+                if (sb.Length > 0)
+                    RunSql(sb.ToString());
+
+                Debug.WriteLine(string.Format("/--- All history num:{0}, actual insert num:{1} ---/", list.Count, count));
+            }
+            return false;
+        }
+
+        public bool Replace(HistoryInfo item)
+        {
+            int i = 0;
+            if (IsSqlConOpened && item != null && !IsContainRoundId(item.RoundId))
+            {
+                string sql = string.Format(" replace into History (RoundId,Result,Stake,Amount,date,totalamount,winnernum)" +
+                                           " values (\'{0}\',{1},{2},{3},\'{4}\',{5},{6}) ",
+                                          item.RoundId, item.Result, item.Stake, item.Amount,
+                                          item.Date, item.TotalAmount, item.WinnerNum);
+                i++;
+                AddRoundIdToCache(item.RoundId);
+                if (!string.IsNullOrEmpty(sql))
+                {
+                    return RunSql(sql);
+                }
+            }
+
+            Debug.WriteLine(string.Format("/--- All history num:{0}, actual replace num:{1} ---/", 1, i));
+            return false;
+        }
         public bool InsertHistory(HistoryInfo item)
         {
             int i = 0;

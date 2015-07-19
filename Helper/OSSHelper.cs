@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Game28.DB;
 
 namespace Game28
 {
@@ -75,8 +76,18 @@ namespace Game28
                 throw new ArgumentNullException();
             }
 
-            FileStream stream = new FileStream(path, FileMode.Open);
-            Upload(stream, newName);
+            string newPath = DBHelper.GetDBPath(newName);
+            if (File.Exists(newPath))
+            {
+                File.Delete(newPath);
+            }
+            File.Copy(path, newPath);
+
+            if (File.Exists(newPath))
+            {
+                FileStream stream = new FileStream(newPath, FileMode.Open, FileAccess.Read);
+                Upload(stream, newName);
+            }
 
         }
 
