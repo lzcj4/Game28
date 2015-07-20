@@ -13,15 +13,16 @@ namespace Game28.Helper
     /// </summary>
     class CloudDBTool
     {
-
         public void Bakcup(string cloudName)
         {
             string dbPath = DBHelper.GetDBPath(DBHelper.DBName);
 
             Action action = new Action(() =>
             {
-                OSSHelper.UploadFile(dbPath, cloudName);
-                MessageBox.Show("云备份成功");
+                if (OSSHelper.UploadFile(dbPath, cloudName))
+                {
+                    MessageBox.Show("云备份成功");
+                }
             });
             action.BeginInvoke((ar) => action.EndInvoke(ar), action);
         }
@@ -30,15 +31,18 @@ namespace Game28.Helper
         {
             Action action = new Action(() =>
             {
-                DownloadFromCloud(cloudName);
-                MergeDB(cloudName);
-                MessageBox.Show("云还原成功");
+                if (DownloadFromCloud(cloudName))
+                {
+                    MergeDB(cloudName);
+                    MessageBox.Show("云还原成功");
+                }
             });
             action.BeginInvoke((ar) => action.EndInvoke(ar), action);
         }
 
-        private void DownloadFromCloud(string cloudName)
+        private bool DownloadFromCloud(string cloudName)
         {
+            bool result = false;
             Stream stream = OSSHelper.Download(cloudName);
 
             string localPath = DBHelper.GetDBPath(cloudName);
@@ -56,26 +60,31 @@ namespace Game28.Helper
                     while ((len = stream.Read(buffer, 0, 1024)) > 0)
                     {
                         fs.Write(buffer, 0, len);
+
+                        result = true;
                     }
                 }
             }
+            return result;
         }
 
-        private void MergeDB(string cloudName)
+        private bool MergeDB(string cloudName)
         {
+            bool result = false;
             string localPath = DBHelper.GetDBPath(cloudName);
             DBHelper cloudDB = new DBHelper(cloudName);
             DBHelper localDb = DBHelper.Instance;
-            var result = cloudDB.GetByRows();
+            var rows = cloudDB.GetByRows();
             using (cloudDB)
             {
-                if (result.Count > 0)
+                if (rows.Count > 0)
                 {
-                    localDb.Replace(result);
+                    result = localDb.Replace(rows);
                 }
             }
 
             File.Delete(localPath);
+            return result;
         }
     }
 }

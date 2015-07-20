@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Game28.DB;
+using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Game28
 {
@@ -43,39 +45,51 @@ namespace Game28
             bool result = false;
             try
             {
+                Debug.WriteLine(string.Format("/----- start upload:{0} to cloud-----/", name));
                 using (stream)
                 {
                     var obj = ossClient.PutObject(bucket, name, stream, metadata);
                     result = obj != null;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                MessageBox.Show(string.Format("备份失败:{0}", ex.Message));
             }
             return result;
         }
 
         public static Stream Download(string cloudName)
         {
-            GetObjectRequest req = new GetObjectRequest(bucket, cloudName);
-            OssObject obj = ossClient.GetObject(req);
-
-            Stream result = null;
-            if (obj != null)
+            try
             {
-                result = obj.Content;
+                Debug.WriteLine(string.Format("/----- start download:{0} from cloud-----/", cloudName));
+                GetObjectRequest req = new GetObjectRequest(bucket, cloudName);
+                OssObject obj = ossClient.GetObject(req);
+
+                Stream result = null;
+                if (obj != null)
+                {
+                    result = obj.Content;
+                }
+                return result;
             }
-            return result;
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("还原失败:{0}", ex.Message));
+            }
+            return null;
         }
 
 
-        public static void UploadFile(string path, string newName)
+        public static bool UploadFile(string path, string newName)
         {
             if (string.IsNullOrEmpty(path) || !File.Exists(path) || string.IsNullOrEmpty(newName))
             {
                 throw new ArgumentNullException();
             }
 
+            bool result = false;
             string newPath = DBHelper.GetDBPath(newName);
             if (File.Exists(newPath))
             {
@@ -86,8 +100,9 @@ namespace Game28
             if (File.Exists(newPath))
             {
                 FileStream stream = new FileStream(newPath, FileMode.Open, FileAccess.Read);
-                Upload(stream, newName);
+                result = Upload(stream, newName);
             }
+            return result;
 
         }
 
