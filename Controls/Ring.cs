@@ -27,7 +27,7 @@ namespace Game28.Controls
             Pen penG = new Pen(Brushes.Green);
             Pen penB = new Pen(Brushes.Blue);
 
-            graphic.DrawEllipse(penR, centerPoint.X - 10 - outerWidth / 2, centerPoint.Y - 10 - outerWidth / 2, outerWidth, outerWidth);
+            graphic.DrawEllipse(penR, centerPoint.X - outerWidth / 2, centerPoint.Y - outerWidth / 2, outerWidth, outerWidth);
             graphic.DrawEllipse(penB, centerPoint.X - innerWidth / 2, centerPoint.Y - innerWidth / 2, innerWidth, innerWidth);
 
             base.OnPaint(e);
