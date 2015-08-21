@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game28.Game;
+using System;
 using System.Windows.Forms;
 
 namespace Game28
@@ -13,7 +14,10 @@ namespace Game28
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmMain());
+
+           // Application.Run(new FrmMain());
+
+            Application.Run(new Form1());
         }
     }
 }

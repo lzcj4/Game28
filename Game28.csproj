@@ -49,9 +49,26 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\CircleControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Clock.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Ring.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DB\DBHelper.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Game\Vote.cs" />
     <Compile Include="Helper\AppSetting.cs" />
     <Compile Include="Forms\FrmMain.cs">
       <SubType>Form</SubType>
@@ -76,6 +93,9 @@
     <Compile Include="UC\UCNum28.Designer.cs">
       <DependentUpon>UCNum28.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
