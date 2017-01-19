@@ -25,9 +25,12 @@ namespace Game28UI
         public WinAnalyze()
         {
             InitializeComponent();
-            this.Loaded += WinAnalyze_Loaded;
-        }
+            this.dtStart.SelectedDate = DateTime.Now;
+            this.dtEnd.SelectedDate = DateTime.Now;
 
+            this.Loaded += WinAnalyze_Loaded;
+            this.btnSearch.Click += BtnSearch_Click;
+        }
         private void WinAnalyze_Loaded(object sender, RoutedEventArgs e)
         {
             JObject json = new JObject();
@@ -35,9 +38,31 @@ namespace Game28UI
             json["startdate"] = "2017-01-17 00:00:00";
             json["enddate"] = "2017-01-17 23:59:59";
 
+            //GameHttp http = new GameHttp();
+            //IList<RoundModel> list = http.GetGameRounds(json);
+            //this.ucChart.SetData(list);
+        }
+
+
+
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            JObject json = new JObject();
+            DateTime dtS = dtStart.SelectedDate.Value;
+            DateTime dtE = dtEnd.SelectedDate.Value;
+
+            dtE = dtE.AddHours(23);
+            dtE = dtE.AddMinutes(59);
+            dtE = dtE.AddSeconds(59);
+
+            json["game"] = "crazy28";
+            json["startdate"] = dtS.ToString();
+            json["enddate"] = dtE.ToString();
+
             GameHttp http = new GameHttp();
             IList<RoundModel> list = http.GetGameRounds(json);
             this.ucChart.SetData(list);
         }
+
     }
 }

@@ -39,7 +39,7 @@ namespace Game28UI
         Pen redPen = new Pen(Brushes.Red, lineWidth);
         //Pen grayPen = new Pen(Brushes.LightGray, 1);
         Pen grayPen = new Pen(new SolidColorBrush(Color.FromArgb(80, 0, 0, 0)), lineWidth);
-        Pen halfRedPen = new Pen(new SolidColorBrush(Color.FromArgb(80, 255, 0, 0)), lineWidth);
+        Pen halfRedPen = new Pen(new SolidColorBrush(Color.FromArgb(120, 255, 0, 0)), lineWidth);
 
         bool isDebug = true;
         private int dayCount = 960;

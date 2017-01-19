@@ -12,11 +12,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,10,0,0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,10,0,0" >
                 <TextBlock Text="开始时间："/>
-                <DatePicker  Width="100"/>
+                <DatePicker  Width="150" Name="dtStart" />
                 <TextBlock Text="结束时间："/>
-                <DatePicker  Width="100"/>
+                <DatePicker  Width="150" Name="dtEnd"/>
+                <Button Content="搜索" Width="80" Name="btnSearch"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
