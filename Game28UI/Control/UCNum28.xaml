@@ -1,0 +1,320 @@
+﻿<UserControl x:Class="Game28UI.UCNum28"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Game28UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="600">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="2,0"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="MinWidth" Value="40"/>
+        </Style>
+        <Style TargetType="Button" x:Key="btnStyleBlue" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Foreground" Value="#FF5494FF"/>
+        </Style>
+        <Style TargetType="Button" x:Key="btnStyleRed" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Foreground" Value="Red"/>
+        </Style>
+        <Style TargetType="Button" x:Key="btnStyleOdd" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Foreground" Value="#FFFF9900"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="btnStyleEven" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Foreground" Value="#FF7566E7"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="btnStyleSmall" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Foreground" Value="#FF5ED094"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="btnStyleLarge" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Foreground" Value="#FFF16FC6"/>
+        </Style>
+
+        <Style TargetType="{x:Type  StackPanel}">
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="Margin" Value="4,2"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}" >
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}"  BasedOn="{StaticResource {x:Type TextBox}}"
+                       x:Key="txtMid">
+            <Setter Property="Foreground" Value="Red"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="2,0"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}"  BasedOn="{StaticResource {x:Type TextBlock}}"
+                       x:Key="labMid">
+            <Setter Property="Foreground" Value="Red"/>
+        </Style>
+
+        <Style TargetType="{x:Type CheckBox}"  >
+            <Setter Property="Margin" Value="0,4,0,0"/>
+        </Style>
+
+        <Style TargetType="TreeView">
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <HierarchicalDataTemplate >
+                    </HierarchicalDataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="0" Margin="5,5" ButtonBase.Click="Grid_Click">
+            <GroupBox Header="倍率" FontSize="18">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="0,5" >
+                        <Button x:Name="btn01x" Content="0.1x" Margin="6,0,0,0"/>
+                        <Button x:Name="btn05x" Content="0.5x"/>
+                        <Button x:Name="btn08x" Content="0.8x"/>
+                        <Button x:Name="btn12x" Content="1.2x" Style="{StaticResource btnStyleBlue}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Stretch"
+                                >
+                        <Button x:Name="btn15x" Content="1.5x"  Style="{StaticResource btnStyleBlue}"/>
+                        <Button x:Name="btn20x" Content="2x"  Style="{StaticResource btnStyleBlue}"/>
+                        <Button x:Name="btn50x" Content="5x"  Style="{StaticResource btnStyleRed}"/>
+                        <Button x:Name="btn100x" Content="10x"  Style="{StaticResource btnStyleRed}"/>
+                    </StackPanel>
+                </StackPanel>
+
+            </GroupBox>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="0"  Margin="5,5">
+            <GroupBox Header="选项"  FontSize="18">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Button x:Name="btnClear" Content="清空" Margin="6,0,0,0" />
+                        <Button x:Name="btnAll" Content="全选"  />
+                        <Button x:Name="btnEdge" Content="边" Style="{StaticResource btnStyleRed}"/>
+                        <Button x:Name="btnSmallEdge" Content="小边" Style="{StaticResource btnStyleBlue}"/>
+                        <Button x:Name="btnLargeEdge" Content="大边" Style="{StaticResource btnStyleBlue}"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+
+                        <Button x:Name="btnMiddle" Content="中" Style="{StaticResource btnStyleRed}"/>
+                        <Button x:Name="btnOdd" Content="单"  Style="{StaticResource btnStyleOdd}"/>
+                        <Button x:Name="btnEven" Content="双" Style="{StaticResource btnStyleEven}" />
+                        <Button x:Name="btnSmall" Content="小" Style="{StaticResource btnStyleSmall}" />
+                        <Button x:Name="btnLarge" Content="大" Style="{StaticResource btnStyleLarge}" />
+                    </StackPanel>
+                </StackPanel>
+
+            </GroupBox>
+        </Grid>
+
+        <Grid Grid.Column="2" Grid.Row="0"  Margin="5,15,5,5">
+            <StackPanel Orientation="Vertical" >
+                <StackPanel Orientation="Horizontal" Margin="0,10">
+                    <Button x:Name="btnRuleAdd" Content="加规则"/>
+                    <Button x:Name="btnRuleSave" Content="存规则"/>
+                    <Button x:Name="btnRuleDel" Content="删规则" Style="{StaticResource btnStyleRed}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="新规则名:"/>
+                    <TextBox x:Name="txtRuleName" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1"  Grid.Column="1">
+            <StackPanel Orientation="Horizontal" >
+                <TextBlock Text="当前总额:"/>
+                <TextBlock x:Name="labTotal" Margin="10,0,0,0" Text="0" Foreground="Red"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel  Grid.Column="0" Grid.Row="0" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt0,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="0:" />
+                <TextBox x:Name="txt0" Text="{Binding Num0}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="0" Grid.Row="1" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt1,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="1:" />
+                <TextBox x:Name="txt1" Text="{Binding Num1}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="0" Grid.Row="2" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt2,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="2:" />
+                <TextBox x:Name="txt2" Text="{Binding Num2}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="0" Grid.Row="3" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt3,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="3:" />
+                <TextBox x:Name="txt3" Text="{Binding Num3}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="0" Grid.Row="4" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt4,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="4:" />
+                <TextBox x:Name="txt4" Text="{Binding Num4}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="0" Grid.Row="5" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt5,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="5:" />
+                <TextBox x:Name="txt5" Text="{Binding Num5}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="0" Grid.Row="6" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt6,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="6:" />
+                <TextBox x:Name="txt6" Text="{Binding Num6}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="0" Grid.Row="7" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt7,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="7:" />
+                <TextBox x:Name="txt7" Text="{Binding Num7}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="0" Grid.Row="8" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt8,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="8:" />
+                <TextBox x:Name="txt8" Text="{Binding Num8}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="0" Grid.Row="9" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt9,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="9:" />
+                <TextBox x:Name="txt9" Text="{Binding Num9}"/>
+            </StackPanel>
+
+            <StackPanel  Grid.Column="1" Grid.Row="0" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt10,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="10:"  Style="{StaticResource labMid}"/>
+                <TextBox x:Name="txt10"  Style="{StaticResource txtMid}" Text="{Binding Num10}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="1" Grid.Row="1" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt11,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="11:"  Style="{StaticResource labMid}"/>
+                <TextBox x:Name="txt11"  Style="{StaticResource txtMid}" Text="{Binding Num11}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="1" Grid.Row="2" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt12,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="12:"  Style="{StaticResource labMid}"/>
+                <TextBox x:Name="txt12"  Style="{StaticResource txtMid}" Text="{Binding Num12}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="1" Grid.Row="3" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt13,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="13:"  Style="{StaticResource labMid}"/>
+                <TextBox x:Name="txt13"  Style="{StaticResource txtMid}" Text="{Binding Num13}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="1" Grid.Row="4" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt14,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="14:"  Style="{StaticResource labMid}"/>
+                <TextBox x:Name="txt14"  Style="{StaticResource txtMid}" Text="{Binding Num14}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="1" Grid.Row="5"  >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt15,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="15:"   Style="{StaticResource labMid}"/>
+                <TextBox x:Name="txt15"  Style="{StaticResource txtMid}" Text="{Binding Num15}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="1" Grid.Row="6" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt16,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="16:"  Style="{StaticResource labMid}"/>
+                <TextBox x:Name="txt16"  Style="{StaticResource txtMid}" Text="{Binding Num16}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="1" Grid.Row="7" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt17,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="17:"   Style="{StaticResource labMid}"/>
+                <TextBox x:Name="txt17"  Style="{StaticResource txtMid}"
+                         Text="{Binding Num17}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="1" Grid.Row="8" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt18,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="18:" />
+                <TextBox x:Name="txt18" Text="{Binding Num18}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="1" Grid.Row="9" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt19,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="19:" />
+                <TextBox x:Name="txt19"  Text="{Binding Num19}"/>
+            </StackPanel>
+
+            <StackPanel  Grid.Column="2" Grid.Row="0" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt20,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="20:" />
+                <TextBox x:Name="txt20" Text="{Binding Num20}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="2" Grid.Row="1" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt21,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="21:" />
+                <TextBox x:Name="txt21" Text="{Binding Num21}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="2" Grid.Row="2" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt22,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="22:" />
+                <TextBox x:Name="txt22" Text="{Binding Num22}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="2" Grid.Row="3" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt23,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="23:" />
+                <TextBox x:Name="txt23" Text="{Binding Num23}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="2" Grid.Row="4" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt24,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="24:" />
+                <TextBox x:Name="txt24" Text="{Binding Num24}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="2" Grid.Row="5" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt25,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="25:" />
+                <TextBox x:Name="txt25" Text="{Binding Num25}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="2" Grid.Row="6" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt26,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="26:" />
+                <TextBox x:Name="txt26" Text="{Binding Num26}"/>
+            </StackPanel>
+            <StackPanel  Grid.Column="2" Grid.Row="7" >
+                <CheckBox IsChecked="{Binding Text,ElementName=txt27,Converter={StaticResource num2CheckConverter}}"/>
+                <TextBlock Text="27:" />
+                <TextBox x:Name="txt27" Text="{Binding Num27}"/>
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Grid.Column="2"  Grid.Row="2" Margin="10,0,0,0">
+            <ListBox x:Name="listRules" Height="200" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+
+        </Grid>
+    </Grid>
+</UserControl>

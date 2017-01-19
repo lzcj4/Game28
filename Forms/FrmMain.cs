@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Game28.DB;
+using Game28.Game;
 using Game28.Helper;
 using Game28.Model;
 using Game28.UC;
@@ -20,17 +21,19 @@ namespace Game28
         bool isStarted = false;
         HistoryParser parser = new HistoryParser();
         DBHelper dbHelper = DBHelper.Instance;
+        Crazy28 c28;
 
         public FrmMain()
         {
             InitializeComponent();
             this.Load += (sender, e) =>
             {
+                GetVerifyCode();
                 dataGridHistory.AutoGenerateColumns = false;
                 dataGridStatistic.AutoGenerateColumns = false;
                 // dataGridHistory.RowPrePaint += dataGridHistory_RowPrePaint;
                 LoadParams();
-                this.webView.Navigate("http://www.juxiangyou.com/");
+                GoToCrazy28();
             };
 
             this.FormClosing += (sender, e) =>
@@ -40,10 +43,11 @@ namespace Game28
 
             this.webView.DocumentCompleted += webView_DocumentCompleted;
         }
+
         void webView_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             CheckLogin();
-            if (e.Url.OriginalString.StartsWith(speed28Url))
+            if (e.Url.OriginalString.StartsWith(crazy28_url))
             {
                 HtmlElementCollection tableCollection = this.webView.Document.GetElementsByTagName("table");
 
@@ -90,7 +94,7 @@ namespace Game28
                      htmlBody.Contains("当前U币")))
                 {
                     isLogined = true;
-                    NavigateToSpeed28();
+                    GoToCrazy28();
                 }
             }
 
@@ -105,10 +109,10 @@ namespace Game28
             }
         }
 
-        private string speed28Url = "http://game.juxiangyou.com/speed28/index.php";
-        private void NavigateToSpeed28()
+        private string crazy28_url = "http://www.juxiangyou.com/fun/play/crazy28/index";
+        private void GoToCrazy28()
         {
-            this.webView.Navigate(speed28Url);
+            this.webView.Navigate(crazy28_url);
         }
 
         private void LoadParams()
@@ -209,7 +213,7 @@ namespace Game28
                 speed28.StateChanged += speed28_StateChanged;
             }
             isStarted = true;
-            NavigateToSpeed28();
+            GoToCrazy28();
             this.isSupportOssRule = chkOss.Checked;
             StartRound(isByOss);
         }
@@ -911,6 +915,32 @@ namespace Game28
         }
 
         #endregion
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            if (null == c28)
+            {
+                return;
+            }
+
+            c28.Login(txtUser.Text, txtPwd.Text, txtVerify.Text);
+        }
+
+        private void picVerify_Click(object sender, EventArgs e)
+        {
+            GetVerifyCode();
+        }
+
+        private void GetVerifyCode()
+        {
+
+            if (null == c28)
+            {
+                c28 = new Crazy28();
+            }
+
+            picVerify.Image = new Bitmap(c28.GetVerifyCode());
+        }
 
 
     }

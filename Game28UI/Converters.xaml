@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Game28UI">
+    <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+    <local:Num2CheckConverter x:Key="num2CheckConverter"/>
+    <local:CompositeConverter x:Key="num2VisibilityConverter">
+        <BooleanToVisibilityConverter />
+        <local:Num2CheckConverter />
+    </local:CompositeConverter>
+
+</ResourceDictionary>
