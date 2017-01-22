@@ -30,7 +30,35 @@ namespace Game28UI
 
             this.Loaded += WinAnalyze_Loaded;
             this.btnSearch.Click += BtnSearch_Click;
+            this.btnZoomIn.Click += BtnZoomIn_Click;
+            this.btnZoomOut.Click += BtnZoomOut_Click;
+            this.ucChart.DayCount = 12 * 24;
         }
+
+        float currentZoom = 1.0f;
+        float zoominRate = 1.1f;
+        float zoomoutRate = 0.9f;
+
+        private void BtnZoomOut_Click(object sender, RoutedEventArgs e)
+        {
+            this.currentZoom *= zoomoutRate;
+            this.Zoom(zoomoutRate);
+        }
+
+
+        private void BtnZoomIn_Click(object sender, RoutedEventArgs e)
+        {
+            this.currentZoom *= zoominRate;
+            this.Zoom(zoominRate);
+        }
+
+        private void Zoom(float rate)
+        {
+            this.ucChart.Width = this.ucChart.ActualWidth * rate;
+            this.ucChart.Height = this.ucChart.ActualHeight * rate;
+            this.txtZoom.Text = string.Format("当前倍率:{0}", this.currentZoom);
+        }
+
         private void WinAnalyze_Loaded(object sender, RoutedEventArgs e)
         {
             JObject json = new JObject();
@@ -55,7 +83,7 @@ namespace Game28UI
             dtE = dtE.AddMinutes(59);
             dtE = dtE.AddSeconds(59);
 
-            json["game"] = "crazy28";
+            json["game"] = "pc28";
             json["startdate"] = dtS.ToString();
             json["enddate"] = dtE.ToString();
 

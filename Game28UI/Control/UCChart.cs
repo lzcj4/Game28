@@ -86,7 +86,7 @@ namespace Game28UI
         {
             isDebug = false;
             dataDic.Clear();
-            var groups = list.GroupBy(item => item.Date.Day);
+            var groups = list.GroupBy(item => item.Date.Day).OrderBy(g=>g.Key);
             foreach (var group in groups)
             {
                 IList<int> groupList = new List<int>();

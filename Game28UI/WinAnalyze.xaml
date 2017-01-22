@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Game28UI"
         mc:Ignorable="d"
-        Title="WinAnalyze" Height="800" Width="1000">
+        Title="走势分析" Height="800" Width="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -18,11 +18,16 @@
                 <TextBlock Text="结束时间："/>
                 <DatePicker  Width="150" Name="dtEnd"/>
                 <Button Content="搜索" Width="80" Name="btnSearch"/>
+                <Button Content="放大" Width="80" Name="btnZoomIn"/>
+                <Button Content="缩小" Width="80" Name="btnZoomOut"/>
+                <TextBlock Name="txtZoom" Margin="10,0,0,0"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
-
-            <local:UCChart x:Name="ucChart" Margin="10"/>
+            <ScrollViewer Margin="10" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                <local:UCChart x:Name="ucChart" />
+            </ScrollViewer>
+        
         </Grid>
     </Grid>
 </Window>
