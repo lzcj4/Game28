@@ -5,29 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Game28UI"
         mc:Ignorable="d"
+        WindowState="Maximized"
         Title="走势分析" Height="800" Width="1000">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Width" Value="150"/>
+        </Style>
+    </Window.Resources>
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,10,0,0" >
-                <TextBlock Text="开始时间："/>
-                <DatePicker  Width="150" Name="dtStart" />
-                <TextBlock Text="结束时间："/>
-                <DatePicker  Width="150" Name="dtEnd"/>
-                <Button Content="搜索" Width="80" Name="btnSearch"/>
-                <Button Content="放大" Width="80" Name="btnZoomIn"/>
-                <Button Content="缩小" Width="80" Name="btnZoomOut"/>
-                <TextBlock Name="txtZoom" Margin="10,0,0,0"/>
+                <TextBlock Text="开始时间：" Margin="0,5,0,0"/>
+                <DatePicker Name="dtStart" SelectedDate="{Binding StartDate}"   />
+                <TextBlock Text="结束时间：" Margin="10,5,0,0"/>
+                <DatePicker Name="dtEnd"  SelectedDate="{Binding EndDate}"/>
+                <TextBlock Text="游戏：" Margin="10,5,0,0"/>
+                <ComboBox  Width="150" DisplayMemberPath="Title" Name="comboGame"
+                           FontSize="16" IsSynchronizedWithCurrentItem="True"
+                           ItemsSource="{Binding GameView}" />
+                <Button Content="搜索" Name="btnSearch"  Command="{Binding QueryCommand}"  />
+                <Button Content="放大" Name="btnZoomIn"  />
+                <Button Content="缩小" Name="btnZoomOut" />
+                <TextBlock Name="txtZoom" Margin="10,5,0,0" />
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
-            <ScrollViewer Margin="10" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+            <ScrollViewer Margin="10" HorizontalScrollBarVisibility="Visible" 
+                          VerticalScrollBarVisibility="Visible">
                 <local:UCChart x:Name="ucChart" />
             </ScrollViewer>
-        
+
         </Grid>
     </Grid>
 </Window>

@@ -1,17 +1,15 @@
 ﻿using Game28UI.ViewModel;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Game28UI.Http
 {
     public class GameHttp : HttpBase
     {
+        public const string WEB_HOST = "http://www.isuwen.com:5000";
+        //public const string WEB_HOST = "http://127.0.0.1:5000";
         protected override void SetHttpHeader(HttpWebRequest request)
         {
             base.SetHttpHeader(request);
@@ -22,7 +20,7 @@ namespace Game28UI.Http
         public IList<RoundModel> GetGameRounds(JObject jObj)
         {
             string data = jObj.ToString();
-            string url = "http://www.isuwen.com:5000/rounds";
+            string url = string.Format("{0}/{1}", WEB_HOST, "rounds");
             string html = this.GetHtml(this.PostRequest(url, data));
             JObject json = JObject.Parse(html);
             int count = int.Parse(json["count"].ToString());

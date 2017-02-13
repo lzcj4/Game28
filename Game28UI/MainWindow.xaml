@@ -8,22 +8,33 @@
         xmlns:my="clr-namespace:Game28.UC;assembly=Game28"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1000">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="分析" FontSize="18">
+                <MenuItem Header="统计" FontSize="18" Command="{Binding AnalyzeCommand}"/>
+                <MenuItem Header="对比" FontSize="18" Command="{Binding CompareCommand}"/>
+            </MenuItem>
+        </Menu>
 
-        <Grid Grid.Row="0">
+        <Grid>
 
-        </Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1">
-            <!--<wf:WindowsFormsHost x:Name="formHost">
+            <Grid Grid.Row="0">
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <!--<wf:WindowsFormsHost x:Name="formHost">
                 <my:UCNum28 x:Name="uc28"/>
             </wf:WindowsFormsHost>-->
-            <local:UCNum28 Margin="10,5"/>
-        </Grid>
+                <local:UCNum28 Margin="10,5"/>
+            </Grid>
 
-    </Grid>
+        </Grid>
+    </DockPanel>
+
 </Window>

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Game28UI
+namespace Game28UI.Converter
 {
-    public class CompositeConverter : List<IValueConverter>, IValueConverter
+    public class AndConverter : List<IValueConverter>, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            object result = value;
+            bool result = true;
             foreach (var v in this)
             {
-                result = v.Convert(result, targetType, parameter, culture);
+                result &= (bool)v.Convert(value, targetType, parameter, culture);
             }
             return result;
         }
@@ -21,5 +21,6 @@ namespace Game28UI
         {
             throw new NotImplementedException();
         }
+
     }
 }

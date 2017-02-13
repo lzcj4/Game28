@@ -1,20 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
 
 namespace Game28UI
 {
-    public class CompositeConverter : List<IValueConverter>, IValueConverter
+    public class ReverseBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            object result = value;
-            foreach (var v in this)
+            try
             {
-                result = v.Convert(result, targetType, parameter, culture);
+                bool b = (bool)value;
+                return !b;
             }
-            return result;
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

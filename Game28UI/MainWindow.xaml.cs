@@ -14,12 +14,12 @@ namespace Game28UI
             InitializeComponent();
             this.Loaded += (obj, sender) =>
             {
-                var v = this.ViewModel;
+                this.DataContext = new MainViewModel();
             };
 
         }
 
         //[Import]
-        public Crazy28ViewModel ViewModel { get; set; }
+        public MainViewModel ViewModel { get { return this.DataContext as MainViewModel; } }
     }
 }

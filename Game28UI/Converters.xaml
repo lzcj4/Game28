@@ -8,4 +8,9 @@
         <local:Num2CheckConverter />
     </local:CompositeConverter>
 
+    <local:CompositeConverter x:Key="reverseVisibilityConverter">
+        <local:ReverseBooleanConverter />
+        <BooleanToVisibilityConverter />
+    </local:CompositeConverter>
+
 </ResourceDictionary>

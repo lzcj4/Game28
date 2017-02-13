@@ -66,6 +66,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Control\UCChart.cs" />
+    <Compile Include="Control\UCRoundList.xaml.cs">
+      <DependentUpon>UCRoundList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\AndCoverter.cs" />
+    <Compile Include="Converter\ReverseBooleanConverter.cs" />
     <Compile Include="Helper\CommonExt.cs" />
     <Compile Include="Helper\HtmlHelper.cs" />
     <Compile Include="Control\UCNum28.xaml.cs">
@@ -73,15 +78,34 @@
     </Compile>
     <Compile Include="Converter\CompositeConverter.cs" />
     <Compile Include="Http\GameHttp.cs" />
+    <Compile Include="ViewModel\AnalyzeViewModel.cs" />
     <Compile Include="ViewModel\Crazy28ViewModel.cs" />
     <Compile Include="Http\HttpBase.cs" />
+    <Compile Include="ViewModel\GenericCommand.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Num28ViewModel.cs" />
     <Compile Include="Converter\Num2CheckConverter.cs" />
+    <Compile Include="ViewModel\RoundListViewModel.cs" />
     <Compile Include="ViewModel\RoundModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="WinAnalyze.xaml.cs">
       <DependentUpon>WinAnalyze.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WinRoundCompare.xaml.cs">
+      <DependentUpon>WinRoundCompare.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ColorResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ControlStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\UCRoundList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WinAnalyze.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WinRoundCompare.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

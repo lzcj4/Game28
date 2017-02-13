@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Game28UI">
+    <SolidColorBrush Color="#FFFF9900" x:Key="colorDan"/>
+    <SolidColorBrush Color="#FF7566E7" x:Key="colorShuang"/>
+    <SolidColorBrush Color="#FFF34640" x:Key="colorZhong"/>
+    <SolidColorBrush Color="#FF5494FF" x:Key="colorBian"/>
+    <SolidColorBrush Color="#FFF16FC6" x:Key="colorDa"/>
+    <SolidColorBrush Color="#FF5ED094" x:Key="colorXiao"/>
+</ResourceDictionary>

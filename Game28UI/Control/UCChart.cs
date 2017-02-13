@@ -17,8 +17,8 @@ namespace Game28UI
         private const double offset = 5;
         private const string fontFace = "Segoe UI";
 
-        private double yChartPadding = 20;
-        private double xChartPadding = 20;
+        private double yPadding = 20;
+        private double xPadding = 20;
         private int midLowerBound = 10;
         private int midUpperBound = 17;
         int[] yFlags = { };
@@ -26,13 +26,13 @@ namespace Game28UI
         IDictionary<int, IList<int>> dataDic = new Dictionary<int, IList<int>>();
         Pen[] linePens = {
                           new Pen(Brushes.Green, lineWidth), new Pen(Brushes.Blue, lineWidth),
-                          new Pen(Brushes.Red, lineWidth), new Pen(Brushes.Aqua, lineWidth),
+                          new Pen(Brushes.Red, lineWidth),new Pen(Brushes.Tomato, lineWidth),
                           new Pen(Brushes.BlueViolet, lineWidth), new Pen(Brushes.Chartreuse, lineWidth),
                           new Pen(Brushes.Chocolate, lineWidth), new Pen(Brushes.DarkMagenta, lineWidth),
                           new Pen(Brushes.Yellow, lineWidth), new Pen(Brushes.YellowGreen, lineWidth),
-                          new Pen(Brushes.Teal, lineWidth), new Pen(Brushes.Tomato, lineWidth),
+                          new Pen(Brushes.Teal, lineWidth), new Pen(Brushes.SlateBlue, lineWidth),
                           new Pen(Brushes.Sienna, lineWidth), new Pen(Brushes.Indigo, lineWidth),
-                          new Pen(Brushes.LightPink, lineWidth), new Pen(Brushes.SlateBlue, lineWidth)
+                          new Pen(Brushes.LightPink, lineWidth),  new Pen(Brushes.Aqua, lineWidth)
         };
 
         Pen blackPen = new Pen(Brushes.Black, lineWidth);
@@ -42,11 +42,53 @@ namespace Game28UI
         Pen halfRedPen = new Pen(new SolidColorBrush(Color.FromArgb(120, 255, 0, 0)), lineWidth);
 
         bool isDebug = true;
-        private int dayCount = 960;
-        public int DayCount
+        private int rounds = 960;
+        public int Rounds
         {
-            get { return dayCount; }
-            set { dayCount = value; }
+            get { return rounds; }
+            set { rounds = value; }
+        }
+
+        private int startHour = 0;
+        public int StartHour
+        {
+            get { return startHour; }
+            set
+            {
+                if (startHour != value)
+                {
+                    startHour = value;
+                    this.LoadTestData();
+                }
+            }
+        }
+
+        private int totalHours = 24;
+        public int TotalHours
+        {
+            get { return totalHours; }
+            set
+            {
+                if (totalHours != value)
+                {
+                    totalHours = value;
+                    this.LoadTestData();
+                }
+            }
+        }
+
+        private int totalValues = 28;
+        public int TotalValues
+        {
+            get { return totalValues; }
+            set
+            {
+                if (totalValues != value)
+                {
+                    totalValues = value;
+                    LoadTestData();
+                }
+            }
         }
 
         public UCChart()
@@ -56,17 +98,16 @@ namespace Game28UI
 
         private void LoadTestData()
         {
-            int xMax = 24;
-            int yMax = 28;
-            xFlags = new int[xMax];
-            yFlags = new int[yMax];
+            xFlags = new int[this.TotalHours];
+            yFlags = new int[this.TotalValues];
 
-            for (int i = 0; i < yMax; i++)
+            for (int i = 0; i < this.TotalValues; i++)
             {
                 yFlags[i] = i;
-                if (i < xMax)
+                if (i < this.TotalHours)
                 {
-                    xFlags[i] = i + 1;
+                    int h = (this.StartHour + i) % 24;
+                    xFlags[i] = h == 24 ? 24 : h;
                 }
             }
 
@@ -74,11 +115,11 @@ namespace Game28UI
             dataDic[1] = new List<int>();
             dataDic[15] = new List<int>();
             dataDic[31] = new List<int>();
-            for (int i = 0; i < xMax; i++)
+            for (int i = 0; i < this.TotalHours; i++)
             {
-                dataDic[1].Add(r.Next(yMax));
-                dataDic[15].Add(r.Next(yMax));
-                dataDic[31].Add(r.Next(yMax));
+                dataDic[1].Add(r.Next(this.TotalValues));
+                dataDic[15].Add(r.Next(this.TotalValues));
+                dataDic[31].Add(r.Next(this.TotalValues));
             }
         }
 
@@ -86,7 +127,7 @@ namespace Game28UI
         {
             isDebug = false;
             dataDic.Clear();
-            var groups = list.GroupBy(item => item.Date.Day).OrderBy(g=>g.Key);
+            var groups = list.GroupBy(item => item.Date.Day).OrderBy(g => g.Key);
             foreach (var group in groups)
             {
                 IList<int> groupList = new List<int>();
@@ -124,36 +165,39 @@ namespace Game28UI
             FormattedText xMaxFT = GetFormattedText(xFlags.Max().ToString());
             FormattedText yMaxFT = GetFormattedText(yFlags.Max().ToString());
 
-            xChartPadding = yMaxFT.Width > xChartPadding ? yMaxFT.Width + offset : xChartPadding;
-            yChartPadding = xMaxFT.Height > yChartPadding ? xMaxFT.Height : yChartPadding;
+            xPadding = yMaxFT.Width > xPadding ? yMaxFT.Width + offset : xPadding;
+            yPadding = xMaxFT.Height > yPadding ? xMaxFT.Height : yPadding;
 
-            double canvasWidth = this.ActualWidth - xChartPadding * 2;
-            double canvasHeight = this.ActualHeight - yChartPadding * 2 * 2;
-            //2 yChartingPadding for Title
+            double canvasWidth = this.ActualWidth - xPadding * 2;
+            double canvasHeight = this.ActualHeight - yPadding * 2 * 2;
+            //2 yPadding for Title
 
-            double yTop = 3 * yChartPadding;
-            double startXPos = xChartPadding;
+            double yTop = 3 * yPadding;
+            double startXPos = xPadding;
             double startYPos = canvasHeight + yTop;
 
-            FormattedText ftStart = GetFormattedText("0");
-            dc.DrawText(ftStart, new Point(yChartPadding, startYPos - flagHeight / 4));
-
             //X-order flag 1-24小时
-            dc.DrawLine(blackPen, new Point(xChartPadding, startYPos),
-                                  new Point(xChartPadding + canvasWidth, startYPos));
+            dc.DrawLine(blackPen, new Point(xPadding, startYPos),
+                                  new Point(xPadding + canvasWidth, startYPos));
 
             double xStep = canvasWidth / xFlags.Length;
             for (int i = 0; i < xFlags.Length; i++)
             {
-                double startX = xChartPadding + (i + 1) * xStep;
+                double startX = xPadding + i * xStep;
                 int h = xFlags[i];
                 FormattedText ft = GetFormattedText(h.ToString(), Brushes.Black);
                 dc.DrawLine(grayPen, new Point(startX, startYPos), new Point(startX, yTop));
                 dc.DrawText(ft, new Point(startX - ft.Width / 2, startYPos - flagHeight / 4));
             }
 
+            double endX = xPadding + xFlags.Length * xStep;
+            int endXFlag = xFlags.Max() + 1;
+            FormattedText endXFT = GetFormattedText(endXFlag.ToString(), Brushes.Black);
+            dc.DrawLine(grayPen, new Point(endX, startYPos), new Point(endX, yTop));
+            dc.DrawText(endXFT, new Point(endX - endXFT.Width / 2, startYPos - flagHeight / 4));
+
             //Y-order flag 1-27, and 0 is excepted
-            dc.DrawLine(blackPen, new Point(xChartPadding, startYPos), new Point(xChartPadding, yTop));
+            dc.DrawLine(blackPen, new Point(xPadding, startYPos), new Point(xPadding, yTop));
             double yStep = canvasHeight / (yFlags.Length - 1);
             for (int i = 1; i < yFlags.Length; i++)
             {
@@ -161,8 +205,8 @@ namespace Game28UI
                 Pen linePen = i >= midLowerBound && i <= midUpperBound ? halfRedPen : grayPen;
                 Pen txtPen = i >= midLowerBound && i <= midUpperBound ? redPen : blackPen;
                 FormattedText ft = GetFormattedText(yFlags[i].ToString(), txtPen.Brush);
-                dc.DrawLine(linePen, new Point(xChartPadding, startYPos - startY),
-                    new Point(canvasWidth + xChartPadding, startYPos - startY));
+                dc.DrawLine(linePen, new Point(xPadding, startYPos - startY),
+                    new Point(canvasWidth + xPadding, startYPos - startY));
                 dc.DrawText(ft, new Point(0, startYPos - startY - ft.Height / 2));
             }
 
@@ -172,7 +216,7 @@ namespace Game28UI
             yStep = canvasHeight / yMax;
 
             int l = 0;
-            xStep = canvasWidth / (isDebug ? xFlags.Length : DayCount);
+            xStep = canvasWidth / (isDebug ? xFlags.Length : Rounds);
             foreach (int key in dataDic.Keys)
             {
                 //Line
@@ -180,11 +224,11 @@ namespace Game28UI
                 Pen currentPen = linePens[l++];
                 Point lastPoint = new Point(0, 0);
 
-                IList<int> dayList = dataDic[key];
-                for (int z = 0; z < dayList.Count; z++, j++)
+                IList<int> dataList = dataDic[key];
+                for (int z = 0; z < dataList.Count; z++, j++)
                 {
-                    Point newPoint = new Point(xChartPadding + j * xStep,
-                                               startYPos - dayList[z] * yStep);
+                    Point newPoint = new Point(xPadding + j * xStep,
+                                               startYPos - dataList[z] * yStep);
                     if (lastPoint.X == 0 && lastPoint.Y == 0)
                     {
                         lastPoint = newPoint;
@@ -200,7 +244,7 @@ namespace Game28UI
             if (!dataDic.IsNullOrEmpty() && !linePens.IsNullOrEmpty())
             {
                 double xPos = canvasWidth / 3;
-                double yPos = 1 * yChartPadding;
+                double yPos = 1 * yPadding;
                 int rect_len = 10;
                 int title_margin = 5;
                 l = 0;
